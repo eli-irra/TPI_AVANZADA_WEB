@@ -3,8 +3,8 @@ package modelo;
 import java.io.Serializable; // Añadir la importación
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Voluntario extends Usuario implements Serializable { // 🟢 CORRECCIÓN 1: Extender de Usuario e Implementar Serializable

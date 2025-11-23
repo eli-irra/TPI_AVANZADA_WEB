@@ -1,9 +1,9 @@
 
 package persistencia;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 import modelo.Administrador;
 import modelo.FamiliaAdoptante;
 import modelo.Usuario;
