@@ -16,7 +16,7 @@ public class Estudio implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idEstudio;
-    private String nombreEstudio;   // Nombre del análisis realizado (ej., "Análisis de Sangre", "Radiografía").
+    private String nombreEstudio;   // Nombre del análisis realizado (ej: "Análisis de Sangre", "Radiografía").
     private String descripcion;     // Resultados o conclusiones del estudio.
     
     @ManyToOne

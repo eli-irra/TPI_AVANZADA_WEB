@@ -149,28 +149,23 @@ public class ControladoraPersistencia {
         return gatoJpa.findGatoEntities(); // Devuelve la lista completa
     }
 
-    // 🟢 NUEVO: Busca una Historia Clínica por ID
     public HistoriaClinica buscarHistoriaClinica(long id) {
         return historiaClinicaJpa.findHistoriaClinica(id);
     }
 
-    // 🟢 NUEVO: Modifica una Historia Clínica (para agregar estudios/tratamientos)
     public void modificarHistoriaClinica(HistoriaClinica historia) throws Exception {
         historiaClinicaJpa.edit(historia);
     }
     
-    // 🟢 NUEVO: Crea un Tratamiento (JPA se encargará de la relación)
     public void crearTratamiento(Tratamiento tratamiento) {
         tratamientoJpa.create(tratamiento);
     }
 
-    // 🟢 NUEVO: Crea un Estudio (JPA se encargará de la relación)
     public void crearEstudio(Estudio estudio) {
         estudiojpa.create(estudio);
     }
     
     public void crearPostulacion(Postulacion postulacion) throws Exception {
-        // Asumiendo que tienes 'postulacionJpa' declarado arriba con los otros JpaControllers
         postulacionJpa.create(postulacion);
     }
     
@@ -229,14 +224,12 @@ public class ControladoraPersistencia {
     }
     
     public void crearGato(Gato gato) throws Exception {
-        // Delega la operación al GatoJpaController
         gatoJpa.create(gato);
     }
     
     public Zona buscarZonaPorNombre(String nombreZona) {
         EntityManager em = zonaJpa.getEntityManager();
         try {
-            // JPQL para encontrar la Zona por su nombre
             TypedQuery<Zona> query = em.createQuery(
                 "SELECT z FROM Zona z WHERE z.nombreZona = :nombreZona", 
                 Zona.class
@@ -252,13 +245,11 @@ public class ControladoraPersistencia {
     }
     
     public List<Zona> traerTodasLasZonas() {
-        // Llama al método del JpaController que devuelve todas las zonas
         return zonaJpa.findZonaEntities();
     }
     
     public List<FamiliaAdoptante> traerTodasLasFamilias() {
     try {
-        // Asumo que tienes FamiliaAdoptanteJpaController (familiaAdoptanteJpa)
         return familiaAdoptanteJpa.findFamiliaAdoptanteEntities();
     } catch (Exception e) {
         e.printStackTrace();
@@ -266,19 +257,15 @@ public class ControladoraPersistencia {
     }
 }
 
-// --- Método para actualizar un gato (reutiliza el JpaController) ---
 public void modificarGato(Gato gato) throws Exception {
-    // Asumo que tienes GatoJpaController (gatoJpa)
     gatoJpa.edit(gato); 
 }
 public void crearTarea(Tarea tarea) throws Exception {
-    // Asumo que tienes TareaJpaController (tareaJpa)
     tareaJpa.create(tarea);
 }
 
 
 public Voluntario buscarVoluntario(long idVoluntario) {
-  
     return voluntarioJpa.findVoluntario((int)idVoluntario);
 }
 
@@ -286,7 +273,7 @@ public Voluntario buscarVoluntario(long idVoluntario) {
 public Gato buscarGatoPorNombre(String nombreGato) {
     EntityManager em = gatoJpa.getEntityManager();
     try {
-        // JPQL: Buscar Gato donde el atributo 'nombre' coincida con el parámetro
+        //Buscar Gato donde el atributo 'nombre' coincida con el parámetro
         TypedQuery<Gato> query = em.createQuery(
             "SELECT g FROM Gato g WHERE g.nombre = :nombre", 
             Gato.class
@@ -297,7 +284,6 @@ public Gato buscarGatoPorNombre(String nombreGato) {
         // Retorna null si no se encuentra ningún gato con ese nombre
         return null; 
     } catch (Exception e) {
-        // Manejo general de errores
         e.printStackTrace();
         return null;
     } finally {
@@ -310,18 +296,14 @@ public void crearZona(Zona zona) throws Exception {
     zonaJpa.create(zona);
 }
 
-// --- READ (Por ID) ---
 public modelo.Zona buscarZona(long id) {
     return zonaJpa.findZona(id);
 }
 
-
-// --- UPDATE ---
 public void modificarZona(Zona zona) throws Exception {
     zonaJpa.edit(zona);
 }
 
-// --- DELETE ---
 public void eliminarZona(long id) throws NonexistentEntityException {
     zonaJpa.destroy(id);
 }
@@ -331,17 +313,14 @@ public List<Usuario> traerTodosLosUsuarios() {
     return usuarioJpa.findUsuarioEntities();
 }
 
-// --- NUEVO MÉTODO: BUSCAR USUARIO POR ID ---
 public Usuario buscarUsuario(int id) {
     return usuarioJpa.findUsuario(id);
 }
 
-// --- NUEVO MÉTODO: MODIFICAR USUARIO ---
 public void modificarUsuario(Usuario usuario) throws NonexistentEntityException, Exception {
     usuarioJpa.edit(usuario);
 }
 
-// --- NUEVO MÉTODO: ELIMINAR USUARIO ---
 public void eliminarUsuario(int id) throws NonexistentEntityException {
     usuarioJpa.destroy(id);
 }
@@ -351,12 +330,10 @@ public void crearReporte(Reporte reporte) throws Exception {
     }
     
     public List<Reporte> traerTodosLosReportes() {
-        // Utiliza el método que trae todas las entidades
         return reporteJpa.findReporteEntities();
     }
     
     public Reporte buscarReporte(long id) {
-        // Utiliza el método que busca por ID
         return reporteJpa.findReporte(id);
     }
     
@@ -368,29 +345,24 @@ public void crearReporte(Reporte reporte) throws Exception {
         reporteJpa.destroy(id);
     }
     public List<Postulacion> traerTodasLasPostulaciones() {
-        // Delega al método que trae todas las entidades
         return postulacionJpa.findPostulacionEntities();
     }
     
     
     public Postulacion buscarPostulacion(long id) {
-        // Delega al método findPostulacion
         return postulacionJpa.findPostulacion(id);
     }
     
     
     public void modificarPostulacion(Postulacion postulacion) throws Exception {
-        // Delega la operación al JpaController
         postulacionJpa.edit(postulacion);
     }
     
     
 public List<Voluntario> traerTodosLosVoluntarios() {
-    // Delega al método que trae todas las entidades Voluntario
     return voluntarioJpa.findVoluntarioEntities(); //
 }
 public List<Tarea> traerTodasLasTareas() {
-    // Asume que tareaJpa es una instancia de TareaJpaController
     return tareaJpa.findTareaEntities(); 
 }
 }

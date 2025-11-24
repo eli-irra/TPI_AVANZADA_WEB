@@ -12,48 +12,32 @@ import java.time.LocalDate;
 
 @Entity
 public class Aptitud implements Serializable {
-    
-    // =======================================================
-    // === DECLARACIÓN DE ATRIBUTOS (CAMPOS DE CLASE) ===
-    // =======================================================
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE) 
     private int idCertificado; // Declaración correcta
     
-    private LocalDate fechaEmision; // Declaración correcta
+    private LocalDate fechaEmision;
     private String estadoGeneral; // Apto, No apto, Pendiente
     @ManyToOne 
     @JoinColumn(name = "veterinario_id") 
-    private Veterinario veterinario; // Declaración correcta y mapeo (ManyToOne)
+    private Veterinario veterinario;
     
     @ManyToOne 
     @JoinColumn(name = "gato_id") 
-    private Gato gatoCertificado; // Declaración correcta y mapeo (ManyToOne)
+    private Gato gatoCertificado;
     
-    
-
-    // =======================================================
-    // === CONSTRUCTORES ===
-    // =======================================================
-    
-    // 🛑 REQUISITO JPA: Constructor sin argumentos (Obligatorio para entidades)
     public Aptitud() {
         this.fechaEmision = LocalDate.now(); 
     }
     
-    // Constructor con argumentos
     public Aptitud(String estadoGeneral, Veterinario veterinario, Gato gatoCertificado) {
         this(); 
         this.estadoGeneral = estadoGeneral;
-        this.veterinario = veterinario; // Usando el nombre de campo minúsculo (buena práctica)
-        this.gatoCertificado = gatoCertificado; // Usando el nombre de campo minúsculo (buena práctica)
+        this.veterinario = veterinario;
+        this.gatoCertificado = gatoCertificado;
     }
 
-    // =======================================================
-    // === Getters and Setters ===
-    // =======================================================
-    
     public int getIdCertificado() { return idCertificado; }
     public LocalDate getFechaEmision() { return fechaEmision; }
     public String getEstadoGeneral() { return estadoGeneral; }

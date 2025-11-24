@@ -16,8 +16,6 @@ public class HistoriaClinica implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idHistoria;
     private LocalDate fechaCreacion;
-    //private List<Tratamiento> tratamientos = new ArrayList<>;
-    //private List<Estudio> estudios = new ArrayList<>;
     private String descripcion;
     
     @OneToMany(mappedBy = "historiaClinica", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -51,13 +49,10 @@ public class HistoriaClinica implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
-    // 🟢 ================== INICIO CORRECCIÓN ==================
-    // Agregamos el getter que faltaba
+
     public LocalDate getFechaCreacion() {
         return fechaCreacion;
     }
-    // 🟢 =================== FIN CORRECCIÓN ====================
     
     public List<Tratamiento> getTratamientos() { return tratamientos; }
     public void setTratamientos(List<Tratamiento> tratamientos) { this.tratamientos = tratamientos; }

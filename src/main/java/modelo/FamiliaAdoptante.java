@@ -16,14 +16,12 @@ public class FamiliaAdoptante extends Usuario implements Serializable{
     @OneToMany(mappedBy = "familia")
     private List<Visita> historialVisitas = new ArrayList<>();
 
-    // 🟢 CORRECCIÓN 2: Constructor por defecto (SIN ARGUMENTOS) - REQUERIDO por JPA
     public FamiliaAdoptante() {
         super();
         this.gatosAdoptados = new ArrayList<>();
         this.historialVisitas = new ArrayList<>();
     }
     
-    // Constructor de Negocio
     public FamiliaAdoptante(String direccion, String nombre, String correo, String contrasena, double telefono, String rol) {
     super(nombre, correo, contrasena, telefono, rol, direccion);
     this.gatosAdoptados = new ArrayList<>();

@@ -28,13 +28,14 @@
                         <td><%= u.getRol() %></td>
                         <td><%= u.getTelefono() %></td>
                         <td>
-                            <form action="SvEditarUsuario" method="POST" style="display:inline;">
-                                <input type="hidden" name="id" value="<%= u.getIdUsuario() %>">
+                            <form action="SvModificarUsuario" method="GET" style="display:inline;">
+                                <input type="hidden" name="idEditar" value="<%= u.getIdUsuario() %>">
                                 <button type="submit">Editar</button>
                             </form>
+
                             <form action="SvEliminarUsuario" method="POST" style="display:inline;">
-                                <input type="hidden" name="id" value="<%= u.getIdUsuario() %>">
-                                <button type="submit">Eliminar</button>
+                                <input type="hidden" name="idEliminar" value="<%= u.getIdUsuario() %>">
+                                <button type="submit" onclick="return confirm('¿Seguro?');">Eliminar</button>
                             </form>
                         </td>
                     </tr>

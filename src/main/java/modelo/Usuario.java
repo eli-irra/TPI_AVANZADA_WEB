@@ -53,22 +53,21 @@ public abstract class Usuario implements Serializable {
    
     public Usuario() {
         this.fechaCreacion = LocalDate.now();
-        this.estadoSesion = EstadoSesion.INACTIVO;
+        this.estadoSesion = EstadoSesion.ACTIVO;
     }
 
     
     public Usuario(String nombre, String correo, String contrasena, double telefono, String rol, String direccion) {
         this.nombre = nombre;
         this.correo = correo;
-        this.contrasena = contrasena; // Usar el campo corregido
+        this.contrasena = contrasena;
         this.telefono = telefono;
         this.fechaCreacion = LocalDate.now();
         this.rol = rol;
-        this.estadoSesion = EstadoSesion.INACTIVO;
+        this.estadoSesion = EstadoSesion.ACTIVO;
         this.direccion = direccion;
     }
 
-    // 🟢 CORRECCIÓN: Casing correcto en getters/setters del ID
     public int getIdUsuario() {
         return idUsuario;
     }

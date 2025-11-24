@@ -12,14 +12,12 @@ public class Administrador extends Usuario implements Serializable{
     // RELACIÓN 1:N con Reporte (Un administrador gestiona muchos reportes)
     @OneToMany(mappedBy = "administrador")
     private List<Reporte> reportesGenerados = new ArrayList<>();
-    
-    // 🟢 CORRECCIÓN 1: Constructor por defecto (SIN ARGUMENTOS) - REQUERIDO por JPA
+
     public Administrador() {
         super();
         this.reportesGenerados = new ArrayList<>();
     }
 
-    // 🟢 CORRECCIÓN 2: Constructor de Negocio (Usando 'contrasena' sin acento)
     public Administrador(String nombre, String correo, String contrasena, double telefono, String rol, String direccion) {
         super(nombre, correo, contrasena, telefono, rol, direccion);
         this.reportesGenerados = new ArrayList<>();

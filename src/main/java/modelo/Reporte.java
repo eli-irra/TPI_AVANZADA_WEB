@@ -23,7 +23,9 @@ public class Reporte implements Serializable {
     @JoinColumn(name = "administrador_id")
     private Administrador administrador;
     
-    public Reporte() { this.fechaReporte = LocalDate.now(); } // 🛑 Constructor JPA
+    public Reporte() { 
+        this.fechaReporte = LocalDate.now(); 
+    }
 
     public Reporte(long idReporte, LocalDate fechaReporte, int cantidad, String descripcion) {
         this.idReporte = idReporte;
@@ -63,8 +65,12 @@ public class Reporte implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    public Administrador getAdministrador() { return administrador; }
-    public void setAdministrador(Administrador administrador) { this.administrador = administrador; }
+    public Administrador getAdministrador() {
+        return administrador;
+    }
     
+    public void setAdministrador(Administrador administrador) {
+        this.administrador = administrador;
+    }
     
 }

@@ -7,20 +7,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class Voluntario extends Usuario implements Serializable { // 🟢 CORRECCIÓN 1: Extender de Usuario e Implementar Serializable
+public class Voluntario extends Usuario implements Serializable {
     
     
     // Relación 1:N (Un voluntario realiza muchas tareas)
     @OneToMany(mappedBy = "voluntarioQueRealiza")
     private List<Tarea> tareasRealizadas = new ArrayList<>();
 
-    // 🟢 CORRECCIÓN 2: Constructor por defecto (SIN ARGUMENTOS) - REQUERIDO por JPA
     public Voluntario() {
         super();
         this.tareasRealizadas = new ArrayList<>();
     }
     
-    // 🟢 CORRECCIÓN 3: Ajustar el constructor de negocio para incluir los campos heredados
     public Voluntario(String nombre, String correo, String contrasena, double telefono, String rol,String direccion) {
         super(nombre, correo, contrasena, telefono, rol,direccion);
         this.tareasRealizadas = new ArrayList<>();

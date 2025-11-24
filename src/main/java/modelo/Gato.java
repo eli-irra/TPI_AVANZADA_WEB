@@ -23,7 +23,8 @@ public class Gato implements Serializable {
     }
     public enum EstadoSalud {
     SANO, ENFERMO, EN_TRATAMIENTO
-}
+    }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idGato;                     
@@ -38,6 +39,7 @@ public class Gato implements Serializable {
     private String color;
     private String caracteristicas;
     private String rutaFoto;
+    
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "historia_clinica_id") 
     private HistoriaClinica historiaClinica;
@@ -56,7 +58,6 @@ public class Gato implements Serializable {
     @OneToOne(mappedBy = "gatoRelacionado")
     private Postulacion postulacionActiva;
 
-    // 🛑 REQUISITO JPA: Constructor sin argumentos OBLIGATORIO
     public Gato() {
         this.fecha = LocalDate.now();
         this.historialTareas = new ArrayList<>(); 

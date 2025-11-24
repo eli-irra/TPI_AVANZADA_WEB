@@ -33,14 +33,14 @@ public class Visita implements Serializable {
     
     public Visita() {}
     
-    public Visita(long idVisita, LocalDate fecha, int horaVisita, String descripcion, boolean realizada) {
+    public Visita(long idVisita, LocalDate fecha, int horaVisita, String descripcion, boolean realizada, Voluntario voluntario, FamiliaAdoptante familiadop) {
         this.idVisita = idVisita;
         this.fecha = fecha;
         this.horaVisita = horaVisita;
         this.descripcion = descripcion;
         this.realizada = realizada;
-        this.familia = familia;
-        this.voluntarioEncargado = voluntarioEncargado;
+        this.familia = familiadop;
+        this.voluntarioEncargado = voluntario;
     }
     
     public long getIdVisita() {

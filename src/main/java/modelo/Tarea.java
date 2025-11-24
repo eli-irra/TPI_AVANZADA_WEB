@@ -14,7 +14,6 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class Tarea implements Serializable {
 
-    // 🔹 Conviene que el nombre del enum empiece con mayúscula
     public enum TipoTarea {
         ALIMENTACION,
         CAPTURA_CASTRACION,
@@ -27,7 +26,7 @@ public class Tarea implements Serializable {
     private long idTarea;
 
     @Enumerated(EnumType.STRING)
-    private TipoTarea tipoTarea; // ✅ ahora es del tipo del enum, no String
+    private TipoTarea tipoTarea;
 
     private Date fecha;
     private String descripcion;
