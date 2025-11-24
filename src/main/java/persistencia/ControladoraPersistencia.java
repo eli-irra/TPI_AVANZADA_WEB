@@ -357,13 +357,18 @@ public void crearReporte(Reporte reporte) throws Exception {
     public void modificarPostulacion(Postulacion postulacion) throws Exception {
         postulacionJpa.edit(postulacion);
     }
+     
+    public List<Voluntario> traerTodosLosVoluntarios() {
+        return voluntarioJpa.findVoluntarioEntities(); //
+    }
     
-    
-public List<Voluntario> traerTodosLosVoluntarios() {
-    return voluntarioJpa.findVoluntarioEntities(); //
-}
-public List<Tarea> traerTodasLasTareas() {
-    return tareaJpa.findTareaEntities(); 
-}
+    public List<Tarea> traerTodasLasTareas() {
+        return tareaJpa.findTareaEntities(); 
+    }
+
+    public void crearVisita(Visita nuevaVisita) {
+        visitaJpa.create(nuevaVisita);
+    }
+
 }
     

@@ -220,7 +220,6 @@ public class Controladora {
 
     public void asignarGatoAFamilia(long idGato, int idFamilia) throws OperacionException {
         try {
-            // 🟢 CORRECCIÓN: Eliminado el (int) cast
             Gato gato = controlpersis.buscarGato(idGato); 
             FamiliaAdoptante familia = controlpersis.buscarFamilia(idFamilia);
 
@@ -294,10 +293,48 @@ public class Controladora {
     }
 
     public void registrarVisitaDeSeguimiento(int idFamilia, int idVoluntario, 
-                                            LocalDate fecha, String descripcion) 
-                                            throws OperacionException {
-        // ... (Tu lógica para crear y guardar una nueva visita)
+                                         LocalDate fecha, String descripcion) 
+                                         throws OperacionException {
+    
+    // 1. Validaciones básicas de entrada
+    if (fecha == null) {
+        throw new OperacionException("La fecha de la visita es obligatoria.");
     }
+    if (descripcion == null || descripcion.trim().isEmpty()) {
+        throw new OperacionException("La descripción de la visita es obligatoria.");
+    }
+
+    try {
+        // 2. Buscar las entidades relacionadas (Familia y Voluntario)
+        // Nota: Asumo que en tu persistencia existen estos métodos de búsqueda.
+        FamiliaAdoptante familia = controlpersis.buscarFamilia(idFamilia); 
+        Voluntario voluntario = controlpersis.buscarVoluntario(idVoluntario);
+
+        // 3. Verificar existencia
+        if (familia == null) {
+            throw new OperacionException("No se encontró la Familia Adoptante con ID: " + idFamilia);
+        }
+        if (voluntario == null) {
+            throw new OperacionException("No se encontró el Voluntario con ID: " + idVoluntario);
+        }
+
+        // 4. Crear el objeto Visita y asignar relaciones
+        Visita nuevaVisita = new Visita();
+        nuevaVisita.setFecha(fecha);
+        nuevaVisita.setDescripcion(descripcion);
+        nuevaVisita.setFamilia(familia);       // Asigna la familia a la visita
+        nuevaVisita.setVoluntarioEncargado(voluntario); // Asigna el voluntario a la visita
+
+        // 5. Persistir en la Base de Datos
+        controlpersis.crearVisita(nuevaVisita); 
+
+    } catch (OperacionException e) {
+        throw e; // Re-lanzamos excepciones de negocio propias
+    } catch (Exception e) {
+        // Capturamos cualquier otro error de base de datos
+        throw new OperacionException("Error al registrar la visita: " + e.getMessage(), e);
+    }
+}
     
     // --- LÓGICA DE REGISTRO DE GATO ---
     
@@ -449,7 +486,6 @@ public class Controladora {
     }
     
     public List<Usuario> traerTodosLosUsuarios() {
-        // No hay lógica de negocio compleja, se delega directamente.
         return controlpersis.traerTodosLosUsuarios();
     }
     
@@ -460,20 +496,33 @@ public class Controladora {
     }
     
     
-    public void modificarUsuario(Usuario usuario) throws OperacionException {
-        // 🚨 Aquí iría la validación de negocio (ej: validar formato de correo, etc.)
-        if (usuario.getNombre().isEmpty() || usuario.getCorreo().isEmpty()) {
-            throw new OperacionException("El nombre y correo del usuario son obligatorios.");
+   public void modificarUsuario(Usuario usuario) throws OperacionException {
+    
+        // 1. Validaciones
+        if (usuario == null) {
+            throw new OperacionException("El usuario a modificar no puede ser nulo.");
         }
-        
+
+        // Validamos que no sea null Y que no esté vacío (usando trim para ignorar espacios en blanco)
+        if (usuario.getNombre() == null || usuario.getNombre().trim().isEmpty()) {
+            throw new OperacionException("El nombre del usuario es obligatorio.");
+        }
+
+        if (usuario.getCorreo() == null || usuario.getCorreo().trim().isEmpty()) {
+            throw new OperacionException("El correo del usuario es obligatorio.");
+        }
+
+        // 2. Persistencia
         try {
             controlpersis.modificarUsuario(usuario);
+
         } catch (NonexistentEntityException ex) {
             // El objeto de persistencia no existía. Se convierte a una excepción de negocio.
             throw new OperacionException("El usuario a modificar ya no existe en la base de datos.", ex);
+
         } catch (Exception ex) {
-            // Error genérico de persistencia.
-            throw new OperacionException("Error inesperado al intentar modificar el usuario.", ex);
+            // Error genérico de persistencia (ej: desconexión de BD, constraint violation)
+            throw new OperacionException("Error inesperado al intentar modificar el usuario: " + ex.getMessage(), ex);
         }
     }
     
@@ -619,7 +668,7 @@ public void cambiarEstadoPostulacion(long idPostulacion, Postulacion.Estado nuev
 
 public List<Voluntario> traerTodosLosVoluntarios() throws OperacionException {
     try {
-        List<Voluntario> voluntarios = controlpersis.traerTodosLosVoluntarios(); // 🟢 LLAMADA A PERSISTENCIA
+        List<Voluntario> voluntarios = controlpersis.traerTodosLosVoluntarios();
         if (voluntarios == null || voluntarios.isEmpty()) {
             throw new OperacionException("No hay voluntarios registrados en el sistema.");
         }
@@ -632,7 +681,6 @@ public List<Voluntario> traerTodosLosVoluntarios() throws OperacionException {
 
 public void registrarTareaCompleta(long idVoluntario, long idGato, String ubicacion, String fechaStr, String tipoTareaStr, String descripcion) throws OperacionException {
     
-    // 🚨 1. Validación de campos de la interfaz
     if (ubicacion.isEmpty() || tipoTareaStr.equals("-") || descripcion.isEmpty() || fechaStr.isEmpty()) {
         throw new OperacionException("Todos los campos de la tarea son obligatorios.");
     }

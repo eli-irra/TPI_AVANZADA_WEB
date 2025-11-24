@@ -47,7 +47,7 @@ public class Visita implements Serializable {
         return idVisita;
     }
 
-    public void setIdVisita(int idVisita) {
+    public void setIdVisita(long idVisita) {
         this.idVisita = idVisita;
     }
 
