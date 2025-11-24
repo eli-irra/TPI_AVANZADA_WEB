@@ -1,18 +1,29 @@
-<%-- 
-    Document   : index
-    Created on : 23 nov 2025, 7:54:26 p. m.
-    Author     : Usuario
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-    <meta charset="UTF-8">
-    <title>Iniciar Sesion</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
+        <title>Iniciar Sesión</title>
+        <link rel="stylesheet" href="css/styles.css"> 
     </head>
     <body>
-        <h1>Hola Mundo con Estilo</h1>
+        <h2>Iniciar Sesión</h2>
+        <form action="SvLogin" method="POST">
+            <label>Correo:</label>
+            <input type="text" name="correo" required>
+            
+            <label>Contraseña:</label>
+            <input type="password" name="contrasena" required>
+            
+            <button type="submit">Ingresar</button>
+        </form>
+
+        <% 
+            String error = (String) request.getSession().getAttribute("error");
+            if(error != null) {
+        %>
+            <p style="color: red;"><%= error %></p>
+        <% 
+            } 
+        %>
     </body>
 </html>
