@@ -4,11 +4,22 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         
         <class>modelo.Usuario</class>
-        <class>modelo.Gato</class>
-        <class>modelo.Voluntario</class>
         <class>modelo.Administrador</class>
         <class>modelo.FamiliaAdoptante</class>
         <class>modelo.Veterinario</class>
+        <class>modelo.Voluntario</class>
+        <class>modelo.Sesion</class>
+        <class>modelo.Gato</class>
+        <class>modelo.Zona</class>
+        <class>modelo.HistoriaClinica</class>
+        <class>modelo.Visita</class>
+        <class>modelo.Tarea</class>
+        <class>modelo.Postulacion</class>
+        <class>modelo.Reporte</class>
+        <class>modelo.Tratamiento</class>
+        <class>modelo.Estudio</class>
+        <class>modelo.Aptitud</class>
+        
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/tpiavanzadas?serverTimezone=UTC"/>
             <property name="jakarta.persistence.jdbc.user" value="root"/>
