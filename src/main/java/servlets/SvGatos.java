@@ -34,6 +34,6 @@ public class SvGatos extends HttpServlet {
         misesion.setAttribute("listaGatos", listaGatos);
         
         // 3. Redirigir a la pantalla
-        response.sendRedirect("gatos.jsp");
+        response.sendRedirect("Voluntario/gatos.jsp");
     }
 }
