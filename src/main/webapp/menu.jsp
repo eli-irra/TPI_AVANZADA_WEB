@@ -26,6 +26,9 @@
             <a href="SvHistoriasClinicas">Ver Historias Clínicas</a>
         <% } %>
         
+        <% if (usu.getRol().equals("VOLUNTARIO")) { %>
+            <a href="SvGatos">Gestionar Gatos</a>
+        <% } %>
         <br><br>
         <form action="SvLogout" method="POST">
             <button type="submit">Cerrar Sesión</button>
