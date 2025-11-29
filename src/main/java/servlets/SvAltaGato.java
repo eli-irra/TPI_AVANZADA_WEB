@@ -40,52 +40,48 @@ public class SvAltaGato extends HttpServlet {
         response.sendRedirect("Voluntario/registrarGato.jsp");
     }
 
-    // doPost: SE USA PARA GUARDAR EL GATO (Lo que ya sabes hacer)
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         try {
-            // 1. Obtener datos del formulario (Strings)
+            // 1. Obtener datos del formulario
             String nombre = request.getParameter("nombre");
-            String apodo = request.getParameter("apodo");
             String raza = request.getParameter("raza");
             String color = request.getParameter("color");
             String sexo = request.getParameter("sexo");
-            String edadStr = request.getParameter("edad");
-            String observaciones = request.getParameter("observaciones");
+            String caracteristicas = request.getParameter("caracteristicas"); // Usamos este campo existente
             String idZonaStr = request.getParameter("zona_id");
             
-            // 2. Convertir datos (Parsing)
-            int edad = (edadStr != null && !edadStr.isEmpty()) ? Integer.parseInt(edadStr) : 0;
+            // 2. Convertir y Validar
             int idZona = Integer.parseInt(idZonaStr);
             
-            // 3. Buscar la Zona completa en la BD (Necesario para la relación)
-            Zona zonaSeleccionada = control.traerZona(idZona); // Asegúrate de tener este método en Controladora
+            // 3. Buscar la Zona (usando el método puente que agregaremos en Controladora)
+            Zona zonaSeleccionada = control.traerZona(idZona);
             
-            // 4. Crear el Objeto Gato
+            // 4. Crear el Gato con los datos QUE SÍ EXISTEN en tu modelo
             Gato nuevoGato = new Gato();
             nuevoGato.setNombre(nombre);
-            nuevoGato.setApodo(apodo);
             nuevoGato.setRaza(raza);
             nuevoGato.setColor(color);
             nuevoGato.setSexo(sexo);
-            nuevoGato.setEdad(edad);
-            nuevoGato.setObservaciones(observaciones);
-            nuevoGato.setDisponible(true); // Por defecto disponible
-            nuevoGato.setZona(zonaSeleccionada); // Asignamos la relación
+            nuevoGato.setCaracteristicas(caracteristicas);
             
-            // 5. Llamar a la Controladora para guardar
-            // Nota: El método crearGato debería encargarse de crear la HistoriaClinica vacía internamente
+            // Valores por defecto para los Enums (necesarios para que no sea null)
+            nuevoGato.setDisponible(Gato.RespuestaBinaria.SI);
+            nuevoGato.setEsterilizado(Gato.RespuestaBinaria.NO); 
+            nuevoGato.setestadoFisico(Gato.EstadoSalud.SANO);
+            
+            nuevoGato.setZona(zonaSeleccionada);
+            
+            // 5. Guardar
             control.crearGato(nuevoGato);
             
-            // 6. Redirigir a la lista de gatos
             response.sendRedirect("SvGatos");
             
         } catch (Exception e) {
             e.printStackTrace();
-            // En caso de error, podrías redirigir a una página de error o volver al form
-            response.sendError(500, "Error al guardar el gato: " + e.getMessage());
+            response.sendError(500, "Error: " + e.getMessage());
         }
     }
 }

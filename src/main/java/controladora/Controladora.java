@@ -732,24 +732,19 @@ public List<Tarea> traerTodasLasTareas() throws OperacionException {
     }
 }
 
-    // Cambiamos 'long' por 'int' para que coincida con buscarZona
     public Zona traerZona(int idZona) {
         return this.buscarZona(idZona);
     }
     
     public void crearGato(Gato gato) throws Exception {
-    // 1. Crear una Historia Clínica nueva y vacía
-    HistoriaClinica hc = new HistoriaClinica();
-    hc.setFechaCreacion(new java.util.Date()); // O LocalDate según uses
-    // hc.setGato(gato); // Si es bidireccional
-    
-    // 2. Guardar la HC primero (si tu BD requiere ID) o dejar que Cascade lo haga
-    controlpersis.crearHistoriaClinica(hc);
-    
-    // 3. Asignar la HC al Gato
-    gato.setHistoriaClinica(hc);
-    
-    // 4. Guardar el Gato
-    controlpersis.crearGato(gato);
-}
+        // 1. Crear Historia Clínica vacía
+        HistoriaClinica hc = new HistoriaClinica();
+        
+        // 2. Persistir HC
+        controlpersis.crearHistoriaClinica(hc);
+        
+        // 3. Relacionar y Guardar Gato
+        gato.setHistoriaClinica(hc);
+        controlpersis.crearGato(gato);
+    }
 }

@@ -369,6 +369,9 @@ public void crearReporte(Reporte reporte) throws Exception {
     public void crearVisita(Visita nuevaVisita) {
         visitaJpa.create(nuevaVisita);
     }
-
+    
+    public void crearHistoriaClinica(HistoriaClinica hc) throws Exception {
+    historiaClinicaJpa.create(hc);
+}
 }
     
