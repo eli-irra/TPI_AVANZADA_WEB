@@ -17,7 +17,7 @@
             if(usu != null) {
         %>
         
-        <form action="servlets/SvModificarUsuario" method="POST">
+        <form action="${pageContext.request.contextPath}/SvModificarUsuario" method="POST">
             
             <input type="hidden" name="idUsuario" value="<%= usu.getIdUsuario() %>">
             
