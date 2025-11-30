@@ -3,10 +3,11 @@
 <html>
     <head>
         <title>Iniciar Sesión</title>
-        <link rel="stylesheet" href="css/styles.css"> 
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
     </head>
     <body>
-        <h2>Iniciar Sesión</h2>
+        <div class="formulario">
+            <h2>Iniciar Sesión</h2>
         <form action="SvLogin" method="POST">
             <label>Correo:</label>
             <input type="text" name="correo" required>
@@ -15,7 +16,11 @@
             <input type="password" name="contrasena" required>
             
             <button type="submit">Ingresar</button>
+            
         </form>
+            <a href="registrarUsuario.jsp"><button> Registrarse</button></a>
+        </div>
+        
 
         <% 
             String error = (String) request.getSession().getAttribute("error");

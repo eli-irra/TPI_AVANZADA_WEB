@@ -5,7 +5,7 @@
 <html>
     <head>
         <title>Gestión de Gatos</title>
-        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
     </head>
     <body>
         <h1>Mis Gatos Rescatados</h1>

@@ -4,7 +4,7 @@
 <html>
     <head>
         <title>Editar Usuario</title>
-        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
     </head>
     <body>
         <h1>Editar Usuario</h1>

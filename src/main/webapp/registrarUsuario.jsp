@@ -3,6 +3,7 @@
 <html>
     <head>
         <title>Nuevo Usuario</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
     </head>
     <body>
         <h1>Registrar Nuevo Usuario</h1>
@@ -26,5 +27,6 @@
             
             <button type="submit">Guardar</button>
         </form>
+        <a href="index.jsp"><button>Volver atrás</button></a>
     </body>
 </html>
