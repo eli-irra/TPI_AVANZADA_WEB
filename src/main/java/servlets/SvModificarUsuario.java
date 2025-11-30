@@ -31,7 +31,7 @@ public class SvModificarUsuario extends HttpServlet {
         misesion.setAttribute("usuEditar", usu);
         
         // Redirigimos a la pantalla de edición
-        response.sendRedirect("editarUsuario.jsp");
+        response.sendRedirect("Administrador/editarUsuario.jsp");
     }
 
     // 2. DO POST: Se usa para GUARDAR los cambios realizados
@@ -68,7 +68,7 @@ public class SvModificarUsuario extends HttpServlet {
             
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp"); // Opcional
+            response.sendRedirect("error.jsp");
         }
     }
 }
