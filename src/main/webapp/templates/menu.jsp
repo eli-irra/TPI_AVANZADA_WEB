@@ -1,37 +1,27 @@
 <%@page import="modelo.Usuario"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    // Verificaci√≥n de seguridad (Sesi√≥n)
+    // VerificaciÛn de seguridad (SesiÛn)
     Usuario usu = (Usuario) session.getAttribute("usuarioLogueado");
     if (usu == null) {
         response.sendRedirect("index.jsp");
         return;
     }
 %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Men√∫ Principal</title>
-    </head>
-    <body>
+<%@include file="templates/header.jsp" %>
         <h1>Bienvenido, <%= usu.getNombre() %></h1>
         <h3>Rol: <%= usu.getRol() %></h3>
-        
-        <% if (usu.getRol().equals("ADMINISTRADOR")) { %>
+        <nav>
+            <% if (usu.getRol().equals("ADMINISTRADOR")) { %>
             <a href="SvUsuarios">Gestionar Usuarios</a>
             <a href="SvZonas">Gestionar Zonas</a>
         <% } %>
         
         <% if (usu.getRol().equals("VETERINARIO")) { %>
-            <a href="SvHistoriasClinicas">Ver Historias Cl√≠nicas</a>
+            <a href="SvHistoriasClinicas">Ver Historias ClÌnicas</a>
         <% } %>
         
         <% if (usu.getRol().equals("VOLUNTARIO")) { %>
             <a href="SvGatos">Gestionar Gatos</a>
         <% } %>
-        <br><br>
-        <form action="SvLogout" method="POST">
-            <button type="submit">Cerrar Sesi√≥n</button>
-        </form>
-    </body>
-</html>
+        <a href="SvLogout" class="aLaIzquierda">Cerrar SesiÛn</a>
+        </nav>

@@ -1,16 +1,9 @@
 <%@page import="modelo.Usuario"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Editar Usuario</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
-    </head>
-    <body>
+<%@include file="templates/menu.jsp" %>
         <h1>Editar Usuario</h1>
         
         <% 
-            // Recuperamos el usuario que SvModificarUsuario puso en la sesiÃ³n
+            // Recuperamos el usuario que SvModificarUsuario puso en la sesión
             Usuario usu = (Usuario) session.getAttribute("usuEditar");
         %>
         
@@ -23,10 +16,10 @@
             <label>Correo:</label>
             <input type="email" name="correo" value="<%= usu.getCorreo() %>" required><br><br>
             
-            <label>TelÃ©fono:</label>
+            <label>Teléfono:</label>
             <input type="number" name="telefono" value="<%= (long)usu.getTelefono() %>" required><br><br>
             
-            <label>DirecciÃ³n:</label>
+            <label>Dirección:</label>
             <input type="text" name="direccion" value="<%= usu.getdireccion() %>" required><br><br>
             
             <label>Rol:</label>
@@ -35,5 +28,4 @@
             <button type="submit">Guardar Cambios</button>
             <a href="SvUsuarios">Cancelar</a>
         </form>
-    </body>
-</html>
+<%@include file="templates/footer.jsp" %>

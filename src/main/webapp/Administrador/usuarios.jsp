@@ -1,21 +1,13 @@
 <%@page import="java.util.List"%>
 <%@page import="modelo.Usuario"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Gestionar Usuarios</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
-    </head>
-    <body>
+<%@include file="templates/menu.jsp" %>
         <table>
             <thead>
                 <tr>
                     <th>Nombre</th>
                     <th>Correo</th>
                     <th>Rol</th>
-                    <th>TelÃ©fono</th> <th>Acciones</th>
+                    <th>Teléfono</th> <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,12 +28,12 @@
 
                             <form action="${pageContext.request.contextPath}/SvEliminarUsuario" method="POST" style="display:inline;">
                                 <input type="hidden" name="idEliminar" value="<%= u.getIdUsuario() %>">
-                                <button type="submit" onclick="return confirm('Â¿Seguro?');">Eliminar</button>
+                                <button type="submit" onclick="return confirm('¿Seguro?');">Eliminar</button>
                             </form>
                         </td>
                     </tr>
                 <% } %>
             </tbody>
         </table>
-    </body>
-</html>
+                <a href="${pageContext.request.contextPath}/menu.jsp"><button>Volver atrás</button></a>  
+<%@include file="templates/footer.jsp" %>

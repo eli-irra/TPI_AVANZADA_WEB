@@ -1,18 +1,11 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Iniciar Sesi√≥n</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
-    </head>
-    <body>
+<%@include file="templates/header.jsp" %>
         <div class="formulario">
-            <h2>Iniciar Sesi√≥n</h2>
+            <h2>Iniciar SesiÛn</h2>
         <form action="SvLogin" method="POST">
             <label>Correo:</label>
             <input type="text" name="correo" required>
             
-            <label>Contrase√±a:</label>
+            <label>ContraseÒa:</label>
             <input type="password" name="contrasena" required>
             
             <button type="submit">Ingresar</button>
@@ -30,5 +23,4 @@
         <% 
             } 
         %>
-    </body>
-</html>
+<%@include file="templates/footer.jsp" %>

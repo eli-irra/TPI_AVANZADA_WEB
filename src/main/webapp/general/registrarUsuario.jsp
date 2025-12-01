@@ -1,11 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Nuevo Usuario</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
-    </head>
-    <body>
+<%@include file="templates/header.jsp" %>
         <h1>Registrar Nuevo Usuario</h1>
         <form action="SvAltaUsuario" method="POST">
             <label>Nombre:</label>
@@ -14,7 +7,7 @@
             <label>Correo:</label>
             <input type="email" name="correo" required><br><br>
             
-            <label>Contrase√±a:</label>
+            <label>ContraseÒa:</label>
             <input type="password" name="contrasena" required><br><br>
             
             <label>Rol:</label>
@@ -24,9 +17,7 @@
                 <option value="VOLUNTARIO">Voluntario</option>
                 <option value="FAMILIA">Familia Adoptante</option>
             </select><br><br>
-            
             <button type="submit">Guardar</button>
         </form>
-        <a href="index.jsp"><button>Volver atr√°s</button></a>
-    </body>
-</html>
+        <a href="index.jsp"><button>Volver atr·s</button></a>
+<%@include file="templates/footer.jsp" %>

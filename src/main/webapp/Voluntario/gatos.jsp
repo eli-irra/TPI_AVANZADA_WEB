@@ -1,13 +1,6 @@
 <%@page import="modelo.Gato"%>
 <%@page import="java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Gestión de Gatos</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
-    </head>
-    <body>
+<%@include file="templates/menu.jsp" %>
         <h1>Mis Gatos Rescatados</h1>
         <button onclick="window.location.href='SvCargarAltaGato'">+ Registrar Nuevo Gato</button>
         <br><br>
@@ -49,6 +42,5 @@
             </tbody>
         </table>
         <br>
-        <a href="menu.jsp">Volver al Menú</a>
-    </body>
-</html>
+        <a href="menu.jsp">Volver al Men�</a>
+<%@include file="templates/footer.jsp" %>

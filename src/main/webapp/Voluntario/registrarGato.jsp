@@ -1,14 +1,6 @@
 <%@page import="modelo.Zona"%>
 <%@page import="java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Registrar Gato</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
-    </head>
-    <body>
+<%@include file="templates/menu.jsp" %>
         <label>Zona asignada:</label>
         <select name="zona_id" required>
             <% 
@@ -22,5 +14,4 @@
                 }
             %>
         </select>
-    </body>
-</html>
+<%@include file="templates/footer.jsp" %>
