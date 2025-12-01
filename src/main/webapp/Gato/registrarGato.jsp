@@ -1,3 +1,4 @@
+<%-- Acá debería estar el formulario para registrar al gato, esta acción solamente la puede hacer el Voluntario.--%>
 <%@page import="modelo.Zona"%>
 <%@page import="java.util.List"%>
 <%@include file="templates/menu.jsp" %>

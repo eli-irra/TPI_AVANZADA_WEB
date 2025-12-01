@@ -1,3 +1,4 @@
+<%-- Acá se muestra el formulario para editar los datos del propio usuario, u otro en caso de ser Administrador. --%>
 <%@page import="modelo.Usuario"%>
 <%@include file="templates/menu.jsp" %>
         <h1>Editar Usuario</h1>

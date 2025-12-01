@@ -1,3 +1,6 @@
+<%-- Acá debería estar una tabla que muestre todos los gatos registrados, es la pagina predeterminada (después de iniciar sesión) 
+para los tipos de usuarios Voluntario, Familia Adoptante, y Veterinario. Al Voluntario le debería aparecer una opción para poder 
+registrar a un gato--%>
 <%@page import="modelo.Gato"%>
 <%@page import="java.util.List"%>
 <%@include file="templates/menu.jsp" %>

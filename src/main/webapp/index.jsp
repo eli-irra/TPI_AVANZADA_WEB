@@ -1,3 +1,4 @@
+<%-- Acá se muestra el formulario de inicio de sesión.  --%>
 <%@include file="templates/header.jsp" %>
         <div class="formulario">
             <h2>Iniciar Sesión</h2>
@@ -24,3 +25,4 @@
             } 
         %>
 <%@include file="templates/footer.jsp" %>
+ 

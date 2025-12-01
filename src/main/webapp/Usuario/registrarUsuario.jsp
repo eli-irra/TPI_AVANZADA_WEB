@@ -1,3 +1,4 @@
+<%-- Acá se muestra el formulario para registrarse como usuario --%>
 <%@include file="templates/header.jsp" %>
         <h1>Registrar Nuevo Usuario</h1>
         <form action="SvAltaUsuario" method="POST">

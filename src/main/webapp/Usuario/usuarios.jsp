@@ -1,3 +1,4 @@
+<%-- Acá se muestra el listado de usuarios registrados, solamente el Administrador puede acceder a esta pagina. --%>
 <%@page import="java.util.List"%>
 <%@page import="modelo.Usuario"%>
 <%@include file="templates/menu.jsp" %>
