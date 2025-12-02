@@ -3,7 +3,7 @@ para modificar sus datos(menos el estado de salud) solamente el Voluntario. Si e
 el estado de salud del gato.--%>
 <%@page import="modelo.Gato, modelo.Zona, java.util.List"%>
 <% 
-    request.setAttribute("linkVolver", "SvGatos"); 
+    request.setAttribute("linkVolver", "SvGatos");
     Gato gato = (Gato) session.getAttribute("gatoEditar");
     List<Zona> zonas = (List<Zona>) session.getAttribute("listaZonas");
 %>
@@ -11,8 +11,9 @@ el estado de salud del gato.--%>
 <%@include file="../templates/menu.jsp" %>
 
 <div class="form-container">
-    <h2>Editar Gato: <%= gato.getNombre() %></h2>
+    <h2>Editar Gato: <%= (gato != null ? gato.getNombre() : "") %></h2>
     
+    <% if (gato != null) { %>
     <form action="${pageContext.request.contextPath}/SvModificarGato" method="POST">
         <input type="hidden" name="idGato" value="<%= gato.getIdGato() %>">
         
@@ -27,25 +28,29 @@ el estado de salud del gato.--%>
         
         <label>Sexo:</label>
         <select name="sexo">
-            <option value="Macho" <%= gato.getSexo().equals("Macho") ? "selected" : "" %>>Macho</option>
-            <option value="Hembra" <%= gato.getSexo().equals("Hembra") ? "selected" : "" %>>Hembra</option>
+            <option value="Macho" <%= "Macho".equals(gato.getSexo()) ? "selected" : "" %>>Macho</option>
+            <option value="Hembra" <%= "Hembra".equals(gato.getSexo()) ? "selected" : "" %>>Hembra</option>
         </select>
-        
-        <label>Características:</label>
-        <textarea name="caracteristicas" rows="3"><%= gato.getCaracteristicas() %></textarea>
         
         <label>Zona:</label>
         <select name="zona_id">
             <% if(zonas != null) { for(Zona z : zonas) { %>
-                <option value="<%= z.getIdZona() %>" <%= (gato.getZona() != null && gato.getZona().getIdZona() == z.getIdZona()) ? "selected" : "" %>>
+                <option value="<%= z.getIdZona() %>" 
+                        <%= (gato.getZona() != null && gato.getZona().getIdZona() == z.getIdZona()) ? "selected" : "" %>>
                     <%= z.getNombreZona() %>
                 </option>
             <% }} %>
         </select>
         
+        <label>Características:</label>
+        <textarea name="caracteristicas" rows="3"><%= gato.getCaracteristicas() %></textarea>
+        
         <br><br>
-        <button type="submit">Guardar Cambios</button>
+        <button type="submit" class="btn-primary">Guardar Cambios</button>
     </form>
+    <% } else { %>
+        <p>Error al cargar datos del gato.</p>
+    <% } %>
 </div>
 
 <%@include file="../templates/footer.jsp" %>

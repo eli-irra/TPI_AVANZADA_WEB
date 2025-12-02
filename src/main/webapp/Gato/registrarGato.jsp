@@ -4,24 +4,27 @@
 
 <div class="form-container">
     <h2>Registrar Nuevo Gato</h2>
+    
     <form action="${pageContext.request.contextPath}/SvAltaGato" method="POST">
         <label>Nombre:</label>
         <input type="text" name="nombre" required>
         
-        <label>Raza:</label>
-        <input type="text" name="raza" required>
-        
-        <label>Color:</label>
-        <input type="text" name="color" required>
-        
+        <div style="display:flex; gap:10px;">
+            <div style="flex:1;">
+                <label>Raza:</label>
+                <input type="text" name="raza" required>
+            </div>
+            <div style="flex:1;">
+                <label>Color:</label>
+                <input type="text" name="color" required>
+            </div>
+        </div>
+
         <label>Sexo:</label>
         <select name="sexo">
             <option value="Macho">Macho</option>
             <option value="Hembra">Hembra</option>
         </select>
-        
-        <label>Características:</label>
-        <textarea name="caracteristicas" rows="3"></textarea>
         
         <label>Zona Asignada:</label>
         <select name="zona_id">
@@ -33,9 +36,12 @@
                 <option value="<%= z.getIdZona() %>"><%= z.getNombreZona() %></option>
             <% }} %>
         </select>
+
+        <label>Características:</label>
+        <textarea name="caracteristicas" rows="3" style="width:100%;"></textarea>
         
         <br><br>
-        <button type="submit">Guardar Gato</button>
+        <button type="submit" class="btn-primary">Guardar Gato</button>
     </form>
 </div>
 

@@ -16,29 +16,26 @@ import modelo.Zona;
 public class SvModificarGato extends HttpServlet {
     Controladora control = new Controladora();
 
-    // GET: Carga el gato y las zonas para editar
+    // GET: Busca el gato y lo manda al formulario de edición
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             int id = Integer.parseInt(request.getParameter("idEditar"));
-            
-            // 1. Buscar Gato
             Gato gato = control.buscarGatoCompleto(id);
-            // 2. Buscar Zonas (para el combo)
             List<Zona> listaZonas = control.traerTodasLasZonas();
             
             HttpSession session = request.getSession();
             session.setAttribute("gatoEditar", gato);
             session.setAttribute("listaZonas", listaZonas);
             
-            response.sendRedirect("Voluntario/editarGato.jsp");
+            response.sendRedirect("Gato/editarPerfilGato.jsp");
         } catch (Exception e) {
-            e.printStackTrace();
+            response.sendRedirect("SvGatos");
         }
     }
 
-    // POST: Aplica los cambios
+    // POST: Actualiza los datos
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

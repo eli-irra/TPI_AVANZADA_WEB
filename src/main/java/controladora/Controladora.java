@@ -747,4 +747,8 @@ public List<Tarea> traerTodasLasTareas() throws OperacionException {
         gato.setHistoriaClinica(hc);
         controlpersis.crearGato(gato);
     }
+
+    public void modificarGato(Gato gato) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
