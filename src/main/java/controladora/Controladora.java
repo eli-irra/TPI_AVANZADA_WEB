@@ -30,7 +30,7 @@ public class Controladora {
     public Usuario validarUsuario(String correo, String contrasena) throws LoginException, Exception {
         Usuario usuario = controlpersis.buscarUsuarioPorCorreo(correo);
         if (usuario == null) {
-            throw new LoginException("Usuario no encontrado. Verifique el correo.");
+            throw new LoginException("Usuario no encontrado.  Verifique el correo.");
         }
         if (!usuario.getContrasena().equals(contrasena)) {
             throw new LoginException("Contraseña incorrecta.");
