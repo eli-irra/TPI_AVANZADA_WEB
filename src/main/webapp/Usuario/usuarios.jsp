@@ -42,15 +42,20 @@
                         <td><%= u.getCorreo() %></td>
                         <td><%= u.getRol() %></td>
                         <td><%= (long)u.getTelefono() %></td>
-                        <td>
-                            <form action="${pageContext.request.contextPath}/SvModificarUsuario" method="GET" style="display:inline;">
-                                <input type="hidden" name="idEditar" value="<%= u.getIdUsuario() %>">
-                                <button type="submit" class="btn-secondary" style="padding: 5px 10px; font-size: 0.8rem;">Editar</button>
+                        <td style="display:flex; gap: 5px;">
+                            <form action="${pageContext.request.contextPath}/SvVerUsuario" method="GET">
+                                <input type="hidden" name="idUsuario" value="<%= u.getIdUsuario() %>">
+                                <button type="submit" class="btn-icon" title="Ver Perfil">?</button>
                             </form>
 
-                            <form action="${pageContext.request.contextPath}/SvEliminarUsuario" method="POST" style="display:inline;">
+                            <form action="${pageContext.request.contextPath}/SvModificarUsuario" method="GET">
+                                <input type="hidden" name="idEditar" value="<%= u.getIdUsuario() %>">
+                                <button type="submit" class="btn-icon" title="Editar">?</button>
+                            </form>
+
+                            <form action="${pageContext.request.contextPath}/SvEliminarUsuario" method="POST">
                                 <input type="hidden" name="idEliminar" value="<%= u.getIdUsuario() %>">
-                                <button type="submit" onclick="return confirm('¿Seguro que deseas eliminar este usuario?');" style="background-color: #fee2e2; color: #ef4444; border: 1px solid #ef4444; padding: 5px 10px; font-size: 0.8rem;">Eliminar</button>
+                                <button type="submit" class="btn-icon-danger" onclick="return confirm('¿Eliminar?');" title="Borrar">?</button>
                             </form>
                         </td>
                     </tr>

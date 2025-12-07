@@ -748,7 +748,104 @@ public List<Tarea> traerTodasLasTareas() throws OperacionException {
         controlpersis.crearGato(gato);
     }
 
-    public void modificarGato(Gato gato) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void modificarGato(Gato gato) throws Exception {
+        controlpersis.modificarGato(gato);
     }
+    
+    public Estudio buscarEstudio(long id) {
+        return controlpersis.buscarEstudio(id);
+    }
+
+    public void modificarEstudio(long idEstudio, String nombre, String descripcion) throws OperacionException {
+        if (nombre.isEmpty() || descripcion.isEmpty()) {
+            throw new OperacionException("Todos los campos del estudio son obligatorios.");
+        }
+        try {
+            Estudio estudio = controlpersis.buscarEstudio(idEstudio);
+            if (estudio != null) {
+                estudio.setNombreEstudio(nombre);
+                estudio.setDescripcion(descripcion);
+                controlpersis.modificarEstudio(estudio);
+                
+            }
+        } catch (Exception e) {
+            throw new OperacionException("Error al modificar el estudio: " + e.getMessage(), e);
+        }
+    }
+
+    public void eliminarEstudio(long id) throws OperacionException {
+        try {
+            controlpersis.eliminarEstudio(id);
+        } catch (Exception e) {
+            throw new OperacionException("No se pudo eliminar el estudio.", e);
+        }
+    }
+    public Tratamiento buscarTratamiento(long id) {
+        return controlpersis.buscarTratamiento(id);
+    }
+
+    public void modificarTratamiento(long idTratamiento, String diagnostico, String descripcion) throws OperacionException {
+        if (diagnostico.isEmpty() || descripcion.isEmpty()) {
+            throw new OperacionException("El diagnóstico y la descripción son obligatorios.");
+        }
+        try {
+            Tratamiento trat = controlpersis.buscarTratamiento(idTratamiento);
+            if (trat != null) {
+                trat.setDiagostico(diagnostico);
+                trat.setTratamiento(descripcion);
+                controlpersis.modificarTratamiento(trat);
+            }
+        } catch (Exception e) {
+            throw new OperacionException("Error al modificar el tratamiento: " + e.getMessage(), e);
+        }
+    }
+
+    public void eliminarTratamiento(long id) throws OperacionException {
+        try {
+            controlpersis.eliminarTratamiento(id);
+        } catch (Exception e) {
+            throw new OperacionException("No se pudo eliminar el tratamiento.", e);
+        }
+    }
+
+    public Tarea buscarTarea(long id) {
+        return controlpersis.buscarTarea(id);
+    }
+
+    public void modificarTarea(modelo.Tarea tarea) throws OperacionException {
+        try {
+            controlpersis.modificarTarea(tarea);
+        } catch (Exception e) {
+            throw new OperacionException("Error al intentar modificar la tarea: " + e.getMessage(), e);
+        }
+    } 
+
+    public void eliminarTarea(long id) throws OperacionException {
+        try {
+            controlpersis.eliminarTarea(id);
+        } catch (Exception e) {
+            throw new OperacionException("No se pudo eliminar la tarea. Verifique que no tenga datos asociados.", e);
+        }
+    }
+
+    public void crearVisita(Visita visita) throws OperacionException {
+        try {
+            controlpersis.crearVisita(visita);
+        } catch (Exception e) {
+            throw new OperacionException("Error al crear la visita: " + e.getMessage(), e);
+        }
+    }
+
+    public void modificarVisita(Visita visita) throws OperacionException {
+        try {
+            controlpersis.editarVisita(visita);
+        } catch (Exception e) {
+            throw new OperacionException("Error al modificar la visita: " + e.getMessage(), e);
+        }
+    }
+
+    public FamiliaAdoptante buscarFamilia(int idFamilia) {
+        return controlpersis.buscarFamilia(idFamilia);
+    }
+    
 }

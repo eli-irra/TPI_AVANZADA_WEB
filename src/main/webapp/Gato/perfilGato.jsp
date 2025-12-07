@@ -73,6 +73,14 @@ asi como visualizar el mapa, qr, etc. Y el voluntario va a poder presionar un bo
                     <button type="submit" class="btn-primary">Editar Datos</button>
                 </form>
             </div>
+            <td>
+                <form action="${pageContext.request.contextPath}/SvHistoriaClinica" method="GET" style="display:inline;">
+                    <input type="hidden" name="idGato" value="<%= g.getIdGato() %>">
+                    <button type="submit" class="btn-secondary" title="Ver Historia Clínica" style="padding: 5px 10px;">
+                        <i class="fas fa-file-medical"></i> Historia C.
+                    </button>
+                </form>
+            </td>
         </div>
 
     <% } else { %>

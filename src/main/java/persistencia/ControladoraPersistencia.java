@@ -372,6 +372,43 @@ public void crearReporte(Reporte reporte) throws Exception {
     
     public void crearHistoriaClinica(HistoriaClinica hc) throws Exception {
     historiaClinicaJpa.create(hc);
-}
+    }
+    
+    public Estudio buscarEstudio(long id) {
+        return estudiojpa.findEstudio(id);
+    }
+
+    public void modificarEstudio(Estudio estudio) throws Exception {
+        estudiojpa.edit(estudio);
+    }
+
+    public void eliminarEstudio(long id) throws persistencia.exceptions.NonexistentEntityException {
+        estudiojpa.destroy(id);
+    }
+    
+    public Tratamiento buscarTratamiento(long id) {
+        return tratamientoJpa.findTratamiento(id);
+    }
+
+    public void modificarTratamiento(Tratamiento trat) throws Exception {
+        tratamientoJpa.edit(trat);
+    }
+
+    public void eliminarTratamiento(long id) throws persistencia.exceptions.NonexistentEntityException {
+        tratamientoJpa.destroy(id);
+    }
+
+    public Tarea buscarTarea(long id) {
+        return tareaJpa.findTarea(id);
+    }
+    
+    public void modificarTarea(modelo.Tarea tarea) throws Exception {
+        tareaJpa.edit(tarea);
+    }
+
+    public void eliminarTarea(long id) throws persistencia.exceptions.NonexistentEntityException {
+        tareaJpa.destroy(id);
+    }
+    
 }
     

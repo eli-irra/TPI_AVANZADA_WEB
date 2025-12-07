@@ -30,83 +30,87 @@ public class Tarea implements Serializable {
 
     private Date fecha;
     private String descripcion;
-    private String ubicacion;
+    private String ubicacion; // Texto libre (opcional si ya tenemos Zona)
     
+    // Relación con Gato (Puede ser nulo)
     @ManyToOne
-    @JoinColumn(name = "gato_id")  // el nombre de la columna en la tabla Tarea
+    @JoinColumn(name = "gato_id", nullable = true)
     private Gato gatoAsignado;
+    
+    // Relación con Zona (NUEVO - Puede ser nulo)
+    @ManyToOne
+    @JoinColumn(name = "zona_id", nullable = true)
+    private Zona zonaAsignada;
     
     @ManyToOne
     @JoinColumn(name = "voluntario_id")
     private Voluntario voluntarioQueRealiza;
 
+    public Tarea() { }
 
-    public Tarea() {
-        // Constructor vacío obligatorio para JPA
-    }
-
-    public Tarea(long idTarea, TipoTarea tipoTarea, Date fecha, String descripcion, String ubicacion) {
-        this.idTarea = idTarea;
-        this.tipoTarea = tipoTarea;
-        this.fecha = fecha;
-        this.descripcion = descripcion;
-        this.ubicacion = ubicacion;
-    }
-
-    public long getIdTarea() {
-        return idTarea;
-    }
-
-    public void setIdTarea(long idTarea) {
-        this.idTarea = idTarea;
-    }
-
-    public TipoTarea getTipoTarea() {
-        return tipoTarea;
-    }
-
-    public void setTipoTarea(TipoTarea tipoTarea) {
-        this.tipoTarea = tipoTarea;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
+    // Getters y Setters
+    public long getIdTarea() { 
+        return idTarea; 
     }
     
-    public Gato getGatoAsignado() {
-        return gatoAsignado;
+    public void setIdTarea(long idTarea) { 
+        this.idTarea = idTarea; 
     }
 
-    public void setGatoAsignado(Gato gatoAsignado) {
-        this.gatoAsignado = gatoAsignado;
+    public TipoTarea getTipoTarea() { 
+        return tipoTarea; 
     }
     
-    public Voluntario getVoluntarioQueRealiza() {
-    return voluntarioQueRealiza;
-}
+    public void setTipoTarea(TipoTarea tipoTarea) { 
+        this.tipoTarea = tipoTarea; 
+    }
 
-public void setVoluntarioQueRealiza(Voluntario voluntarioQueRealiza) {
-    this.voluntarioQueRealiza = voluntarioQueRealiza;
-}
+    public Date getFecha() { 
+        return fecha; 
+    }
+    
+    public void setFecha(Date fecha) { 
+        this.fecha = fecha; 
+    }
 
+    public String getDescripcion() { 
+        return descripcion; 
+    }
+    
+    public void setDescripcion(String descripcion) { 
+        this.descripcion = descripcion; 
+    }
+
+    public String getUbicacion() { 
+        return ubicacion; 
+    }
+    
+    public void setUbicacion(String ubicacion) { 
+        this.ubicacion = ubicacion; 
+    }
+
+    public Gato getGatoAsignado() { 
+        return gatoAsignado; 
+    }
+    
+    public void setGatoAsignado(Gato gatoAsignado) { 
+        this.gatoAsignado = gatoAsignado; 
+    }
+
+    public Zona getZonaAsignada() { 
+        return zonaAsignada; 
+    }
+    
+    public void setZonaAsignada(Zona zonaAsignada) { 
+        this.zonaAsignada = zonaAsignada; 
+    }
+
+    public Voluntario getVoluntarioQueRealiza() { 
+        return voluntarioQueRealiza; 
+    }
+    
+    public void setVoluntarioQueRealiza(Voluntario voluntarioQueRealiza) { 
+        this.voluntarioQueRealiza = voluntarioQueRealiza; 
+    }
+    
 }
