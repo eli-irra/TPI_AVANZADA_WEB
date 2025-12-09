@@ -1,14 +1,6 @@
 <%-- Acá se muestra el listado de usuarios registrados, solamente el Administrador puede acceder a esta pagina. --%>
 <%@page import="java.util.List"%>
 <%@page import="modelo.Usuario"%>
-<%
-    Usuario usu = (Usuario) session.getAttribute("usuarioLogueado");
-    if (usu == null || !usu.getRol().equals("ADMINISTRADOR")) {
-        response.sendRedirect("../index.jsp");
-        return;
-    }
-%>
-
 <%@include file="../templates/menu.jsp" %>
 
     <div class="container">

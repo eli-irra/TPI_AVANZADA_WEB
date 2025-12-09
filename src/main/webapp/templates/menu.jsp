@@ -2,26 +2,26 @@
 <%
     // Verificación de seguridad (Sesión)
     Usuario usu = (Usuario) session.getAttribute("usuarioLogueado");
-    if (usu == null) {
-        response.sendRedirect("index.jsp");
+    if (usu == null ) {
+        response.sendRedirect("{pageContext.request.contextPath}/index.jsp");
         return;
     }
 %>
-<%@include file="templates/header.jsp" %>
+<%@include file="header.jsp" %>
         <h1>Bienvenido, <%= usu.getNombre() %></h1>
         <h3>Rol: <%= usu.getRol() %></h3>
         <nav>
             <% if (usu.getRol().equals("ADMINISTRADOR")) { %>
-            <a href="SvUsuarios">Gestionar Usuarios</a>
-            <a href="SvZonas">Gestionar Zonas</a>
+            <a href="${pageContext.request.contextPath}/SvUsuarios">Gestionar Usuarios</a>
+            <a href="${pageContext.request.contextPath}/SvZonas">Gestionar Zonas</a>
         <% } %>
         
         <% if (usu.getRol().equals("VETERINARIO")) { %>
-            <a href="SvHistoriasClinicas">Ver Historias Clínicas</a>
+            <a href="${pageContext.request.contextPath}/SvGatos">Gestionar Gatos</a>
         <% } %>
         
         <% if (usu.getRol().equals("VOLUNTARIO")) { %>
-            <a href="SvGatos">Gestionar Gatos</a>
+            <a href="${pageContext.request.contextPath}/SvGatos">Gestionar Gatos</a>
         <% } %>
-        <a href="SvLogout" class="aLaIzquierda">Cerrar Sesión</a>
+        <a href="${pageContext.request.contextPath}/SvLogout" class="aLaDerecha">Cerrar Sesión</a>
         </nav>

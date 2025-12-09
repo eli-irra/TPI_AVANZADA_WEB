@@ -44,7 +44,7 @@ public class SvUsuarios extends HttpServlet {
         misesion.setAttribute("listaUsuarios", listaUsuarios);
 
         // 4. Redirigir al JSP que muestra la tabla (debes crear usuarios.jsp)
-        response.sendRedirect("Administrador/usuarios.jsp");
+        response.sendRedirect("Usuario/usuarios.jsp");
     }
 
     @Override

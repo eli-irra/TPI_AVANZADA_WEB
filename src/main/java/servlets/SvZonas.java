@@ -1,0 +1,33 @@
+package servlets;
+
+import controladora.Controladora;
+import java.io.IOException;
+import java.util.List;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import modelo.Zona;
+
+@WebServlet(name = "SvZonas", urlPatterns = {"/SvZonas"})
+public class SvZonas extends HttpServlet {
+    Controladora control = new Controladora();
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            List<Zona> listaZonas = control.traerTodasLasZonas();
+            HttpSession session = request.getSession();
+            session.setAttribute("listaZonas", listaZonas);
+            
+            // Redirigir a la carpeta Zona
+            response.sendRedirect("Zona/zonas.jsp");
+        } catch (Exception e) {
+            // Si no hay zonas o falla, mandamos una lista vacía para que no rompa el JSP
+            response.sendRedirect("menu.jsp");
+        }
+    }
+}

@@ -36,8 +36,10 @@ public class SvLogin extends HttpServlet {
             HttpSession misesion = request.getSession();
             misesion.setAttribute("usuarioLogueado", usu);
             
-            // 4. Redirigir al menú principal (crearemos este archivo luego)
-            response.sendRedirect("menu.jsp");
+            //4. Redirecciona a los gatitos
+            response.sendRedirect("Gato/gatos.jsp");
+            
+            
             
         } catch (Exception e) {
             // Si falla (contraseña mal, usuario no existe)
