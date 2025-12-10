@@ -3,7 +3,7 @@
     // Verificación de seguridad (Sesión)
     Usuario usu = (Usuario) session.getAttribute("usuarioLogueado");
     if (usu == null ) {
-        response.sendRedirect("{pageContext.request.contextPath}/index.jsp");
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
         return;
     }
 %>

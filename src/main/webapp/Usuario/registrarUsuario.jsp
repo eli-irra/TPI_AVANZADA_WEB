@@ -1,5 +1,5 @@
 <%-- Acá se muestra el formulario para registrarse como usuario --%>
-<%@include file="templates/header.jsp" %>
+<%@include file="../templates/header.jsp" %>
         <h1>Registrar Nuevo Usuario</h1>
         <form action="SvAltaUsuario" method="POST">
             <label>Nombre:</label>
@@ -20,5 +20,5 @@
             </select><br><br>
             <button type="submit">Guardar</button>
         </form>
-        <a href="index.jsp"><button>Volver atrás</button></a>
-<%@include file="templates/footer.jsp" %>
+        <a href="../index.jsp"><button>Volver atrás</button></a>
+<%@include file="../templates/footer.jsp" %>

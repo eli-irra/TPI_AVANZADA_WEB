@@ -3,7 +3,7 @@ para los tipos de usuarios Voluntario, Familia Adoptante, y Veterinario. Al Volu
 registrar a un gato--%>
 <%@page import="modelo.Gato"%>
 <%@page import="java.util.List"%>
-<%@include file="/templates/menu.jsp" %>
+<%@include file="../templates/menu.jsp" %>
 <div class="container">
     <h1>Gestión de Gatos</h1>
     
@@ -63,4 +63,4 @@ registrar a un gato--%>
     </table>
 </div>
 
-<%@include file="/templates/footer.jsp" %>
+<%@include file="../templates/footer.jsp" %>
