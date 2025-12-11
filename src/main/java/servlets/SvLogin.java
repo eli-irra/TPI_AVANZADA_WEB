@@ -37,7 +37,7 @@ public class SvLogin extends HttpServlet {
             misesion.setAttribute("usuarioLogueado", usu);
             
             //4. Redirecciona a los gatitos
-            response.sendRedirect("Gato/gatos.jsp");
+            response.sendRedirect("SvGatos");
             
             
             

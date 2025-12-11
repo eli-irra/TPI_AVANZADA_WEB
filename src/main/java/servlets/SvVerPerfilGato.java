@@ -20,7 +20,7 @@ public class SvVerPerfilGato extends HttpServlet {
             throws ServletException, IOException {
         try {
             // 1. Obtener ID
-            int id = Integer.parseInt(request.getParameter("idGato"));
+            int id = Integer.parseInt(request.getParameter("idVer"));
             
             // 2. Buscar Gato Completo
             Gato gato = control.buscarGatoCompleto(id);

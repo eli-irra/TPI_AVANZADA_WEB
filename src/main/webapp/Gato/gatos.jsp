@@ -44,6 +44,10 @@ registrar a un gato--%>
                     <td><%= nombreZona %></td>
                     <td><%= g.getestadoFisico() %></td>
                     <td style="display:flex; gap:5px;">
+                        <form action="${pageContext.request.contextPath}/SvVerPerfilGato" method="GET">
+                            <input type="hidden" name="idVer" value="<%= g.getIdGato() %>">
+                            <button type="submit" class="btn-icon" title="Ver">?</button>
+                        </form>
                         <form action="${pageContext.request.contextPath}/SvModificarGato" method="GET">
                             <input type="hidden" name="idEditar" value="<%= g.getIdGato() %>">
                             <button type="submit" class="btn-icon" title="Editar">?</button>
@@ -53,6 +57,7 @@ registrar a un gato--%>
                             <input type="hidden" name="idEliminar" value="<%= g.getIdGato() %>">
                             <button type="submit" class="btn-icon-danger" onclick="return confirm('¿Borrar gato?');" title="Eliminar">?</button>
                         </form>
+                        
                         
                         </td>
                 </tr>
