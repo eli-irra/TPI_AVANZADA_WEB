@@ -5,5 +5,6 @@
         <meta http-equiv="Content-Type" content="width=device-width, initial-scale=1.0" charset="UTF-8">
         <title>Sistema de Gestión de Gatos</title> 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
+        <link rel="icon" type="image/svg+xml" href="${pageContext.request.contextPath}/images/paw.svg">
         </head>
     <body>
