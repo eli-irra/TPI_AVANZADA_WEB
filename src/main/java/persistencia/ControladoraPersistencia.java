@@ -410,5 +410,26 @@ public void crearReporte(Reporte reporte) throws Exception {
         tareaJpa.destroy(id);
     }
     
+    public List<Postulacion> buscarPostulacionesPorGato(long idGato) {
+        return postulacionJpa.findPostulacionesPorGato(idGato);
+    }
+    
+    public Postulacion buscarPostulacionPorFamiliaYGato(int idFamilia, long idGato) {
+        EntityManager em = postulacionJpa.getEntityManager();
+        try {
+            TypedQuery<Postulacion> query = em.createQuery(
+                "SELECT p FROM Postulacion p WHERE p.familiaPostulante.idUsuario = :idFamilia AND p.gatoRelacionado.idGato = :idGato", 
+                Postulacion.class
+            );
+            query.setParameter("idFamilia", idFamilia);
+            query.setParameter("idGato", idGato);
+            
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null; // No hay postulación
+        } finally {
+            em.close();
+        }
+    }
 }
     

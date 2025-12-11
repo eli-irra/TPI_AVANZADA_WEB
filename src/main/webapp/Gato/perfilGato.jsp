@@ -3,11 +3,12 @@ acceder al historial clinico y modificar el estado de salud, mientras que la fam
 asi como visualizar el mapa, qr, etc. Y el voluntario va a poder presionar un boton de editarPerfil para modificar los datos, o registrar una tarea asociada al gato, etc--%>
 
 <%@page import="modelo.Gato"%>
+<%@page import="modelo.Gato, modelo.Postulacion"%>
 <%@include file="../templates/menu.jsp" %>
 
 <%
-    // Recuperamos el gato cargado por el Servlet
     Gato gato = (Gato) session.getAttribute("gatoPerfil");
+    Postulacion miPostulacion = (Postulacion) session.getAttribute("postulacionPropia");
 %>
 
 <div class="container">
@@ -131,25 +132,60 @@ asi como visualizar el mapa, qr, etc. Y el voluntario va a poder presionar un bo
                 </p>
             </div>
             
-            <div class="full-width" style="text-align: right; margin-top: 10px;">
+            <div class="full-width" style="text-align: right; margin-top: 10px; display: flex; justify-content: flex-end; align-items: center; gap: 15px;">
+
                 <% if (usu.getRol().equals("VETERINARIO")) { %>
-                    <form action="${pageContext.request.contextPath}/SvHistoriaClinica" method="GET" style="display:inline;">
+                    <form action="${pageContext.request.contextPath}/SvHistoriaClinica" method="GET">
                         <input type="hidden" name="idGato" value="<%= gato.getIdGato() %>">
-                        <button type="submit" class="btn-secondary" title="Ver Historia Clínica">
-                            <i class="fas fa-file-medical"></i> Historia C.
-                        </button>
+                        <button type="submit" class="btn-secondary"><i class="fas fa-file-medical"></i> Historia C.</button>
                     </form>
-                        <%--ACA VA LO DE CAMBIAR ESTADO DE SALUD TAMBIEN--%>
                 <% } %>
+
                 <% if (usu.getRol().equals("VOLUNTARIO")) { %>
-                    <form action="${pageContext.request.contextPath}/SvModificarGato" method="GET" style="display:inline;">
+                    <form action="${pageContext.request.contextPath}/SvModificarGato" method="GET">
                         <input type="hidden" name="idEditar" value="<%= gato.getIdGato() %>">
-                        <button type="submit" class="btn-primary">Editar Datos</button>
+                        <button type="submit" class="btn-secondary">Editar Datos</button>
                     </form>
-                    <%--ACA VA LO DE VER POSTULACIONES--%>
+
+                    <% if(gato.getDisponible() == modelo.Gato.RespuestaBinaria.SI) { %>
+                    <form action="${pageContext.request.contextPath}/SvGestionarAdopcion" method="GET">
+                        <input type="hidden" name="idGato" value="<%= gato.getIdGato() %>">
+                        <button type="submit" class="btn-primary" style="background-color: #8b5cf6;">Gestionar Adopción</button>
+                    </form>
+                    <% } %>
                 <% } %>
-                <% if (usu.getRol().equals("FAMILIA") && gato.getDisponible().equals("SI")) { %> 
-                    <%--ACA VA LO DE POSTULARSE--%>
+
+                <% if (usu.getRol().equals("FAMILIA")) { %> 
+
+                    <% if (miPostulacion != null) { 
+                        // Si YA existe postulación, mostramos el estado
+                        String colorEstado = "#64748b"; // Gris por defecto
+                        String icono = "?";
+
+                        if(miPostulacion.getEstado() == Postulacion.Estado.APROBADA) {
+                            colorEstado = "#10b981"; // Verde
+                            icono = "?";
+                        } else if (miPostulacion.getEstado() == Postulacion.Estado.RECHAZADA) {
+                            colorEstado = "#ef4444"; // Rojo
+                            icono = "?";
+                        } else {
+                            colorEstado = "#f59e0b"; // Naranja (Pendiente)
+                        }
+                    %>
+                        <div style="padding: 10px 20px; background-color: #fff; border: 2px solid <%= colorEstado %>; border-radius: 30px; color: <%= colorEstado %>; font-weight: bold;">
+                            <%= icono %> Estado de Solicitud: <%= miPostulacion.getEstado() %>
+                        </div>
+
+                    <% } else if (gato.getDisponible() == modelo.Gato.RespuestaBinaria.SI) { %>
+                        <form action="${pageContext.request.contextPath}/SvPostularse" method="POST">
+                            <input type="hidden" name="idGato" value="<%= gato.getIdGato() %>">
+                            <input type="hidden" name="idFamilia" value="<%= usu.getIdUsuario() %>">
+                            <button type="submit" class="btn-primary" onclick="return confirm('¿Confirmar postulación?');">
+                                Adoptar
+                            </button>
+                        </form>
+                    <% } %>
+
                 <% } %>
             </div>
 

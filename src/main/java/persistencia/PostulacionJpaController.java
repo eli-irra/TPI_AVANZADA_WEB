@@ -133,4 +133,17 @@ public class PostulacionJpaController implements Serializable {
         }
     }
     
+    public List<Postulacion> findPostulacionesPorGato(long idGato) {
+        EntityManager em = getEntityManager();
+        try {
+            // Traemos postulaciones del gato que esten PENDIENTES
+            String jpql = "SELECT p FROM Postulacion p WHERE p.gatoRelacionado.idGato = :idGato AND p.estado = :estado";
+            Query q = em.createQuery(jpql);
+            q.setParameter("idGato", idGato);
+            q.setParameter("estado", modelo.Postulacion.Estado.PENDIENTE);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }

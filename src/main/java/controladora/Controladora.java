@@ -848,4 +848,62 @@ public List<Tarea> traerTodasLasTareas() throws OperacionException {
         return controlpersis.buscarFamilia(idFamilia);
     }
     
+    public List<Postulacion> listarPostulacionesPorGato(long idGato) {
+        return controlpersis.buscarPostulacionesPorGato(idGato);
+    }
+
+    public void aceptarPostulacion(long idPostulacion) throws OperacionException {
+        try {
+            // 1. Buscar la postulación que queremos aceptar
+            Postulacion postulacionAceptada = controlpersis.buscarPostulacion(idPostulacion);
+            if (postulacionAceptada == null) {
+                throw new OperacionException("La postulación no existe");
+            }
+
+            // 2. Cambiar estado a APROBADA y guardar
+            postulacionAceptada.setEstado(Postulacion.Estado.APROBADA);
+            controlpersis.modificarPostulacion(postulacionAceptada);
+
+            // 3. Obtener el ID del gato para buscar las otras postulaciones
+            long idGato = postulacionAceptada.getGatoRelacionado().getIdGato();
+
+            // Buscamos todas las postulaciones de este gato (se asume que este método trae las PENDIENTES)
+            List<Postulacion> postulacionesDelGato = this.listarPostulacionesPorGato(idGato);
+            
+            if (postulacionesDelGato != null) {
+                for (Postulacion p : postulacionesDelGato) {
+                    // Verificamos que no sea la misma que acabamos de aceptar
+                    if (p.getIdPostulacion() != idPostulacion) {
+                        p.setEstado(Postulacion.Estado.RECHAZADA);
+                        controlpersis.modificarPostulacion(p);
+                    }
+                }
+            }
+
+            // 4. Finalmente, asignar el gato a la familia (esto lo marca como NO disponible)
+            this.asignarGatoAFamilia(
+                idGato, 
+                postulacionAceptada.getFamiliaPostulante().getIdUsuario()
+            );
+
+        } catch (Exception e) {
+            throw new OperacionException("Error al aceptar la adopción: " + e.getMessage(), e);
+        }
+    }
+
+    public void rechazarPostulacion(long idPostulacion) throws OperacionException {
+        try {
+            Postulacion postulacion = controlpersis.buscarPostulacion(idPostulacion);
+            if(postulacion != null) {
+                postulacion.setEstado(Postulacion.Estado.RECHAZADA);
+                controlpersis.modificarPostulacion(postulacion);
+            }
+        } catch (Exception e) {
+            throw new OperacionException("Error al rechazar: " + e.getMessage(), e);
+        }
+    }
+    
+    public Postulacion verificarPostulacionFamilia(int idFamilia, long idGato) {
+        return controlpersis.buscarPostulacionPorFamiliaYGato(idFamilia, idGato);
+    }
 }
