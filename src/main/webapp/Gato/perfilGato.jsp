@@ -26,7 +26,7 @@ asi como visualizar el mapa, qr, etc. Y el voluntario va a poder presionar un bo
         <div class="perfil-grid">
             
             <div class="card">
-                <h3>? Datos Generales</h3>
+                <h3>Datos Generales</h3>
                 <ul class="lista-datos">
                     <li><strong>Raza:</strong> <%= gato.getRaza() %></li>
                     <li><strong>Sexo:</strong> <%= gato.getSexo() %></li>
@@ -37,29 +37,93 @@ asi como visualizar el mapa, qr, etc. Y el voluntario va a poder presionar un bo
                 </ul>
             </div>
 
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
             <div class="card">
-                <h3>? Ubicación y Estado</h3>
-                <p style="margin-bottom: 15px;">
+                <h3>Ubicación y Estado</h3>
+                <p>
                     <strong>Zona Actual:</strong> 
                     <%= (gato.getZona() != null) ? gato.getZona().getNombreZona() : "Sin asignar" %>
                 </p>
-                
-                <hr style="border: 0; border-top: 1px solid #eee; margin: 10px 0;">
-                
-                <% if(gato.getFamiliaAdoptante() != null) { %>
-                    <div style="background-color: #f0fff4; padding: 10px; border-radius: 5px; border: 1px solid #c3e6cb;">
-                        <h4 style="margin: 0 0 5px 0; color: #155724;">? ¡Tiene Familia!</h4>
-                        <p style="margin: 0;"><strong>Adoptante:</strong> <%= gato.getFamiliaAdoptante().getNombre() %></p>
-                        <p style="margin: 0;"><strong>Contacto:</strong> <%= (long)gato.getFamiliaAdoptante().getTelefono() %></p>
-                        <p style="margin: 0;"><strong>Dirección:</strong> <%= gato.getFamiliaAdoptante().getdireccion() %></p>
+
+                <% 
+                   // Validar que existan la zona y las coordenadas
+                   if (gato.getZona() != null && 
+                       gato.getZona().getUbicacionGPS() != null && 
+                       !gato.getZona().getUbicacionGPS().isEmpty()) { 
+
+                       String gps = gato.getZona().getUbicacionGPS(); 
+                %>
+                    <div id="mapaGato" style="height: 250px; width: 100%; border-radius: 8px; margin-top: 10px; z-index: 1;"></div>
+
+                    <script>
+                        // Obtenemos las coordenadas del String "lat, long"
+                        var gpsStr = "<%= gps %>";
+                        var partes = gpsStr.split(",");
+                        var lat = parseFloat(partes[0].trim());
+                        var lng = parseFloat(partes[1].trim());
+
+                        // Crear el mapa
+                        var map = L.map('mapaGato').setView([lat, lng], 16);
+
+                        // Capa de OpenStreetMap
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: '© OpenStreetMap'
+                        }).addTo(map);
+
+                        // Marcador en la posición de la zona
+                        L.marker([lat, lng]).addTo(map)
+                            .bindPopup("<b>Zona: <%= gato.getZona().getNombreZona() %></b><br>Aquí se encuentra <%= gato.getNombre() %>")
+                            .openPopup();
+                    </script>
+
+                    <div style="text-align: right; margin-top: 5px;">
+                        <a href="https://www.google.com/maps/search/?api=1&query=<%= gps %>" target="_blank" style="font-size: 0.85rem; color: var(--primary);">
+                            Abrir en Google Maps <i class="fas fa-external-link-alt"></i>
+                        </a>
                     </div>
+
                 <% } else { %>
-                    <p style="color: #6c757d; font-style: italic;">Este gato aún busca un hogar.</p>
+                    <p style="color: #64748b;"><i>No hay ubicación GPS registrada para esta zona.</i></p>
                 <% } %>
             </div>
+            
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-            <div class="card full-width">
-                <h3>? Características y Observaciones</h3>
+            <div class="card">
+                <h3>Código QR (Uso Interno)</h3>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <div id="qrcode"></div>
+                    <p style="font-size: 0.9rem; color: #64748b; text-align: center;">
+                        Escanea para acceder a este perfil.<br>
+                        (Requiere inicio de sesión)
+                    </p>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                // 1. Obtener el ID del gato actual desde la variable de scriptlet ya existente
+                var idGato = "<%= gato.getIdGato() %>";
+
+                // 2. Construir la URL absoluta al Servlet existente (SvVerPerfilGato)
+                // window.location.origin devuelve ej: http://localhost:8080
+                var baseUrl = window.location.origin + "${pageContext.request.contextPath}";
+                var urlDestino = baseUrl + "/SvVerPerfilGato?idVer=" + idGato;
+
+                // 3. Generar el código QR
+                var qrcode = new QRCode(document.getElementById("qrcode"), {
+                    text: urlDestino,
+                    width: 150,
+                    height: 150,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+            </script>
+
+            <div class="card">
+                <h3>Características y Observaciones</h3>
                 <p style="line-height: 1.6; color: #4a5568;">
                     <%= (gato.getCaracteristicas() != null && !gato.getCaracteristicas().isEmpty()) 
                         ? gato.getCaracteristicas() 
@@ -68,20 +132,26 @@ asi como visualizar el mapa, qr, etc. Y el voluntario va a poder presionar un bo
             </div>
             
             <div class="full-width" style="text-align: right; margin-top: 10px;">
-                <form action="${pageContext.request.contextPath}/SvModificarGato" method="GET" style="display:inline;">
-                    <input type="hidden" name="idEditar" value="<%= gato.getIdGato() %>">
-                    <button type="submit" class="btn-primary">Editar Datos</button>
-                </form>
+                <% if (usu.getRol().equals("VETERINARIO")) { %>
+                    <form action="${pageContext.request.contextPath}/SvHistoriaClinica" method="GET" style="display:inline;">
+                        <input type="hidden" name="idGato" value="<%= gato.getIdGato() %>">
+                        <button type="submit" class="btn-secondary" title="Ver Historia Clínica">
+                            <i class="fas fa-file-medical"></i> Historia C.
+                        </button>
+                    </form>
+                        <%--ACA VA LO DE CAMBIAR ESTADO DE SALUD TAMBIEN--%>
+                <% } %>
+                <% if (usu.getRol().equals("VOLUNTARIO")) { %>
+                    <form action="${pageContext.request.contextPath}/SvModificarGato" method="GET" style="display:inline;">
+                        <input type="hidden" name="idEditar" value="<%= gato.getIdGato() %>">
+                        <button type="submit" class="btn-primary">Editar Datos</button>
+                    </form>
+                    <%--ACA VA LO DE VER POSTULACIONES--%>
+                <% } %>
+                <% if (usu.getRol().equals("FAMILIA") && gato.getDisponible().equals("SI")) { %> 
+                    <%--ACA VA LO DE POSTULARSE--%>
+                <% } %>
             </div>
-            <td>
-                <form action="${pageContext.request.contextPath}/SvHistoriaClinica" method="GET" style="display:inline;">
-                    <input type="hidden" name="idGato" value="<%= gato.getIdGato() %>">
-                    <button type="submit" class="btn-secondary" title="Ver Historia Clínica" style="padding: 5px 10px;">
-                        <i class="fas fa-file-medical"></i> Historia C.
-                    </button>
-                </form>
-            </td>
-        </div>
 
     <% } else { %>
         <div style="text-align: center; padding: 50px;">

@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import modelo.RegistroException;
 
 @WebServlet(name = "SvAltaUsuario", urlPatterns = {"/SvAltaUsuario"})
 public class SvAltaUsuario extends HttpServlet {
@@ -21,10 +22,16 @@ public class SvAltaUsuario extends HttpServlet {
         String correo = request.getParameter("correo");
         String contrasenia = request.getParameter("contrasena");
         String rol = request.getParameter("rol");
+        String telefono = request.getParameter("telefono");
+        String direccion = request.getParameter("direccion");
+        String matricula = request.getParameter("matricula");
         
-        // 2. Llamar a la lógica
-        // NOTA: Ajusta los parámetros según tu método crearUsuario real
-        // control.crearUsuario(nombre, correo, contrasenia, rol, ...); 
+        try {
+            control.registrarUsuarioPorRol(nombre, correo, contrasenia,  telefono, direccion, matricula, rol);
+        } catch (RegistroException ex) {
+            System.getLogger(SvAltaUsuario.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        
         
         // 3. Redireccionar para actualizar la tabla
         response.sendRedirect("SvUsuarios"); 

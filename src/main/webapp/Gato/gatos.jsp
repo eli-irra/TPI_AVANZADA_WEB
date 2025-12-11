@@ -13,10 +13,12 @@ registrar a un gato--%>
             <button type="submit">Buscar</button>
             <a href="${pageContext.request.contextPath}/SvGatos" class="btn-secondary">Ver Todos</a>
         </form>
-        
-        <a href="${pageContext.request.contextPath}/SvAltaGato">
+        <% if (usu.getRol().equals("VOLUNTARIO")) { %>
+            <a href="${pageContext.request.contextPath}/SvAltaGato">
             <button class="btn-primary">+ Nuevo Gato</button>
-        </a>
+            </a>
+        <% } %>
+        
     </div>
 
     <table>
@@ -48,6 +50,7 @@ registrar a un gato--%>
                             <input type="hidden" name="idVer" value="<%= g.getIdGato() %>">
                             <button type="submit" class="btn-icon" title="Ver">?</button>
                         </form>
+                        <% if (usu.getRol().equals("VOLUNTARIO")) { %>
                         <form action="${pageContext.request.contextPath}/SvModificarGato" method="GET">
                             <input type="hidden" name="idEditar" value="<%= g.getIdGato() %>">
                             <button type="submit" class="btn-icon" title="Editar">?</button>
@@ -57,7 +60,7 @@ registrar a un gato--%>
                             <input type="hidden" name="idEliminar" value="<%= g.getIdGato() %>">
                             <button type="submit" class="btn-icon-danger" onclick="return confirm('¿Borrar gato?');" title="Eliminar">?</button>
                         </form>
-                        
+                        <% } %>
                         
                         </td>
                 </tr>
