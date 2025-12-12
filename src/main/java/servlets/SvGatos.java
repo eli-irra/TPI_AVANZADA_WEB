@@ -39,7 +39,7 @@ public class SvGatos extends HttpServlet {
             
         } catch (Exception e) {
             // Si falla, redirigir al menú principal o error
-            response.sendRedirect("menu.jsp");
+            response.sendRedirect("index.jsp");
         }
     }
 }
