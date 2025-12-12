@@ -148,7 +148,7 @@ asi como visualizar el mapa, qr, etc. Y el voluntario va a poder presionar un bo
                     </form>
 
                     <% if(gato.getDisponible() == modelo.Gato.RespuestaBinaria.SI) { %>
-                    <form action="${pageContext.request.contextPath}/SvGestionarAdopcion" method="GET">
+                    <form action="${pageContext.request.contextPath}/SvPostulaciones" method="GET">
                         <input type="hidden" name="idGato" value="<%= gato.getIdGato() %>">
                         <button type="submit" class="btn-primary" style="background-color: #8b5cf6;">Gestionar Adopción</button>
                     </form>
@@ -158,22 +158,17 @@ asi como visualizar el mapa, qr, etc. Y el voluntario va a poder presionar un bo
                 <% if (usu.getRol().equals("FAMILIA")) { %> 
 
                     <% if (miPostulacion != null) { 
-                        // Si YA existe postulación, mostramos el estado
                         String colorEstado = "#64748b"; // Gris por defecto
-                        String icono = "?";
-
                         if(miPostulacion.getEstado() == Postulacion.Estado.APROBADA) {
                             colorEstado = "#10b981"; // Verde
-                            icono = "?";
                         } else if (miPostulacion.getEstado() == Postulacion.Estado.RECHAZADA) {
                             colorEstado = "#ef4444"; // Rojo
-                            icono = "?";
                         } else {
                             colorEstado = "#f59e0b"; // Naranja (Pendiente)
                         }
                     %>
                         <div style="padding: 10px 20px; background-color: #fff; border: 2px solid <%= colorEstado %>; border-radius: 30px; color: <%= colorEstado %>; font-weight: bold;">
-                            <%= icono %> Estado de Solicitud: <%= miPostulacion.getEstado() %>
+                            Estado de Solicitud: <%= miPostulacion.getEstado() %>
                         </div>
 
                     <% } else if (gato.getDisponible() == modelo.Gato.RespuestaBinaria.SI) { %>

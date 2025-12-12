@@ -19,7 +19,7 @@
 
         <form action="SvLogin" method="POST">
             <label>Correo:</label>
-            <input type="text" name="correo" required placeholder="ejemplo@mail.com">
+            <input type="text" name="correo" required>
             
             <label>Contraseña:</label>
             <input type="password" name="contrasena" required>

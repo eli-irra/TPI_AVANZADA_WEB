@@ -20,11 +20,10 @@
     <h2>Registrar Nueva Zona</h2>
     <form action="${pageContext.request.contextPath}/SvAltaZona" method="POST">
         <label>Nombre de la Zona:</label>
-        <input type="text" name="nombreZona" required placeholder="Ej: Patio Trasero, Cuarentena...">
+        <input type="text" name="nombreZona" required >
         
         <label>Ubicación GPS (Selecciona en el mapa):</label>
-        <input type="text" name="ubicacionGPS" id="inputGPS" required 
-               placeholder="Haz clic en el mapa para obtener coordenadas" readonly>
+        <input type="text" name="ubicacionGPS" id="inputGPS" required readonly>
         
         <div id="mapaSeleccion"></div>
         

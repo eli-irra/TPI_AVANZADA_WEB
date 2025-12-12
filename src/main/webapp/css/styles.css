@@ -35,62 +35,108 @@ h1, h2, h3 { color: var(--text); font-weight: 700; margin-bottom: 1rem; }
 h1 { color: var(--primary); font-size: 1.8rem; }
 a { text-decoration: none; color: inherit; transition: 0.2s; }
 
-/* --- Barra de Navegación (Navbar) --- */
-.navbar {
+/* =========================================
+   NUEVA BARRA DE NAVEGACIÓN (HEADER)
+   ========================================= */
+.main-header {
     background-color: var(--surface);
     border-bottom: 1px solid var(--border);
-    padding: 0.8rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: var(--shadow);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    padding: 0;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
+    width: 100%;
 }
 
-.nav-brand { font-size: 1.1rem; color: var(--text-light); }
-.nav-brand strong { color: var(--primary); }
-
-.nav-links { display: flex; gap: 20px; align-items: center; }
-
-.nav-links a {
-    font-weight: 500;
-    color: var(--text-light);
-    font-size: 0.95rem;
+.container-nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; /* Izquierda: Usuario / Derecha: Menú */
+    align-items: center;
+    padding: 0.8rem 1.5rem;
+    flex-wrap: wrap;
 }
 
-.nav-links a:hover { color: var(--primary); }
+/* --- Info Usuario (Izquierda) --- */
+.user-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
 
-/* Botón Volver del Menú */
-.btn-volver {
-    background-color: #f1f5f9;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem !important;
+.user-info .welcome {
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.user-info .role-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- Menú (Derecha) --- */
+.nav-menu {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 20px;
 }
-.btn-volver:hover { background-color: #e2e8f0; }
 
-/* Botón Salir */
-.btn-logout {
-    background: none;
-    border: none;
-    color: var(--danger);
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 0.95rem;
+.nav-links {
+    display: flex;
+    gap: 15px;
 }
-.btn-logout:hover { text-decoration: underline; }
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+    background-color: #eff6ff; /* Azul muy suave */
+}
+
+/* --- Botón Cerrar Sesión --- */
+.logout-link {
+    margin-left: 0px;
+    padding: 8px 16px;
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logout-link:hover {
+    background-color: var(--danger);
+    color: white;
+}
+
+/* =========================================
+   FIN HEADER / ESTILOS GENERALES
+   ========================================= */
 
 /* --- Contenedores --- */
 .container {
     max-width: 1200px;
     width: 90%;
     margin: 2rem auto;
-    flex: 1; /* Empuja el footer hacia abajo */
+    flex: 1; 
 }
 
 /* --- Tarjetas (Cards) --- */

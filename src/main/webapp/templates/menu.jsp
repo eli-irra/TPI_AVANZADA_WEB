@@ -8,20 +8,52 @@
     }
 %>
 <%@include file="header.jsp" %>
-        <h1>Bienvenido, <%= usu.getNombre() %></h1>
-        <h3>Rol: <%= usu.getRol() %></h3>
-        <nav>
-            <% if (usu.getRol().equals("ADMINISTRADOR")) { %>
-            <a href="${pageContext.request.contextPath}/SvUsuarios">Gestionar Usuarios</a>
-            <a href="${pageContext.request.contextPath}/SvZonas">Gestionar Zonas</a>
-        <% } %>
+
+<header class="main-header">
+    <div class="container-nav">
         
-        <% if (usu.getRol().equals("VETERINARIO")) { %>
-            <a href="${pageContext.request.contextPath}/SvGatos">Gestionar Gatos</a>
-        <% } %>
-        
-        <% if (usu.getRol().equals("VOLUNTARIO")) { %>
-            <a href="${pageContext.request.contextPath}/SvGatos">Gestionar Gatos</a>
-        <% } %>
-        <a href="${pageContext.request.contextPath}/SvLogout" class="aLaDerecha">Cerrar Sesión</a>
+        <%-- PARTE 1: Información del Usuario (Izquierda) --%>
+        <div class="user-info">
+            <span class="welcome">Bienvenido, <strong><%= usu.getNombre() %></strong></span>
+            <span class="role-badge"><%= usu.getRol() %></span>
+        </div>
+
+        <%-- PARTE 2: Navegación y Logout (Derecha) --%>
+        <nav class="nav-menu">
+            
+            <div class="nav-links">
+                <%-- Enlaces para ADMINISTRADOR --%>
+                <% if (usu.getRol().equals("ADMINISTRADOR")) { %>
+                    <a href="${pageContext.request.contextPath}/SvUsuarios">Usuarios</a>
+                    <a href="${pageContext.request.contextPath}/SvZonas">Zonas</a>
+                    <a href="${pageContext.request.contextPath}/SvReportes">Reportes</a>
+                <% } %>
+            
+                <%-- Enlaces para VETERINARIO --%>
+                <% if (usu.getRol().equals("VETERINARIO")) { %>
+                    <a href="${pageContext.request.contextPath}/SvGatos">Gatos</a>
+                <% } %>
+                
+                <%-- Enlaces para VOLUNTARIO --%>
+                <% if (usu.getRol().equals("VOLUNTARIO")) { %>
+                    <a href="${pageContext.request.contextPath}/SvGatos">Gatos</a>
+                    <a href="${pageContext.request.contextPath}/SvTareas">Tareas</a>
+                    <a href="${pageContext.request.contextPath}/SvPostulaciones">Postulaciones</a>
+                <% } %>
+                
+                <%-- Enlaces para FAMILIA --%>
+                <% if (usu.getRol().equals("FAMILIA")) { %>
+                    <a href="${pageContext.request.contextPath}/SvGatos">Ver Gatos</a>
+                <% } %>
+            </div>
+
+            <%-- Botón Cerrar Sesión (Siempre a la derecha) --%>
+            <a href="${pageContext.request.contextPath}/SvLogout" class="logout-link">
+                <i class="fas fa-sign-out-alt"></i>Cerrar Sesión
+            </a>
+            
         </nav>
+    </div>
+</header>
+
+<div style="height: 20px;"></div>
