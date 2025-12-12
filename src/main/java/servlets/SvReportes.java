@@ -32,7 +32,7 @@ public class SvReportes extends HttpServlet {
             
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("menu.jsp");
+            response.sendRedirect("SvGatos");
         }
     }
 }

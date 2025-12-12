@@ -23,54 +23,63 @@ public class Reporte implements Serializable {
     @JoinColumn(name = "administrador_id")
     private Administrador administrador;
     
+    @ManyToOne
+    @JoinColumn(name = "zona_id")
+    private Zona zonaReportada;
+    
     public Reporte() { 
         this.fechaReporte = LocalDate.now(); 
     }
 
-    public Reporte(long idReporte, LocalDate fechaReporte, int cantidad, String descripcion) {
+    // Constructor actualizado
+    public Reporte(long idReporte, int cantidad, String descripcion, Zona zona) {
         this.idReporte = idReporte;
         this.fechaReporte = LocalDate.now();
         this.cantidad = cantidad;
         this.descripcion = descripcion;
+        this.zonaReportada = zona;
     }
 
-    public long getIdReporte() {
-        return idReporte;
+    // Getters y Setters
+    public long getIdReporte() { 
+        return idReporte; 
+    }
+    public void setIdReporte(long idReporte) { 
+        this.idReporte = idReporte; 
     }
 
-    public void setIdReporte(long idReporte) {
-        this.idReporte = idReporte;
+    public LocalDate getFechaReporte() { 
+        return fechaReporte; 
+    }
+    public void setFechaReporte(LocalDate fechaReporte) { 
+        this.fechaReporte = fechaReporte; 
     }
 
-    public LocalDate getFechaReporte() {
-        return fechaReporte;
+    public int getCantidad() { 
+        return cantidad; 
+    }
+    public void setCantidad(int cantidad) { 
+        this.cantidad = cantidad; 
     }
 
-    public void setFechaReporte(LocalDate fechaReporte) {
-        this.fechaReporte = fechaReporte;
+    public String getDescripcion() { 
+        return descripcion; 
     }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-    public Administrador getAdministrador() {
-        return administrador;
+    public void setDescripcion(String descripcion) { 
+        this.descripcion = descripcion; 
     }
     
-    public void setAdministrador(Administrador administrador) {
-        this.administrador = administrador;
+    public Administrador getAdministrador() { 
+        return administrador; 
     }
-    
+    public void setAdministrador(Administrador administrador) { 
+        this.administrador = administrador; 
+    }
+
+    public Zona getZonaReportada() { 
+        return zonaReportada; 
+    }
+    public void setZonaReportada(Zona zonaReportada) { 
+        this.zonaReportada = zonaReportada; 
+    }
 }

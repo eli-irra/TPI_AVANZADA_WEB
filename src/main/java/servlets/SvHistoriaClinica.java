@@ -19,25 +19,64 @@ public class SvHistoriaClinica extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String accion = request.getParameter("accion");
+        HttpSession session = request.getSession();
+
         try {
-            // 1. Obtener el ID del gato desde la URL
-            int idGato = Integer.parseInt(request.getParameter("idGato"));
-            
-            // 2. Buscar el gato completo (que incluye su Historia Clínica por la relación 1:1)
-            Gato gato = control.buscarGatoCompleto(idGato);
-            HistoriaClinica historia = gato.getHistoriaClinica();
-            
-            // 3. Guardar en sesión para usarlo en el JSP
-            HttpSession session = request.getSession();
-            session.setAttribute("gatoActual", gato);
-            session.setAttribute("historiaClinica", historia);
-            
-            // 4. Redirigir a la vista de la Historia Clínica
-            response.sendRedirect("HistoriaClinica/verHistoriaClinica.jsp");
+            if ("verDetalle".equals(accion)) {
+                // --- CASO 2: Ver el detalle de una Historia específica ---
+                long idHistoria = Long.parseLong(request.getParameter("idHistoria"));
+                
+                // Buscamos la historia y la guardamos en sesión para verHistoriaClinica.jsp
+                HistoriaClinica hc = control.buscarHistoriaClinica(idHistoria);
+                session.setAttribute("historiaClinica", hc);
+                
+                // Redirigimos al detalle (Estudios y Tratamientos)
+                response.sendRedirect("HistoriaClinica/verHistoriaClinica.jsp");
+                
+            } else {
+                // --- CASO 1: Listar Historias (Desde el Perfil del Gato) ---
+                long idGato = Long.parseLong(request.getParameter("idGato"));
+                
+                // Buscamos el gato completo
+                Gato gato = control.buscarGatoCompleto(idGato);
+                
+                // Guardamos el gato en sesión
+                session.setAttribute("gatoActual", gato);
+                
+                // Redirigimos a la nueva tabla de historias
+                response.sendRedirect("HistoriaClinica/historiasClinicas.jsp");
+            }
             
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("SvGatos"); // En caso de error, volver a la lista
+            response.sendRedirect("SvGatos");
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        String accion = request.getParameter("accion");
+        String idGatoStr = request.getParameter("idGato");
+        
+        try {
+            if ("eliminar".equals(accion)) {
+                long idHistoria = Long.parseLong(request.getParameter("idHistoria"));
+                
+                // Llamamos a la controladora para eliminar
+                // Nota: Asegúrate de tener este método en tu Controladora
+                // control.eliminarHistoriaClinica(idHistoria);
+                System.out.println("Solicitud de eliminación de Historia ID: " + idHistoria);
+                
+                // Volvemos a la lista
+                response.sendRedirect("SvHistoriaClinica?idGato=" + idGatoStr);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("SvGatos");
         }
     }
 }

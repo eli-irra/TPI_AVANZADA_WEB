@@ -430,7 +430,6 @@ public class Controladora {
         return controlpersis.buscarGatoPorNombre(nombreGato);
     }
 
-    // --- LÓGICA DE ZONAS ---
 
     public void registrarZona(String nombreZona, String ubicacionGPS) throws OperacionException {
         if (nombreZona.isEmpty() || ubicacionGPS.isEmpty()) {
@@ -538,21 +537,47 @@ public class Controladora {
         }
     }
     
+    public void registrarReporte(int cantidad, String descripcion, String idZonaStr, 
+                             String nuevaZonaNombre, String nuevaZonaGPS, 
+                             Administrador adminLogueado) throws OperacionException { // <--- Agregado aquí
     
-    public void registrarReporte(int cantidad, String descripcion) throws OperacionException {
-        
         if (cantidad <= 0 || descripcion.isEmpty()) {
-            throw new OperacionException("La cantidad debe ser positiva y la descripción del reporte es obligatoria.");
+            throw new OperacionException("La cantidad debe ser positiva y la descripción es obligatoria.");
         }
-        
+
         try {
+            Zona zonaAsignada = null;
+
+            if ("nueva".equals(idZonaStr) || "0".equals(idZonaStr)) {
+                if (nuevaZonaNombre == null || nuevaZonaNombre.isEmpty() || nuevaZonaGPS == null || nuevaZonaGPS.isEmpty()) {
+                    throw new OperacionException("Para crear una zona nueva, debe indicar nombre y coordenadas GPS.");
+                }
+                zonaAsignada = new Zona();
+                zonaAsignada.setNombreZona(nuevaZonaNombre);
+                zonaAsignada.setUbicacionGPS(nuevaZonaGPS);
+                controlpersis.crearZona(zonaAsignada);
+            } else {
+                int idZona = Integer.parseInt(idZonaStr);
+                zonaAsignada = controlpersis.buscarZona(idZona);
+                if (zonaAsignada == null) {
+                    throw new OperacionException("La zona seleccionada no existe.");
+                }
+            }
+
+            // Crear Reporte
             Reporte nuevoReporte = new Reporte();
             nuevoReporte.setCantidad(cantidad);
             nuevoReporte.setDescripcion(descripcion);
-            nuevoReporte.setFechaReporte(LocalDate.now()); 
-            // Nota: Si Reporte requiere Administrador, se debería pasar aquí el objeto Administrador logueado.
-            
+            nuevoReporte.setFechaReporte(java.time.LocalDate.now());
+            nuevoReporte.setZonaReportada(zonaAsignada);
+
+            // Asignar el administrador que recibimos por parámetro
+            nuevoReporte.setAdministrador(adminLogueado);
+
             controlpersis.crearReporte(nuevoReporte);
+
+        } catch (NumberFormatException e) {
+            throw new OperacionException("Error en el formato del ID de zona.", e);
         } catch (Exception e) {
             throw new OperacionException("Error al registrar el reporte: " + e.getMessage(), e);
         }
@@ -587,26 +612,48 @@ public class Controladora {
     /**
      * Modifica un Reporte existente.
      */
-    public void modificarReporte(long id, int cantidad, String descripcion) throws OperacionException {
-        if (cantidad <= 0 || descripcion.isEmpty()) {
-            throw new OperacionException("La cantidad debe ser positiva y la descripción es obligatoria.");
-        }
-        
-        try {
-            Reporte reporte = buscarReporte(id); // Reutiliza el método de búsqueda
-            
-            reporte.setCantidad(cantidad);
-            reporte.setDescripcion(descripcion);
-            // La fecha no se modifica para mantener la fecha original del reporte.
-            
-            controlpersis.modificarReporte(reporte);
-            
-        } catch (NonexistentEntityException ex) {
-            throw new OperacionException("El reporte que intenta modificar no existe.", ex);
-        } catch (Exception ex) {
-            throw new OperacionException("Error al modificar el reporte: " + ex.getMessage(), ex);
-        }
+    public void modificarReporte(long id, int cantidad, String descripcion, 
+                             String idZonaStr, String nuevaZonaNombre, String nuevaZonaGPS) throws OperacionException {
+    
+    if (cantidad <= 0 || descripcion.isEmpty()) {
+        throw new OperacionException("La cantidad debe ser positiva y la descripción es obligatoria.");
     }
+    
+    try {
+        Reporte reporte = buscarReporte(id);
+
+        Zona zonaAsignada = null;
+
+        if ("nueva".equals(idZonaStr) || "0".equals(idZonaStr)) {
+            // Crear nueva zona
+            if (nuevaZonaNombre == null || nuevaZonaNombre.isEmpty() || nuevaZonaGPS == null || nuevaZonaGPS.isEmpty()) {
+                throw new OperacionException("Para crear una zona nueva, debe indicar nombre y coordenadas GPS.");
+            }
+            zonaAsignada = new Zona();
+            zonaAsignada.setNombreZona(nuevaZonaNombre);
+            zonaAsignada.setUbicacionGPS(nuevaZonaGPS);
+            controlpersis.crearZona(zonaAsignada);
+        } else {
+            // Buscar zona existente
+            int idZona = Integer.parseInt(idZonaStr);
+            zonaAsignada = controlpersis.buscarZona(idZona);
+            if (zonaAsignada == null) {
+                throw new OperacionException("La zona seleccionada no existe.");
+            }
+        }
+
+        reporte.setCantidad(cantidad);
+        reporte.setDescripcion(descripcion);
+        reporte.setZonaReportada(zonaAsignada); // Actualizamos la zona
+        
+        controlpersis.modificarReporte(reporte);
+        
+    } catch (NumberFormatException ex) {
+        throw new OperacionException("Error en el formato de datos numéricos.", ex);
+    } catch (Exception ex) {
+        throw new OperacionException("Error al modificar el reporte: " + ex.getMessage(), ex);
+    }
+}
 
     /**
      * Elimina un Reporte por su ID.
