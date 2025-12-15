@@ -18,28 +18,33 @@ public class SvGatos extends HttpServlet {
     Controladora control = new Controladora();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            // 1. Obtener lista completa
-            List<Gato> listaGatos = control.traerTodosLosGatos();
-            
-            // 2. Filtrado (Opcional, si usas el buscador del JSP)
-            String bNombre = request.getParameter("busquedaNombre");
-            if (listaGatos != null && bNombre != null && !bNombre.isEmpty()) {
-                listaGatos = listaGatos.stream()
-                    .filter(g -> g.getNombre().toLowerCase().contains(bNombre.toLowerCase()))
-                    .collect(Collectors.toList());
-            }
-            
-            // 3. Guardar en sesión y redirigir a la carpeta Gato
-            HttpSession session = request.getSession();
-            session.setAttribute("listaGatos", listaGatos);
-            response.sendRedirect("Gato/gatos.jsp");
-            
-        } catch (Exception e) {
-            // Si falla, redirigir al menú principal o error
-            response.sendRedirect("index.jsp");
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    
+    // Lista vacía por defecto para que no falle el JSP
+    List<Gato> listaGatos = new java.util.ArrayList<>(); 
+    
+    try {
+        // Intentamos traer los gatos
+        listaGatos = control.traerTodosLosGatos();
+        
+        // Filtro de búsqueda (tu código original)
+        String bNombre = request.getParameter("busquedaNombre");
+        if (listaGatos != null && bNombre != null && !bNombre.isEmpty()) {
+            listaGatos = listaGatos.stream()
+                .filter(g -> g.getNombre().toLowerCase().contains(bNombre.toLowerCase()))
+                .collect(Collectors.toList());
         }
+        
+    } catch (Exception e) {
+        // SI FALLA (porque no hay gatos), NO HACEMOS NADA MALO.
+        // Solo avisamos en consola y seguimos adelante con la lista vacía.
+        System.out.println("Advertencia: " + e.getMessage());
     }
+
+    // --- ESTO AHORA SE EJECUTA SIEMPRE, HAYA GATOS O NO ---
+    HttpSession session = request.getSession();
+    session.setAttribute("listaGatos", listaGatos);
+    response.sendRedirect("Gato/gatos.jsp");
+}
 }

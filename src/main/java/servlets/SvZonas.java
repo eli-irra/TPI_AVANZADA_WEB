@@ -18,16 +18,26 @@ public class SvZonas extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        // 1. Creamos una lista vacía por defecto
+        List<Zona> listaZonas = new java.util.ArrayList<>();
+        
         try {
-            List<Zona> listaZonas = control.traerTodasLasZonas();
-            HttpSession session = request.getSession();
-            session.setAttribute("listaZonas", listaZonas);
+            // 2. Intentamos llenar la lista desde la base de datos
+            listaZonas = control.traerTodasLasZonas();
             
-            // Redirigir a la carpeta Zona
-            response.sendRedirect("Zona/zonas.jsp");
         } catch (Exception e) {
-            // Si no hay zonas o falla, mandamos una lista vacía para que no rompa el JSP
-            response.sendRedirect("menu.jsp");
+            // 3. Si falla (porque no hay zonas), NO hacemos nada malo.
+            // Solo avisamos en la consola para que tú lo sepas.
+            System.out.println("Aviso: No se encontraron zonas o hubo un error: " + e.getMessage());
+            // La lista se queda vacía (new ArrayList), pero el programa sigue.
         }
+        
+        // 4. Guardamos la lista (llena o vacía) en la sesión
+        HttpSession session = request.getSession();
+        session.setAttribute("listaZonas", listaZonas);
+        
+        // 5. SIEMPRE redirigimos al JSP de zonas, nunca al menú
+        response.sendRedirect("Zona/zonas.jsp");
     }
 }
