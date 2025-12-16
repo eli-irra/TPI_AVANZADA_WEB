@@ -1,7 +1,5 @@
-<%-- AcÃ¡ se muestra el formulario para aÃ±adir una tarea relacionada a un gato a una zona. Solamente el Voluntario puede acceder. --%>
+<%-- Acá se muestra el formulario para añadir una tarea relacionada a un gato a una zona. Solamente el Voluntario puede acceder. --%>
 <%@page import="modelo.Gato, modelo.Zona, modelo.Voluntario, modelo.Tarea.TipoTarea, java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% request.setAttribute("linkVolver", "SvTareas"); %>
 <%@include file="../templates/menu.jsp" %>
 
 <div class="form-container">
@@ -19,7 +17,7 @@
                 </select>
             </div>
             <div style="flex:1;">
-                <label>Fecha LÃ­mite:</label>
+                <label>Fecha Límite:</label>
                 <input type="date" name="fecha" required>
             </div>
         </div>
@@ -70,10 +68,10 @@
             <% }} %>
         </select>
         
-        <label>UbicaciÃ³n (Detalle):</label>
+        <label>Ubicación (Detalle):</label>
         <input type="text" name="ubicacion" placeholder="Ej: Jaula 4, Pasillo Norte...">
 
-        <label>DescripciÃ³n:</label>
+        <label>Descripción:</label>
         <textarea name="descripcion" rows="3" required></textarea>
 
         <br><br>

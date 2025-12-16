@@ -1,11 +1,9 @@
-<%-- Ac√° se encuentra el listado de tareas asociadas a un gato o zona, solamente el Voluntario puede acceder a esta pagina.--%>
+<%-- Ac· se encuentra el listado de tareas asociadas a un gato o zona, solamente el Voluntario puede acceder a esta pagina.--%>
 <%@page import="modelo.Tarea, java.util.List, java.text.SimpleDateFormat"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% request.setAttribute("linkVolver", "menu.jsp"); %>
 <%@include file="../templates/menu.jsp" %>
 
 <div class="container">
-    <h1>Gesti√≥n de Tareas</h1>
+    <h1>GestiÛn de Tareas</h1>
     
     <div class="filtros-container justify-end">
         <a href="${pageContext.request.contextPath}/SvAltaTarea">
@@ -19,7 +17,7 @@
                 <th>Fecha</th>
                 <th>Tipo</th>
                 <th>Objetivo</th> <th>Voluntario</th>
-                <th>Descripci√≥n</th>
+                <th>DescripciÛn</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -30,16 +28,16 @@
         
         if (lista != null && !lista.isEmpty()) {
             for (Tarea t : lista) {
-                // L√≥gica de visualizaci√≥n: Gato o Zona
+                // LÛgica de visualizaciÛn: Gato o Zona
                 String objetivo = "-";
                 String icono = "";
                 
                 if (t.getGatoAsignado() != null) {
                     objetivo = "Gato: " + t.getGatoAsignado().getNombre();
-                    icono = "üê±";
+                    icono = "?";
                 } else if (t.getZonaAsignada() != null) {
                     objetivo = "Zona: " + t.getZonaAsignada().getNombreZona();
-                    icono = "üìç";
+                    icono = "?";
                 }
                 
                 String nombreVol = (t.getVoluntarioQueRealiza() != null) ? t.getVoluntarioQueRealiza().getNombre() : "-";
@@ -68,7 +66,7 @@
 
                 <form action="${pageContext.request.contextPath}/SvEliminarTarea" method="POST">
                     <input type="hidden" name="idEliminar" value="<%= t.getIdTarea() %>">
-                    <button type="submit" class="btn-icon-danger" onclick="return confirm('¬øEliminar tarea?');" title="Borrar">
+                    <button type="submit" class="btn-icon-danger" onclick="return confirm('øEliminar tarea?');" title="Borrar">
                         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
                     </button>
                 </form>

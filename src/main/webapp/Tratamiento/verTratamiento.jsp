@@ -1,9 +1,7 @@
 <%@page import="modelo.Tratamiento"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String idGato = (String) session.getAttribute("idGatoVolver");
     Tratamiento t = (Tratamiento) session.getAttribute("tratamientoDetalle");
-    request.setAttribute("linkVolver", "SvVerPerfilGato?idGato=" + idGato);
 %>
 <%@include file="../templates/menu.jsp" %>
 
@@ -13,12 +11,12 @@
         <hr>
         
         <div style="margin: 20px 0;">
-            <h3 style="color: #64748b;">DiagnÃ³stico:</h3>
+            <h3 style="color: #64748b;">Diagnóstico:</h3>
             <p style="font-size: 1.2rem; font-weight: bold;"><%= t.getDiagostico() %></p>
         </div>
         
         <div style="margin: 20px 0;">
-            <h3 style="color: #64748b;">Procedimiento / MedicaciÃ³n:</h3>
+            <h3 style="color: #64748b;">Procedimiento / Medicación:</h3>
             <p style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; white-space: pre-wrap;"><%= t.getTratamiento() %></p>
         </div>
         
@@ -31,7 +29,7 @@
             <form action="${pageContext.request.contextPath}/SvEliminarTratamiento" method="POST">
                 <input type="hidden" name="idEliminar" value="<%= t.getidTratamiento() %>">
                 <input type="hidden" name="idGato" value="<%= idGato %>">
-                <button type="submit" class="btn-icon-danger" onclick="return confirm('Â¿Eliminar?');">Borrar</button>
+                <button type="submit" class="btn-icon-danger" onclick="return confirm('¿Eliminar?');">Borrar</button>
             </form>
         </div>
     </div>

@@ -1,6 +1,4 @@
 <%@page import="modelo.FamiliaAdoptante, modelo.Voluntario, java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% request.setAttribute("linkVolver", "SvVisitas"); %>
 <%@include file="../templates/menu.jsp" %>
 
 <div class="form-container">
@@ -38,7 +36,7 @@
             <% }} %>
         </select>
         
-        <label>Notas / DescripciÃ³n:</label>
+        <label>Notas / Descripción:</label>
         <textarea name="descripcion" rows="3" required></textarea>
         
         <div style="margin-top: 10px;">

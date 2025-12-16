@@ -1,5 +1,3 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% request.setAttribute("linkVolver", "SvZonas"); %>
 <%@include file="../templates/menu.jsp" %>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -12,7 +10,7 @@
         margin-bottom: 15px;
         border: 2px solid #e2e8f0;
         border-radius: 8px;
-        cursor: crosshair; /* Cursor tipo mira para indicar selecciÃ³n */
+        cursor: crosshair; /* Cursor tipo mira para indicar selección */
     }
 </style>
 
@@ -22,7 +20,7 @@
         <label>Nombre de la Zona:</label>
         <input type="text" name="nombreZona" required >
         
-        <label>UbicaciÃ³n GPS (Selecciona en el mapa):</label>
+        <label>Ubicación GPS (Selecciona en el mapa):</label>
         <input type="text" name="ubicacionGPS" id="inputGPS" required readonly>
         
         <div id="mapaSeleccion"></div>
@@ -34,7 +32,7 @@
 
 <script>
     // Coordenadas iniciales (Ej: Posadas, Misiones, o Buenos Aires)
-    // Puedes ajustar esto a la ubicaciÃ³n predeterminada de tu refugio
+    // Puedes ajustar esto a la ubicación predeterminada de tu refugio
     var latitudInicial = -27.3671; 
     var longitudInicial = -55.8961;
     var zoomInicial = 13;
@@ -68,8 +66,8 @@
             marcadorActual = L.marker(e.latlng).addTo(map);
         }
         
-        // (Opcional) Agregar un popup indicando que se seleccionÃ³
-        marcadorActual.bindPopup("UbicaciÃ³n seleccionada: " + coordsString).openPopup();
+        // (Opcional) Agregar un popup indicando que se seleccionó
+        marcadorActual.bindPopup("Ubicación seleccionada: " + coordsString).openPopup();
     });
 </script>
 

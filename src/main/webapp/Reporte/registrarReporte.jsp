@@ -1,6 +1,4 @@
 <%@page import="modelo.Zona, java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% request.setAttribute("linkVolver", "SvReportes"); %>
 <%@include file="../templates/menu.jsp" %>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -29,21 +27,21 @@
             <option value="nueva" style="font-weight: bold; color: var(--primary);">+ Registrar Nueva Zona</option>
         </select>
 
-        <%-- SECCIÃ“N PARA NUEVA ZONA (Oculta por defecto) --%>
+        <%-- SECCIÓN PARA NUEVA ZONA (Oculta por defecto) --%>
         <div id="divNuevaZona" style="display: none; background: #f0f9ff; padding: 15px; border: 1px dashed #0ea5e9; border-radius: 8px; margin-bottom: 15px;">
             <h4 style="margin-top:0; color: #0284c7;">Datos de la Nueva Zona</h4>
             
             <label>Nombre de la Zona:</label>
-            <input type="text" name="nuevaZonaNombre" id="inputNombreZona" placeholder="Ej: Parque Central, BaldÃ­o Calle 5...">
+            <input type="text" name="nuevaZonaNombre" id="inputNombreZona" placeholder="Ej: Parque Central, Baldío Calle 5...">
             
-            <label>UbicaciÃ³n GPS (Seleccione en el mapa):</label>
+            <label>Ubicación GPS (Seleccione en el mapa):</label>
             <input type="text" name="nuevaZonaGPS" id="inputGPS" readonly placeholder="Haga clic en el mapa" style="background-color: #fff;">
             
             <div id="mapaSeleccion" style="height: 250px; width: 100%; border-radius: 8px; margin-top: 10px; cursor: crosshair;"></div>
-            <small style="color: gray;">Haga clic en el mapa para marcar la ubicaciÃ³n exacta.</small>
+            <small style="color: gray;">Haga clic en el mapa para marcar la ubicación exacta.</small>
         </div>
 
-        <label>DescripciÃ³n / Observaciones:</label>
+        <label>Descripción / Observaciones:</label>
         <textarea name="descripcion" rows="4" required placeholder="Detalles del avistamiento, estado de los gatos, etc..."></textarea>
         
         <br><br>
@@ -69,7 +67,7 @@
             
             // Inicializar mapa solo si no se ha hecho antes (para evitar errores de renderizado)
             if (!mapInitialized) {
-                setTimeout(iniciarMapa, 100); // PequeÃ±o delay para asegurar que el div es visible
+                setTimeout(iniciarMapa, 100); // Pequeño delay para asegurar que el div es visible
                 mapInitialized = true;
             }
         } else {

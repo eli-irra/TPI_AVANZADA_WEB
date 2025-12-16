@@ -76,5 +76,4 @@ registrar a un gato--%>
         </tbody>
     </table>
 </div>
-
 <%@include file="../templates/footer.jsp" %>

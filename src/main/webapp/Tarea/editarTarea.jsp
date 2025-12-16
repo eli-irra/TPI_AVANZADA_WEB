@@ -1,8 +1,6 @@
-<%-- AcÃ¡ se muestra el formulario para editar una tarea existente relacionada a un gato a una zona. Solamente el Voluntario puede acceder. --%>
+<%-- Acá se muestra el formulario para editar una tarea existente relacionada a un gato a una zona. Solamente el Voluntario puede acceder. --%>
 <%@page import="modelo.Gato, modelo.Voluntario, modelo.Tarea, modelo.Tarea.TipoTarea, java.util.List, java.text.SimpleDateFormat"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% 
-    request.setAttribute("linkVolver", "SvTareas"); 
     Tarea t = (Tarea) session.getAttribute("tareaEditar");
     List<Gato> gatos = (List<Gato>) session.getAttribute("listaGatos");
     List<Voluntario> vols = (List<Voluntario>) session.getAttribute("listaVoluntarios");
@@ -53,15 +51,15 @@
             <% }} %>
         </select>
         
-        <label>UbicaciÃ³n:</label>
+        <label>Ubicación:</label>
         <input type="text" name="ubicacion" value="<%= t.getUbicacion() %>" required>
 
-        <label>DescripciÃ³n:</label>
+        <label>Descripción:</label>
         <textarea name="descripcion" rows="3" required><%= t.getDescripcion() %></textarea>
 
         <br><br>
         <button type="submit" class="btn-primary">Guardar Cambios</button>
     </form>
-    <% } else { %><p>No se encontrÃ³ la tarea.</p><% } %>
+    <% } else { %><p>No se encontró la tarea.</p><% } %>
 </div>
 <%@include file="../templates/footer.jsp" %>

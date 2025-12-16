@@ -1,9 +1,7 @@
 <%@page import="modelo.Tratamiento"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String idGato = (String) session.getAttribute("idGatoVolver");
     Tratamiento t = (Tratamiento) session.getAttribute("tratamientoEditar");
-    request.setAttribute("linkVolver", "SvVerTratamiento?idTratamiento=" + t.getidTratamiento() + "&idGato=" + idGato);
 %>
 <%@include file="../templates/menu.jsp" %>
 
@@ -13,10 +11,10 @@
         <input type="hidden" name="idTratamiento" value="<%= t.getidTratamiento() %>">
         <input type="hidden" name="idGato" value="<%= idGato %>">
         
-        <label>DiagnÃ³stico:</label>
+        <label>Diagnóstico:</label>
         <input type="text" name="diagnostico" value="<%= t.getDiagostico() %>" required>
         
-        <label>Tratamiento / MedicaciÃ³n:</label>
+        <label>Tratamiento / Medicación:</label>
         <textarea name="descripcion" rows="5" required><%= t.getTratamiento() %></textarea>
         
         <br><br>

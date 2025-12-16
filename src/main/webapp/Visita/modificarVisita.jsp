@@ -1,10 +1,6 @@
 <%@page import="modelo.Visita, modelo.FamiliaAdoptante, modelo.Voluntario, java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <% 
-    request.setAttribute("linkVolver", "SvVisitas"); 
-    
-    // Recuperamos los objetos que el Servlet puso en sesiÃ³n
+    // Recuperamos los objetos que el Servlet puso en sesión
     Visita v = (Visita) session.getAttribute("visitaEditar");
     List<FamiliaAdoptante> familias = (List<FamiliaAdoptante>) session.getAttribute("listaFamilias");
     List<Voluntario> voluntarios = (List<Voluntario>) session.getAttribute("listaVoluntarios");
@@ -57,7 +53,7 @@
             <% }} %>
         </select>
         
-        <label>Notas / DescripciÃ³n:</label>
+        <label>Notas / Descripción:</label>
         <textarea name="descripcion" rows="3" required><%= v.getDescripcion() %></textarea>
         
         <div style="margin-top: 15px; padding: 10px; background-color: #f8fafc; border-radius: 5px; border: 1px solid #e2e8f0;">

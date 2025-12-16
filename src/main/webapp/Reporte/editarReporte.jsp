@@ -1,8 +1,5 @@
 <%@page import="modelo.Reporte, modelo.Zona, java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <% 
-    request.setAttribute("linkVolver", "SvReportes"); 
     Reporte rep = (Reporte) session.getAttribute("reporteEditar");
 %>
 
@@ -18,7 +15,7 @@
     <form action="${pageContext.request.contextPath}/SvModificarReporte" method="POST">
         <input type="hidden" name="idReporte" value="<%= rep.getIdReporte() %>">
         
-        <label>Fecha de CreaciÃ³n:</label>
+        <label>Fecha de Creación:</label>
         <input type="text" value="<%= rep.getFechaReporte() %>" disabled style="background-color: #f0f0f0;">
         
         <label>Cantidad:</label>
@@ -48,13 +45,13 @@
             <label>Nombre de la Zona:</label>
             <input type="text" name="nuevaZonaNombre" id="inputNombreZona">
             
-            <label>UbicaciÃ³n GPS:</label>
+            <label>Ubicación GPS:</label>
             <input type="text" name="nuevaZonaGPS" id="inputGPS" readonly placeholder="Haga clic en el mapa" style="background-color: #fff;">
             
             <div id="mapaSeleccion" style="height: 250px; width: 100%; border-radius: 8px; margin-top: 10px; cursor: crosshair;"></div>
         </div>
         
-        <label>DescripciÃ³n:</label>
+        <label>Descripción:</label>
         <textarea name="descripcion" rows="5" required><%= rep.getDescripcion() %></textarea>
         
         <br><br>

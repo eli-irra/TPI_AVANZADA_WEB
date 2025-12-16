@@ -1,9 +1,5 @@
-<%-- Ac√° se muestra el detalle (datos) de una tarea relacionada a un gato a una zona. Solamente el Voluntario puede acceder. --%>
+<%-- Ac· se muestra el detalle (datos) de una tarea relacionada a un gato a una zona. Solamente el Voluntario puede acceder. --%>
 <%@page import="modelo.Tarea, java.text.SimpleDateFormat"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<% request.setAttribute("linkVolver", "SvTareas"); %>
-
 <%@include file="../templates/menu.jsp" %>
 
 <%
@@ -13,19 +9,19 @@
 
 <div class="container">
     <% if (t != null) { 
-        // L√≥gica de visualizaci√≥n del objetivo
+        // LÛgica de visualizaciÛn del objetivo
         String objetivo = "Sin asignar";
         String icono = "";
         String linkObjetivo = "#";
         
         if (t.getGatoAsignado() != null) {
             objetivo = "Gato: " + t.getGatoAsignado().getNombre();
-            icono = "üê±";
-            // Opci√≥n extra: Link al perfil del gato
+            icono = "?";
+            // OpciÛn extra: Link al perfil del gato
             linkObjetivo = request.getContextPath() + "/SvVerPerfilGato?idGato=" + t.getGatoAsignado().getIdGato();
         } else if (t.getZonaAsignada() != null) {
             objetivo = "Zona: " + t.getZonaAsignada().getNombreZona();
-            icono = "üìç";
+            icono = "?";
         }
     %>
         
@@ -33,7 +29,7 @@
             <div style="border-bottom: 1px solid #eee; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center;">
                 <h1 style="color: var(--primary-color); margin: 0;"><%= t.getTipoTarea() %></h1>
                 <span style="background: #e2e8f0; padding: 5px 10px; border-radius: 5px; font-weight: bold; color: #475569;">
-                    üìÖ <%= sdf.format(t.getFecha()) %>
+                    ? <%= sdf.format(t.getFecha()) %>
                 </span>
             </div>
 
@@ -63,13 +59,13 @@
             
             <% if(t.getUbicacion() != null && !t.getUbicacion().isEmpty()) { %>
             <div style="margin-bottom: 20px;">
-                <strong style="color: #64748b;">Ubicaci√≥n Espec√≠fica:</strong>
+                <strong style="color: #64748b;">UbicaciÛn EspecÌfica:</strong>
                 <span style="margin-left: 10px;"><%= t.getUbicacion() %></span>
             </div>
             <% } %>
 
             <div style="margin-bottom: 30px;">
-                <h3 style="color: #334155; margin-bottom: 10px;">Descripci√≥n de la Tarea</h3>
+                <h3 style="color: #334155; margin-bottom: 10px;">DescripciÛn de la Tarea</h3>
                 <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 8px; line-height: 1.6; color: #334155; white-space: pre-wrap;">
 <%= t.getDescripcion() %></div>
             </div>
@@ -82,15 +78,15 @@
                 
                 <form action="${pageContext.request.contextPath}/SvEliminarTarea" method="POST">
                     <input type="hidden" name="idEliminar" value="<%= t.getIdTarea() %>">
-                    <button type="submit" class="btn-icon-danger" onclick="return confirm('¬øSeguro que deseas eliminar esta tarea?');">Eliminar</button>
+                    <button type="submit" class="btn-icon-danger" onclick="return confirm('øSeguro que deseas eliminar esta tarea?');">Eliminar</button>
                 </form>
             </div>
         </div>
 
     <% } else { %>
         <div style="text-align: center; padding: 50px;">
-            <h2>‚ö†Ô∏è Error</h2>
-            <p>No se pudo cargar la informaci√≥n de la tarea.</p>
+            <h2>?? Error</h2>
+            <p>No se pudo cargar la informaciÛn de la tarea.</p>
             <a href="${pageContext.request.contextPath}/SvTareas" class="btn-primary">Volver al listado</a>
         </div>
     <% } %>

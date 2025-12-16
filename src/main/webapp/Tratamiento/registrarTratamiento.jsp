@@ -1,8 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String idGato = (String) session.getAttribute("idGatoActual");
     String idHistoria = (String) session.getAttribute("idHistoriaActual");
-    request.setAttribute("linkVolver", "SvVerPerfilGato?idGato=" + idGato);
 %>
 <%@include file="../templates/menu.jsp" %>
 
@@ -12,11 +10,11 @@
         <input type="hidden" name="idHistoria" value="<%= idHistoria %>">
         <input type="hidden" name="idGato" value="<%= idGato %>">
         
-        <label>DiagnÃ³stico:</label>
+        <label>Diagnóstico:</label>
         <input type="text" name="diagnostico" required placeholder="Ej: Gripe Felina, Otitis...">
         
-        <label>Tratamiento / MedicaciÃ³n:</label>
-        <textarea name="descripcion" rows="5" required placeholder="Detalle del procedimiento o medicaciÃ³n..."></textarea>
+        <label>Tratamiento / Medicación:</label>
+        <textarea name="descripcion" rows="5" required placeholder="Detalle del procedimiento o medicación..."></textarea>
         
         <br><br>
         <button type="submit" class="btn-primary">Guardar Tratamiento</button>

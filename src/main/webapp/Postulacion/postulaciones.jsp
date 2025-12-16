@@ -1,14 +1,12 @@
 <%@page import="modelo.Postulacion, modelo.Gato, modelo.FamiliaAdoptante, java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% request.setAttribute("linkVolver", "menu.jsp"); %>
 <%@include file="../templates/menu.jsp" %>
 
 <div class="container">
-    <h1>GestiÃ³n de Postulaciones</h1>
-    <%-- SECCIÃ“N 2: FORMULARIO MANUAL (En caso de que ninguna familia sirva o no haya postulaciones) --%>
+    <h1>Gestión de Postulaciones</h1>
+    <%-- SECCIÓN 2: FORMULARIO MANUAL (En caso de que ninguna familia sirva o no haya postulaciones) --%>
     <div class="form-container" style="background-color: #f8fafc; border: 2px dashed #cbd5e1;">
-        <h3 style="color: var(--secondary);">Registrar PostulaciÃ³n Manual</h3>
-        <p style="font-size: 0.9rem; color: #64748b;">Use este formulario si la familia no se registrÃ³ por sÃ­ misma o desea forzar una solicitud.</p>
+        <h3 style="color: var(--secondary);">Registrar Postulación Manual</h3>
+        <p style="font-size: 0.9rem; color: #64748b;">Use este formulario si la familia no se registró por sí misma o desea forzar una solicitud.</p>
         
         <form action="${pageContext.request.contextPath}/SvPostulaciones" method="POST">
             <input type="hidden" name="accion" value="registroManual">
@@ -42,7 +40,7 @@
             <button type="submit" class="btn-primary">Crear Solicitud</button>
         </form>
     </div>
-    <%-- SECCIÃ“N 1: TABLA DE POSTULACIONES EXISTENTES --%>
+    <%-- SECCIÓN 1: TABLA DE POSTULACIONES EXISTENTES --%>
     <div class="card full-width">
         <h3>Solicitudes Recibidas</h3>
         <table>
@@ -81,18 +79,18 @@
                     <td>
                         <% if (p.getEstado() == Postulacion.Estado.PENDIENTE) { %>
                             <div style="display:flex; gap:5px;">
-                                <%-- BOTÃ“N APROBAR --%>
+                                <%-- BOTÓN APROBAR --%>
                                 <form action="${pageContext.request.contextPath}/SvPostulaciones" method="POST">
                                     <input type="hidden" name="accion" value="cambiarEstado">
                                     <input type="hidden" name="idPostulacion" value="<%= p.getIdPostulacion() %>">
                                     <input type="hidden" name="estado" value="APROBADA">
                                     <button type="submit" class="btn-icon" 
-                                            onclick="return confirm('Â¿Aprobar adopciÃ³n? Esto asignarÃ¡ el gato automÃ¡ticamente.');">
+                                            onclick="return confirm('¿Aprobar adopción? Esto asignará el gato automáticamente.');">
                                         Aprobar
                                     </button>
                                 </form>
                                 
-                                <%-- BOTÃ“N RECHAZAR --%>
+                                <%-- BOTÓN RECHAZAR --%>
                                 <form action="${pageContext.request.contextPath}/SvPostulaciones" method="POST">
                                     <input type="hidden" name="accion" value="cambiarEstado">
                                     <input type="hidden" name="idPostulacion" value="<%= p.getIdPostulacion() %>">
