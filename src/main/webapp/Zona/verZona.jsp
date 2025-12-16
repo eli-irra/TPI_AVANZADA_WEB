@@ -1,6 +1,4 @@
 <%@page import="modelo.Zona, modelo.Gato, java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% request.setAttribute("linkVolver", "SvZonas"); %>
 <%@include file="../templates/menu.jsp" %>
 
 <%
@@ -20,12 +18,12 @@
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div>
-                    <h3>Informaci√≥n</h3>
-                    <p><strong>Ubicaci√≥n GPS:</strong> <%= z.getUbicacionGPS() %></p>
+                    <h3>InformaciÛn</h3>
+                    <p><strong>UbicaciÛn GPS:</strong> <%= z.getUbicacionGPS() %></p>
                     
                     <h3 style="margin-top: 20px;">Gatos en esta Zona</h3>
                     <% 
-                       // Nota: Aseg√∫rate de que tu controladora traiga la lista de gatos al buscar la zona
+                       // Nota: Aseg˙rate de que tu controladora traiga la lista de gatos al buscar la zona
                        List<Gato> gatosEnZona = z.getGatosEnZona(); 
                        if(gatosEnZona != null && !gatosEnZona.isEmpty()) { 
                     %>
@@ -74,8 +72,8 @@
 
     <% } else { %>
         <div style="text-align: center; padding: 50px;">
-            <h2>‚ö†Ô∏è Error</h2>
-            <p>No se pudo cargar la informaci√≥n de la zona.</p>
+            <h2>Error</h2>
+            <p>No se pudo cargar la informaciÛn de la zona.</p>
             <a href="${pageContext.request.contextPath}/SvZonas" class="btn-primary">Volver al listado</a>
         </div>
     <% } %>

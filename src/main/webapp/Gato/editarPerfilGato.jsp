@@ -3,7 +3,6 @@ para modificar sus datos(menos el estado de salud) solamente el Voluntario. Si e
 el estado de salud del gato.--%>
 <%@page import="modelo.Gato, modelo.Zona, java.util.List"%>
 <% 
-    request.setAttribute("linkVolver", "SvGatos");
     Gato gato = (Gato) session.getAttribute("gatoEditar");
     List<Zona> zonas = (List<Zona>) session.getAttribute("listaZonas");
 %>

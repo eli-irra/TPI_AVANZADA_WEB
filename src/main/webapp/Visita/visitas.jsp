@@ -1,12 +1,10 @@
 <%@page import="modelo.Visita, java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% request.setAttribute("linkVolver", "menu.jsp"); %>
 <%@include file="../templates/menu.jsp" %>
 
 <div class="container">
-    <h1>Gestión de Visitas de Seguimiento</h1>
+    <h1>Gesti�n de Visitas de Seguimiento</h1>
     
-    <div class="filtros-container" style="justify-content: flex-end;">
+    <div class="filtros-container justify-end">
         <a href="${pageContext.request.contextPath}/SvAltaVisita">
             <button class="btn-primary">+ Registrar Visita</button>
         </a>
@@ -36,28 +34,34 @@
                     <td><%= nombreVol %></td>
                     <td>
                         <% if(v.isRealizada()) { %>
-                            <span style="color: green; font-weight: bold;">Realizada</span>
+                            <span class="text-success-bold">Realizada</span>
                         <% } else { %>
-                            <span style="color: orange; font-weight: bold;">Pendiente</span>
+                            <span class="text-warning-bold">Pendiente</span>
                         <% } %>
                     </td>
                     <td>
-                        <form action="${pageContext.request.contextPath}/SvVerVisita" method="GET" style="display:inline;">
+                        <form action="${pageContext.request.contextPath}/SvVerVisita" method="GET" class="form-inline">
                             <input type="hidden" name="idVisita" value="<%= v.getIdVisita() %>">
-                            <button type="submit" class="btn-icon">👁</button>
+                            <button type="submit" class="btn-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+                            </button>
                         </form>
-                        <form action="${pageContext.request.contextPath}/SvModificarVisita" method="GET" style="display:inline;">
+                        <form action="${pageContext.request.contextPath}/SvModificarVisita" method="GET" class="form-inline">
                             <input type="hidden" name="idEditar" value="<%= v.getIdVisita() %>">
-                            <button type="submit" class="btn-icon">✎</button>
+                                <button type="submit" class="btn-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" /><path d="M13.5 6.5l4 4" /></svg>
+                                </button>
                         </form>
-                        <form action="${pageContext.request.contextPath}/SvEliminarVisita" method="POST" style="display:inline;">
+                        <form action="${pageContext.request.contextPath}/SvEliminarVisita" method="POST" class="form-inline">
                             <input type="hidden" name="idEliminar" value="<%= v.getIdVisita() %>">
-                            <button type="submit" class="btn-icon-danger" onclick="return confirm('¿Borrar?');">🗑</button>
+                            <button type="submit" class="btn-icon-danger" onclick="return confirm('�Borrar?');">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                            </button>
                         </form>
                     </td>
                 </tr>
             <% }} else { %>
-                <tr><td colspan="5" style="text-align:center;">No hay visitas registradas.</td></tr>
+                <tr><td colspan="5" class="text-center">No hay visitas registradas.</td></tr>
             <% } %>
         </tbody>
     </table>

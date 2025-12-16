@@ -327,3 +327,99 @@ footer {
     text-align: center; 
     padding: 20px;
 }
+
+/* =========================================
+   PERFIL DE GATO (NUEVO)
+   ========================================= */
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.perfil-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* En móviles, una sola columna */
+@media (max-width: 768px) {
+    .perfil-grid { grid-template-columns: 1fr; }
+}
+
+.lista-datos { list-style: none; padding: 0; margin: 0; }
+.lista-datos li {
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+}
+.lista-datos li:last-child { border-bottom: none; }
+
+.map-container {
+    height: 250px; 
+    width: 100%; 
+    border-radius: var(--radius); 
+    margin-top: 10px; 
+    z-index: 1;
+}
+
+.qr-container {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 10px;
+}
+
+/* Contenedor de botones de acción (ocupa todo el ancho en grid) */
+.actions-container {
+    grid-column: 1 / -1; /* Ocupa las dos columnas */
+    text-align: right;
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Badges grandes (Disponible/Adoptado) */
+.badge-lg {
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    color: white;
+}
+.bg-success { background-color: var(--success); }
+.bg-danger { background-color: var(--danger); }
+.bg-violet { background-color: #8b5cf6; } /* Color especial para gestión */
+
+/* Estado de la postulación */
+.status-box {
+    padding: 10px 20px;
+    background-color: #fff;
+    border: 2px solid var(--secondary); /* Color por defecto */
+    border-radius: 30px;
+    color: var(--secondary);
+    font-weight: bold;
+}
+
+/* =========================================
+   UTILIDADES ADICIONALES
+   ========================================= */
+.flex-row-gap-10 { display: flex; gap: 10px; }
+.flex-1 { flex: 1; }
+.justify-end { justify-content: flex-end; }
+.form-inline { display: inline; }
+
+.text-success-bold { color: var(--success); font-weight: bold; }
+.text-warning-bold { color: var(--warning); font-weight: bold; }
+.text-secondary-sm { font-size: 0.9rem; color: var(--secondary); }
+.text-right { text-align: right; }
+.mt-1 { margin-top: 5px; }
+
+.link-primary-underline { color: var(--primary); text-decoration: underline; }
+.link-sm { font-size: 0.85rem; color: var(--primary); }
+
+.error-container { text-align: center; padding: 50px; }

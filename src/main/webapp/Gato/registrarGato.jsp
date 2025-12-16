@@ -9,8 +9,8 @@
         <label>Nombre:</label>
         <input type="text" name="nombre" required>
         
-        <div style="display:flex; gap:10px;">
-            <div style="flex:1;">
+        <div class="flex-row-gap-10">
+            <div class="flex-1">
                 <label>Raza:</label>
                 <input type="text" name="raza" required>
             </div>
@@ -38,7 +38,7 @@
         </select>
 
         <label>Características:</label>
-        <textarea name="caracteristicas" rows="3" style="width:100%;"></textarea>
+        <textarea name="caracteristicas" rows="3" class="w-100"></textarea>
         
         <br><br>
         <button type="submit" class="btn-primary">Guardar Gato</button>

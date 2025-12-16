@@ -109,7 +109,7 @@
                         }
                     } else { 
                 %>
-                <tr><td colspan="5" style="text-align:center;">No hay postulaciones registradas.</td></tr>
+                <tr><td colspan="5" class="text-center">No hay postulaciones registradas.</td></tr>
                 <% } %>
             </tbody>
         </table>
