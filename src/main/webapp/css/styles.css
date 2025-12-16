@@ -423,3 +423,92 @@ footer {
 .link-sm { font-size: 0.85rem; color: var(--primary); }
 
 .error-container { text-align: center; padding: 50px; }
+
+/* =========================================
+   UTILIDADES DE TEXTO Y TAMAÑO
+   ========================================= */
+.text-muted { color: var(--secondary); }
+.text-primary { color: var(--primary); }
+.font-bold { font-weight: 700; }
+.italic { font-style: italic; }
+.text-3rem { font-size: 3rem; }
+.text-1-1rem { font-size: 1.1rem; }
+.text-1-2rem { font-size: 1.2rem; }
+.w-150px { width: 150px; } /* Para columnas de acciones fijas */
+
+/* =========================================
+   COMPONENTES ESPECÍFICOS (VISTAS DE DETALLE)
+   ========================================= */
+/* Cabecera con título a la izq y botón a la derecha */
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Tarjetas con borde superior de color (Historia Clínica) */
+.card-top-accent { 
+    border-top: 4px solid var(--primary); 
+}
+
+/* Tamaños de tarjeta centrada */
+.mw-800 { max-width: 800px; margin: 0 auto; }
+.mw-600 { max-width: 600px; margin: 20px auto; }
+.p-30 { padding: 30px; }
+
+/* Grid para detalles (Usuario, Gato) */
+.grid-2-col-responsive {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+.grid-col-full { grid-column: 1 / -1; }
+
+/* Cajas de Información (Azul claro - Matrícula/Nueva Zona) */
+.info-box {
+    background-color: #f0f9ff;
+    padding: 15px;
+    border-radius: var(--radius);
+    border: 1px solid #bae6fd;
+    color: #0c4a6e;
+}
+.info-box-title {
+    color: #0369a1; 
+    display: block; 
+    margin-bottom: 5px; 
+    font-weight: bold;
+}
+
+/* Caja "Dashed" para formularios manuales */
+.dashed-box {
+    background-color: #f8fafc;
+    border: 2px dashed #cbd5e1;
+}
+
+/* Caja de texto pre-formateado (Descripción tratamientos) */
+.description-box {
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    white-space: pre-wrap;
+}
+
+/* =========================================
+   ESTADOS DE POSTULACIÓN (BADGES)
+   ========================================= */
+.status-badge {
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: bold;
+    border: 1px solid currentColor; /* Toma el color del texto */
+}
+.status-pendiente { color: var(--warning); }
+.status-aprobada  { color: var(--success); }
+.status-rechazada { color: var(--danger); }
+.status-cerrada   { color: #cbd5e1; border-color: transparent; }
+
+/* Opción especial en Select */
+.option-new { font-weight: bold; color: var(--primary); }

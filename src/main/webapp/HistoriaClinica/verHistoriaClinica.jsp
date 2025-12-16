@@ -1,12 +1,8 @@
 <%@page import="modelo.Gato, modelo.HistoriaClinica, modelo.Estudio, modelo.Tratamiento, java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<% request.setAttribute("linkVolver", "SvGatos"); %>
-
 <%@include file="../templates/menu.jsp" %>
 
 <%
-    // Recuperamos los objetos de la sesiÃ³n
+    // Recuperamos los objetos de la sesión
     Gato gato = (Gato) session.getAttribute("gatoActual");
     HistoriaClinica hc = (HistoriaClinica) session.getAttribute("historiaClinica");
 %>
@@ -15,7 +11,7 @@
     
     <div class="header-section" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <div>
-            <h1><i class="fas fa-file-medical"></i> Historia ClÃ­nica</h1>
+            <h1><i class="fas fa-file-medical"></i> Historia Clínica</h1>
             <h3 style="color: #64748b;">Paciente: <%= (gato != null) ? gato.getNombre() : "Desconocido" %></h3>
         </div>
         
@@ -23,7 +19,7 @@
 
     <div class="card full-width" style="margin-bottom: 30px;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h2>ðŸ“‹ Estudios Realizados</h2>
+            <h2>? Estudios Realizados</h2>
             
             <% if (hc != null) { %>
             <form action="${pageContext.request.contextPath}/SvAgregarEstudio" method="GET">
@@ -61,7 +57,7 @@
                             <form action="${pageContext.request.contextPath}/SvEliminarEstudio" method="POST" style="display:inline;">
                                 <input type="hidden" name="idEliminar" value="<%= e.getIdEstudio() %>">
                                 <input type="hidden" name="idGato" value="<%= gato.getIdGato() %>">
-                                <button type="submit" class="btn-icon-danger" onclick="return confirm('Â¿Eliminar estudio?');"><i class="fas fa-trash"></i></button>
+                                <button type="submit" class="btn-icon-danger" onclick="return confirm('¿Eliminar estudio?');"><i class="fas fa-trash"></i></button>
                             </form>
                         </td>
                     </tr>
@@ -77,7 +73,7 @@
 
     <div class="card full-width" style="border-top: 4px solid #2563eb;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h2>ðŸ’Š Tratamientos y MedicaciÃ³n</h2>
+            <h2>? Tratamientos y Medicación</h2>
             
             <% if (hc != null) { %>
             <form action="${pageContext.request.contextPath}/SvAgregarTratamiento" method="GET">
@@ -92,7 +88,7 @@
         <table style="width: 100%; margin-top: 15px;">
             <thead>
                 <tr>
-                    <th>DiagnÃ³stico</th>
+                    <th>Diagnóstico</th>
                     <th>Tratamiento / Procedimiento</th>
                     <th style="width: 150px;">Acciones</th>
                 </tr>
@@ -115,7 +111,7 @@
                             <form action="${pageContext.request.contextPath}/SvEliminarTratamiento" method="POST" style="display:inline;">
                                 <input type="hidden" name="idEliminar" value="<%= t.getidTratamiento() %>">
                                 <input type="hidden" name="idGato" value="<%= gato.getIdGato() %>">
-                                <button type="submit" class="btn-icon-danger" onclick="return confirm('Â¿Eliminar tratamiento?');"><i class="fas fa-trash"></i></button>
+                                <button type="submit" class="btn-icon-danger" onclick="return confirm('¿Eliminar tratamiento?');"><i class="fas fa-trash"></i></button>
                             </form>
                         </td>
                     </tr>
