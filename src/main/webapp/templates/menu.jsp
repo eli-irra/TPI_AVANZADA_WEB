@@ -56,4 +56,4 @@
     </div>
 </header>
 
-<div style="height: 20px;"></div>
+<div class="spacer-menu"></div>

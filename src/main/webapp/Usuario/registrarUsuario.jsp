@@ -1,7 +1,7 @@
 <%-- Acá se muestra el formulario para registrarse como usuario --%>
 <%@include file="../templates/header.jsp" %>
         <h1>Registrar Nuevo Usuario</h1>
-        <div class="container" style="max-width: 1000px; margin: 50px auto;">
+        <div class="container register-container-lg">
         <form action="${pageContext.request.contextPath}/SvAltaUsuario" method="POST">
             <label>Nombre:</label>
             <input type="text" name="nombre" required><br><br>
@@ -26,7 +26,7 @@
                 <option value="VOLUNTARIO">Voluntario</option>
                 <option value="FAMILIA">Familia Adoptante</option>
             </select><br><br>
-            <div id="divMatricula" style="display: none;">
+            <div id="divMatricula" class="hidden">
                 <label>Matrícula:</label>
                 <input type="text" name="matricula" id="inputMatricula">
                 <br><br>

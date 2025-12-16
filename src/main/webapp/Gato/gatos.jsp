@@ -8,7 +8,7 @@ registrar a un gato--%>
     <h1>Gestión de Gatos</h1>
     
     <div class="filtros-container">
-        <form action="${pageContext.request.contextPath}/SvGatos" method="GET" style="display:flex; gap:10px; flex-grow:1;">
+        <form action="${pageContext.request.contextPath}/SvGatos" method="GET" class="flex-grow flex-gap-10">
             <input type="text" name="busquedaNombre" placeholder="Buscar por nombre...">
             <button type="submit">Buscar</button>
             <a href="${pageContext.request.contextPath}/SvGatos" class="btn-secondary">Ver Todos</a>
@@ -45,7 +45,7 @@ registrar a un gato--%>
                     <td><%= g.getSexo() %></td>
                     <td><%= nombreZona %></td>
                     <td><%= g.getestadoFisico() %></td>
-                    <td style="display:flex; gap:5px;">
+                    <td class="table-actions">
                         <form action="${pageContext.request.contextPath}/SvVerPerfilGato" method="GET">
                             <input type="hidden" name="idVer" value="<%= g.getIdGato() %>">
                             <button type="submit" class="btn-icon" title="Ver">
@@ -71,7 +71,7 @@ registrar a un gato--%>
                         </td>
                 </tr>
             <% }} else { %>
-                <tr><td colspan="6" style="text-align:center;">No hay gatos registrados.</td></tr>
+                <tr><td colspan="6" class="text-center">No hay gatos registrados.</td></tr>
             <% } %>
         </tbody>
     </table>

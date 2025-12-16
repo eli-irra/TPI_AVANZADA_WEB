@@ -10,6 +10,7 @@
     --text-light: #475569;      /* Texto secundario */
     
     --danger: #ef4444;          /* Rojo (Borrar) */
+    --danger-bg: #fee2e2;       /* Fondo Rojo Claro (Alertas) */
     --success: #10b981;         /* Verde (Estado OK) */
     --warning: #f59e0b;         /* Naranja (Pendiente) */
 
@@ -36,7 +37,7 @@ h1 { color: var(--primary); font-size: 1.8rem; }
 a { text-decoration: none; color: inherit; transition: 0.2s; }
 
 /* =========================================
-   NUEVA BARRA DE NAVEGACIÓN (HEADER)
+   HEADER & NAV
    ========================================= */
 .main-header {
     background-color: var(--surface);
@@ -53,24 +54,19 @@ a { text-decoration: none; color: inherit; transition: 0.2s; }
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between; /* Izquierda: Usuario / Derecha: Menú */
+    justify-content: space-between; 
     align-items: center;
     padding: 0.8rem 1.5rem;
     flex-wrap: wrap;
 }
 
-/* --- Info Usuario (Izquierda) --- */
 .user-info {
     display: flex;
     flex-direction: column;
     line-height: 1.2;
 }
 
-.user-info .welcome {
-    font-size: 1rem;
-    color: var(--text);
-}
-
+.user-info .welcome { font-size: 1rem; color: var(--text); }
 .user-info .role-badge {
     font-size: 0.75rem;
     font-weight: 700;
@@ -79,17 +75,8 @@ a { text-decoration: none; color: inherit; transition: 0.2s; }
     letter-spacing: 0.5px;
 }
 
-/* --- Menú (Derecha) --- */
-.nav-menu {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.nav-links {
-    display: flex;
-    gap: 15px;
-}
+.nav-menu { display: flex; align-items: center; gap: 20px; }
+.nav-links { display: flex; gap: 15px; }
 
 .nav-links a {
     text-decoration: none;
@@ -103,10 +90,9 @@ a { text-decoration: none; color: inherit; transition: 0.2s; }
 
 .nav-links a:hover {
     color: var(--primary);
-    background-color: #eff6ff; /* Azul muy suave */
+    background-color: #eff6ff; 
 }
 
-/* --- Botón Cerrar Sesión --- */
 .logout-link {
     margin-left: 0px;
     padding: 8px 16px;
@@ -122,16 +108,11 @@ a { text-decoration: none; color: inherit; transition: 0.2s; }
     gap: 8px;
 }
 
-.logout-link:hover {
-    background-color: var(--danger);
-    color: white;
-}
+.logout-link:hover { background-color: var(--danger); color: white; }
 
 /* =========================================
-   FIN HEADER / ESTILOS GENERALES
+   CONTENEDORES Y TARJETAS
    ========================================= */
-
-/* --- Contenedores --- */
 .container {
     max-width: 1200px;
     width: 90%;
@@ -139,7 +120,6 @@ a { text-decoration: none; color: inherit; transition: 0.2s; }
     flex: 1; 
 }
 
-/* --- Tarjetas (Cards) --- */
 .card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -149,7 +129,9 @@ a { text-decoration: none; color: inherit; transition: 0.2s; }
     margin-bottom: 1.5rem;
 }
 
-/* --- Formularios --- */
+/* =========================================
+   FORMULARIOS
+   ========================================= */
 .form-container {
     max-width: 500px;
     margin: 2rem auto;
@@ -188,7 +170,9 @@ input:focus, select:focus, textarea:focus {
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-/* --- Botones --- */
+/* =========================================
+   BOTONES
+   ========================================= */
 button, .btn-primary, .btn-secondary {
     padding: 0.6rem 1.2rem;
     border-radius: 6px;
@@ -201,14 +185,12 @@ button, .btn-primary, .btn-secondary {
     text-align: center;
 }
 
-/* Botón Principal (Azul) */
 .btn-primary, button[type="submit"] {
     background-color: var(--primary);
     color: white;
 }
 .btn-primary:hover, button[type="submit"]:hover { background-color: var(--primary-hover); }
 
-/* Botón Secundario (Gris/Borde) */
 .btn-secondary {
     background-color: transparent;
     border: 1px solid var(--border);
@@ -220,7 +202,6 @@ button, .btn-primary, .btn-secondary {
     border-color: #cbd5e1;
 }
 
-/* Botones de Icono (Tablas) */
 .btn-icon, .btn-icon-danger {
     padding: 5px 8px;
     border-radius: 4px;
@@ -232,7 +213,9 @@ button, .btn-primary, .btn-secondary {
 .btn-icon:hover { background-color: #e0f2fe; color: var(--primary); }
 .btn-icon-danger:hover { background-color: #fee2e2; color: var(--danger); }
 
-/* --- Tablas --- */
+/* =========================================
+   TABLAS
+   ========================================= */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -244,26 +227,11 @@ table {
 }
 
 thead { background-color: #f1f5f9; border-bottom: 2px solid var(--border); }
-
-th {
-    text-align: left;
-    padding: 1rem;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    color: var(--secondary);
-    font-weight: 700;
-}
-
-td {
-    padding: 1rem;
-    border-bottom: 1px solid var(--border);
-    color: var(--text);
-    vertical-align: middle;
-}
-
+th { text-align: left; padding: 1rem; font-size: 0.85rem; text-transform: uppercase; color: var(--secondary); font-weight: 700; }
+td { padding: 1rem; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: middle; }
 tr:hover { background-color: #f8fafc; }
 
-/* --- Filtros (Barra superior de tablas) --- */
+/* Filtros y Badges */
 .filtros-container {
     background: var(--surface);
     padding: 1rem;
@@ -284,7 +252,6 @@ tr:hover { background-color: #f8fafc; }
 
 .filtros-container input { margin-bottom: 0; width: auto; flex: 1; }
 
-/* --- Badges (Etiquetas de estado) --- */
 .badge {
     padding: 4px 8px;
     border-radius: 12px;
@@ -295,7 +262,7 @@ tr:hover { background-color: #f8fafc; }
     color: var(--text-light);
 }
 
-/* --- Footer --- */
+/* Footer */
 footer {
     text-align: center;
     padding: 2rem;
@@ -306,13 +273,57 @@ footer {
     margin-top: auto;
 }
 
-/* --- Login Especifico --- */
-.login-container {
-    max-width: 400px;
-    margin: 4rem auto;
-    padding: 2rem;
-    background: var(--surface);
-    border-radius: var(--radius);
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+/* =========================================
+   NUEVAS CLASES DE UTILIDAD (REFACTORIZACIÓN)
+   ========================================= */
+
+/* Utilidades generales */
+.text-center { text-align: center; }
+.hidden { display: none; }
+.spacer-menu { height: 20px; }
+.w-100 { width: 100%; }
+
+/* Clases específicas para Login (index.jsp) */
+.login-wrapper {
+    max-width: 400px; 
+    margin: 50px auto;
+}
+.alert-error {
+    color: var(--danger);
+    background-color: var(--danger-bg);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
     text-align: center;
+}
+.login-footer {
+    text-align: center;
+    margin-top: 15px;
+}
+.btn-login-register {
+    display: inline-block; 
+    padding: 8px 16px;
+}
+
+/* Clases para Formularios de Registro (Grande) */
+.register-container-lg {
+    max-width: 1000px; 
+    margin: 50px auto;
+}
+
+/* Clases Flexbox para Layouts */
+.flex-between { justify-content: space-between; }
+.flex-grow { flex-grow: 1; }
+.flex-gap-10 { gap: 10px; }
+
+/* Acciones en Tablas (Botones Ver/Editar/Borrar) */
+.table-actions {
+    display: flex;
+    gap: 5px;
+}
+
+/* Estado Vacío de tablas */
+.empty-state {
+    text-align: center; 
+    padding: 20px;
 }

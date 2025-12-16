@@ -6,7 +6,7 @@
     <div class="container">
         <h1>Gestión de Usuarios</h1>
         
-        <div class="filtros-container" style="justify-content: space-between;">
+        <div class="filtros-container flex-between">
             <span>Lista de usuarios registrados en el sistema.</span>
             <a href="${pageContext.request.contextPath}/Usuario/registrarUsuario.jsp">
                 <button>+ Nuevo Usuario</button>
@@ -34,7 +34,7 @@
                         <td><%= u.getCorreo() %></td>
                         <td><%= u.getRol() %></td>
                         <td><%= (long)u.getTelefono() %></td>
-                        <td style="display:flex; gap: 5px;">
+                        <td class="table-actions">
                             <form action="${pageContext.request.contextPath}/SvVerUsuario" method="GET">
                                 <input type="hidden" name="idUsuario" value="<%= u.getIdUsuario() %>">
                                 <button type="submit" class="btn-icon" title="Ver Perfil">
@@ -62,7 +62,7 @@
                     } else {
                 %>
                     <tr>
-                        <td colspan="5" style="text-align: center; padding: 20px;">No hay usuarios para mostrar.</td>
+                        <td colspan="5" class="empty-state">No hay usuarios para mostrar.</td>
                     </tr>
                 <% } %>
             </tbody>
