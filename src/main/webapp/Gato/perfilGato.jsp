@@ -135,9 +135,13 @@ asi como visualizar el mapa, qr, etc. Y el voluntario va a poder presionar un bo
             <div class="actions-container">
 
                 <% if (usu.getRol().equals("VETERINARIO")) { %>
-                    <form action="${pageContext.request.contextPath}/SvHistoriaClinica" method="GET">
+                    <form action="${pageContext.request.contextPath}/SvHistoriasClinicas" method="GET">
                         <input type="hidden" name="idGato" value="<%= gato.getIdGato() %>">
-                        <button type="submit" class="btn-secondary"><i class="fas fa-file-medical"></i> Historia C.</button>
+                        <button type="submit" class="btn-secondary">Historia C.</button>
+                    </form>
+                    <form action="${pageContext.request.contextPath}/SvCambiarEstadoSalud" method="GET">
+                        <input type="hidden" name="idGato" value="<%= gato.getIdGato() %>">
+                        <button type="submit" class="btn-secondary">Cambiar Estado Salud</button>
                     </form>
                 <% } %>
 

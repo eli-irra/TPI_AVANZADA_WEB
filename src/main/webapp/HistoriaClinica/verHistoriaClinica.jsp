@@ -12,14 +12,9 @@
 <div class="container">
     
     <div class="header-section header-flex">
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <div style="background: white; padding: 5px; border-radius: 50%; border: 2px solid #ddd;">
-                <img src="${pageContext.request.contextPath}/images/paw.svg" alt="Gato" width="40">
-            </div>
-            <div>
-                <h1><i class="fas fa-file-medical"></i> Historia Clínica</h1>
-                <h3 class="text-muted">Paciente: <%= (gato != null) ? gato.getNombre() : "Desconocido" %></h3>
-            </div>
+        <div>
+            <h1><i class="fas fa-file-medical"></i> Historia Clínica</h1>
+            <h3 class="text-muted">Paciente: <%= (gato != null) ? gato.getNombre() : "Desconocido" %></h3>
         </div>
         
         <form action="${pageContext.request.contextPath}/SvVerPerfilGato" method="GET">

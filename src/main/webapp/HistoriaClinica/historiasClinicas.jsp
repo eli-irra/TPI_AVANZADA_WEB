@@ -12,16 +12,10 @@
     
     <% if (gato != null) { %>
         <div class="profile-header">
-             <div style="display: flex; align-items: center; gap: 15px;">
-                <div style="background: white; padding: 5px; border-radius: 50%; border: 2px solid #ddd;">
-                    <img src="${pageContext.request.contextPath}/images/paw.svg" alt="Gato" width="40">
-                </div>
-                <div>
+             <div>
                     <h1>Historial Médico: <%= gato.getNombre() %></h1>
                     <p style="color: #64748b; margin: 0;">Consulta y gestión de visitas médicas</p>
-                </div>
             </div>
-
             <form action="${pageContext.request.contextPath}/SvVerPerfilGato" method="GET" style="display: inline;">
                 <input type="hidden" name="idVer" value="<%= gato.getIdGato() %>">
                 <button type="submit" class="btn-secondary">
@@ -76,7 +70,7 @@
                                 <input type="hidden" name="idHistoria" value="<%= hc.getidHistoria() %>">
                                 <input type="hidden" name="idGato" value="<%= gato.getIdGato() %>">
                                 <button type="submit" class="btn-icon" title="Ver Detalles">
-                                    <i class="fas fa-eye"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
                                 </button>
                             </form>
 
@@ -84,7 +78,7 @@
                                 <input type="hidden" name="idHistoria" value="<%= hc.getidHistoria() %>">
                                 <input type="hidden" name="idGato" value="<%= gato.getIdGato() %>">
                                 <button type="submit" class="btn-icon-danger" onclick="return confirm('¿Está seguro de eliminar esta consulta completa? Se borrarán sus tratamientos y estudios.');" title="Eliminar Consulta">
-                                    <i class="fas fa-trash-alt"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
                                 </button>
                             </form>
                             
