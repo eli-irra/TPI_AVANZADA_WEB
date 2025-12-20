@@ -85,7 +85,16 @@ public class Controladora {
         }
         return hc;
     }
-
+    
+    public void eliminarHistoriaClinica(long id) throws OperacionException {
+    try {
+        // Asumiendo que tienes un historiaClinicaJpa en tu persistencia
+        controlpersis.eliminarHistoriaClinica(id);
+    } catch (Exception e) {
+        throw new OperacionException("Error al eliminar la consulta.", e);
+    }
+}
+    
     public void agregarTratamientoAHistoria(long idHistoria, String diagnostico, String descripcion) throws OperacionException {
         if (diagnostico.isEmpty() || descripcion.isEmpty()) {
             throw new OperacionException("El diagnóstico y la descripción son obligatorios.");
@@ -334,13 +343,11 @@ public class Controladora {
     }
 }
     
-    // --- LÓGICA DE REGISTRO DE GATO ---
-    
     public void registrarGato(String nombre, String raza, String sexo, String color, 
-                              String esterilizado, String caracteristicas, 
-                              String estadoSalud, String disponible, String nombreZona,
-                              String rutaFoto)
-                              throws OperacionException {
+                          String esterilizado, String caracteristicas, 
+                          String estadoSalud, String disponible, String nombreZona,
+                          String rutaFoto)
+                          throws OperacionException {
         if (nombre.isEmpty() || raza.isEmpty() || sexo.equals("-") || color.isEmpty() || 
             esterilizado.equals("-") || estadoSalud.equals("-") || disponible.equals("-") || nombreZona.equals("-")) {
             throw new OperacionException("Debe completar todos los campos obligatorios.");
@@ -364,14 +371,16 @@ public class Controladora {
             nuevoGato.setCaracteristicas(caracteristicas);
             nuevoGato.setestadoFisico(estadoFisicoEnum);
             nuevoGato.setDisponible(disponibleEnum);
-            
+
             if (rutaFoto != null && !rutaFoto.isEmpty()) {
                  nuevoGato.setRutaFoto(rutaFoto);
             }
-        
+
             nuevoGato.setZona(zona);
-            nuevoGato.setHistoriaClinica(new HistoriaClinica("Historia inicial al registro")); 
-            
+
+            nuevoGato.agregarConsulta(new HistoriaClinica("Historia inicial al registro")); 
+            // -----------------------
+
             controlpersis.crearGato(nuevoGato);
         } catch (IllegalArgumentException e) {
             throw new OperacionException("Error de datos: Uno de los campos de selección (Enum) es inválido. Revise Sexo/Estado/Disponibilidad.", e);
@@ -380,6 +389,10 @@ public class Controladora {
         } catch (Exception e) {
             throw new OperacionException("Error de persistencia al registrar el gato: " + e.getMessage(), e);
         }
+    }
+    
+    public void modificarGato(Gato gato) throws Exception {
+        controlpersis.modificarGato(gato);
     }
     
     // --- LÓGICA DE TAREAS ---
@@ -779,19 +792,10 @@ public List<Tarea> traerTodasLasTareas() throws OperacionException {
     }
     
     public void crearGato(Gato gato) throws Exception {
-        // 1. Crear Historia Clínica vacía
         HistoriaClinica hc = new HistoriaClinica();
-        
-        // 2. Persistir HC
         controlpersis.crearHistoriaClinica(hc);
-        
-        // 3. Relacionar y Guardar Gato
-        gato.setHistoriaClinica(hc);
+        gato.agregarConsulta(hc);
         controlpersis.crearGato(gato);
-    }
-
-    public void modificarGato(Gato gato) throws Exception {
-        controlpersis.modificarGato(gato);
     }
     
     public Estudio buscarEstudio(long id) {

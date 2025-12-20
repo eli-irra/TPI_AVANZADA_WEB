@@ -1,5 +1,5 @@
-
 package modelo;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,12 +17,13 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class Gato implements Serializable {
     
-    public enum RespuestaBinaria{ 
+    public enum RespuestaBinaria { 
         NO,  
         SI   
     }
+    
     public enum EstadoSalud {
-    SANO, ENFERMO, EN_TRATAMIENTO
+        SANO, ENFERMO, EN_TRATAMIENTO
     }
     
     @Id
@@ -40,9 +41,9 @@ public class Gato implements Serializable {
     private String caracteristicas;
     private String rutaFoto;
     
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "historia_clinica_id") 
-    private HistoriaClinica historiaClinica;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "gato_id")
+    private List<HistoriaClinica> historiasClinicas;
     
     @ManyToOne 
     @JoinColumn(name = "zona_id") 
@@ -61,9 +62,14 @@ public class Gato implements Serializable {
     public Gato() {
         this.fecha = LocalDate.now();
         this.historialTareas = new ArrayList<>(); 
+        this.historiasClinicas = new ArrayList<>();
     }
 
-    public Gato(long idGato, LocalDate fecha, String nombre, String raza, String sexo, RespuestaBinaria esterilizado, RespuestaBinaria disponible, String codigoQR, HistoriaClinica historiaClinica, Postulacion postulacion, FamiliaAdoptante familiaAdoptante) {
+    public Gato(long idGato, String nombre, String raza, String sexo, 
+                RespuestaBinaria esterilizado, RespuestaBinaria disponible, 
+                String codigoQR, EstadoSalud estadoFisico, String color, 
+                String caracteristicas, Zona zona, FamiliaAdoptante familiaAdoptante) {
+        
         this.idGato = idGato;
         this.fecha = LocalDate.now();
         this.nombre = nombre;
@@ -73,21 +79,27 @@ public class Gato implements Serializable {
         this.disponible = disponible;
         this.codigoQR = codigoQR;
         this.estadoFisico = estadoFisico;
-        this.historiaClinica = new HistoriaClinica();
         this.color = color;
         this.caracteristicas = caracteristicas;
         this.zona = zona;
+        this.familiaAdoptante = familiaAdoptante;
         
-        this.historiaClinica = new HistoriaClinica();
+        this.historiasClinicas = new ArrayList<>();
+        this.historialTareas = new ArrayList<>();
     }
     
-    
-    
+    public void agregarConsulta(HistoriaClinica nuevaConsulta) {
+        if (this.historiasClinicas == null) {
+            this.historiasClinicas = new ArrayList<>();
+        }
+        this.historiasClinicas.add(nuevaConsulta);
+    }
+
     public long getIdGato() {
         return idGato;
     }
 
-    public void setIdGato(int idGato) {
+    public void setIdGato(long idGato) { // Corregido a long
         this.idGato = idGato;
     }
 
@@ -147,19 +159,19 @@ public class Gato implements Serializable {
         this.codigoQR = codigoQR;
     }
     
-    public HistoriaClinica getHistoriaClinica() {
-        return historiaClinica;
+    public List<HistoriaClinica> getHistoriasClinicas() {
+        return historiasClinicas;
     }
 
-    public void setHistoriaClinica(HistoriaClinica historiaClinica) {
-        this.historiaClinica = historiaClinica;
+    public void setHistoriasClinicas(List<HistoriaClinica> historiasClinicas) {
+        this.historiasClinicas = historiasClinicas;
     }
 
-    public Postulacion getpostulacionActiva() {
+    public Postulacion getPostulacionActiva() {
         return postulacionActiva;
     }
 
-    public void setpostulacionActiva(Postulacion postulacionActiva) {
+    public void setPostulacionActiva(Postulacion postulacionActiva) {
         this.postulacionActiva = postulacionActiva;
     }
 
@@ -171,26 +183,46 @@ public class Gato implements Serializable {
         this.familiaAdoptante = familiaAdoptante;
     }
     
-     public EstadoSalud getestadoFisico() {
+    public EstadoSalud getestadoFisico() {
         return estadoFisico;
     }
 
-    public void setestadoFisico( EstadoSalud estadoFisico) {
+    public void setestadoFisico(EstadoSalud estadoFisico) {
         this.estadoFisico = estadoFisico;
     }
-    public Zona getZona() { return zona; }
-    public void setZona(Zona zona) { this.zona = zona; }
+
+    public Zona getZona() { 
+        return zona; 
+    }
     
-    public String getColor() { return color; }
+    public void setZona(Zona zona) { 
+        this.zona = zona; 
+    }
     
-    public void setColor(String color) { this.color = color; }
+    public String getColor() { 
+        return color; 
+    }
     
-    public String getCaracteristicas() { return caracteristicas; }
+    public void setColor(String color) { 
+        this.color = color; 
+    }
     
-    public void setCaracteristicas(String caracteristicas) { this.caracteristicas = caracteristicas; }
+    public String getCaracteristicas() { 
+        return caracteristicas; 
+    }
     
-    public List<Tarea> getHistorialTareas() { return historialTareas; }
-    public void setHistorialTareas(List<Tarea> historialTareas) { this.historialTareas = historialTareas; }
+    public void setCaracteristicas(String caracteristicas) { 
+        this.caracteristicas = caracteristicas; 
+    }
+    
+    public List<Tarea> getHistorialTareas() { 
+        return historialTareas; 
+    }
+    
+    public void setHistorialTareas(List<Tarea> historialTareas) { 
+        this.historialTareas = historialTareas; 
+    }
+    
     public String getRutaFoto() { 
         return rutaFoto; 
     }
@@ -198,6 +230,4 @@ public class Gato implements Serializable {
     public void setRutaFoto(String rutaFoto) { 
         this.rutaFoto = rutaFoto; 
     }
-
 }
-

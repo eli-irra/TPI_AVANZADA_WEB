@@ -58,6 +58,10 @@ public class ControladoraPersistencia {
         voluntarioJpa.create(vol);
     }
     
+    public void eliminarHistoriaClinica(long id) throws Exception {
+        historiaClinicaJpa.destroy(id);
+    }
+    
     public Usuario buscarUsuarioPorCorreo(String correo) {
         
         // Obtenemos el EntityManager del JpaController de Usuario
