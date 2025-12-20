@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import modelo.OperacionException;
 import modelo.Zona;
 
 @WebServlet(name = "SvZonas", urlPatterns = {"/SvZonas"})
@@ -18,16 +19,18 @@ public class SvZonas extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       
+            List<Zona> listaZonas = null;
         try {
-            List<Zona> listaZonas = control.traerTodasLasZonas();
+            listaZonas = control.traerTodasLasZonas();
+        } catch (OperacionException ex) {
+            System.getLogger(SvZonas.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
             HttpSession session = request.getSession();
             session.setAttribute("listaZonas", listaZonas);
             
             // Redirigir a la carpeta Zona
             response.sendRedirect("Zona/zonas.jsp");
-        } catch (Exception e) {
-            // Si no hay zonas o falla, mandamos una lista vacía para que no rompa el JSP
-            response.sendRedirect("menu.jsp");
-        }
+        
     }
 }

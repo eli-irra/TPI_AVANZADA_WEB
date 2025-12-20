@@ -1,8 +1,11 @@
 <%-- Acá se muestra el formulario de inicio de sesión.  --%>
 <%@include file="templates/header.jsp" %>
 
-    <div class="formulario login-wrapper">
-        <h2 class="text-center">Iniciar Sesión</h2>
+    <div class="card bg-white formulario login-wrapper">
+        <div class="card-header bg-white">
+            <h2 class="text-center">Iniciar Sesión</h2>
+        </div>
+        <div class="card-body">
         
         <% 
             String error = (String) request.getSession().getAttribute("error");
@@ -24,12 +27,13 @@
             <label>Contraseña:</label>
             <input type="password" name="contrasena" required>
             
-            <button type="submit">Ingresar</button>
+            <button type="submit" class="btn btn-primary">Ingresar</button>
         </form>
 
         <div class="login-footer">
             <p>¿No tienes cuenta?</p>
-            <a href="Usuario/registrarUsuario.jsp" class="btn-secondary btn-login-register">Registrarse</a>
+            <a href="Usuario/registrarUsuario.jsp" class="btn btn-outline-secondary btn-login-register">Registrarse</a>
+        </div>
         </div>
     </div>
 

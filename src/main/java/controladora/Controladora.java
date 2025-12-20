@@ -43,9 +43,7 @@ public class Controladora {
     public List<Gato> traerTodosLosGatos() throws OperacionException {
         try {
             List<Gato> gatos = controlpersis.traerTodosLosGatos();
-            if (gatos == null || gatos.isEmpty()) {
-                throw new OperacionException("No hay ningún gato registrado en el sistema.");
-            }
+            
             return gatos;
         } catch (Exception e) {
             throw new OperacionException("Error al traer los gatos: " + e.getMessage(), e);
@@ -447,9 +445,6 @@ public class Controladora {
 
     public List<Zona> traerTodasLasZonas() throws OperacionException {
         List<Zona> zonas = controlpersis.traerTodasLasZonas();
-        if (zonas == null || zonas.isEmpty()) {
-            throw new OperacionException("No hay zonas registradas en el sistema.");
-        }
         return zonas;
     }
 

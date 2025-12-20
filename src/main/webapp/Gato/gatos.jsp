@@ -10,7 +10,7 @@ registrar a un gato--%>
     <div class="filtros-container">
         <form action="${pageContext.request.contextPath}/SvGatos" method="GET" class="flex-grow flex-gap-10">
             <input type="text" name="busquedaNombre" placeholder="Buscar por nombre...">
-            <button type="submit">Buscar</button>
+            <button type="submit" class="btn-primary">Buscar</button>
             <a href="${pageContext.request.contextPath}/SvGatos" class="btn-secondary">Ver Todos</a>
         </form>
         <% if (usu.getRol().equals("VOLUNTARIO")) { %>

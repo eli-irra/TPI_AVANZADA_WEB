@@ -1,7 +1,10 @@
 <%-- Acá se muestra el formulario para registrarse como usuario --%>
 <%@include file="../templates/header.jsp" %>
-        <h1>Registrar Nuevo Usuario</h1>
-        <div class="container register-container-lg">
+    <div class="card border-1" style="width: 700px; margin: 50px auto;">
+        <div class="card-header bg-white">
+            <h3>Registrar Nuevo Usuario</h3>
+        </div>
+        <div class="card-body">
         <form action="${pageContext.request.contextPath}/SvAltaUsuario" method="POST">
             <label>Nombre:</label>
             <input type="text" name="nombre" required><br><br>
@@ -31,10 +34,12 @@
                 <input type="text" name="matricula" id="inputMatricula">
                 <br><br>
             </div>
-            <button type="submit">Guardar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="../index.jsp" class="btn btn-secondary">Volver atrás</a>
         </form>
-        <a href="../index.jsp"><button>Volver atrás</button></a>
         </div>
+    </div>
+        
         <script>
             function mostrarOcultarMatricula() {
                 // 1. Obtener los elementos

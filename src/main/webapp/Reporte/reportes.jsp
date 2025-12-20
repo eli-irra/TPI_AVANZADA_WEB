@@ -6,7 +6,7 @@
     <h1>Gestión de Reportes</h1>
     
     <div class="filtros-container justify-end">
-        <a href="registrarReporte.jsp">
+        <a href="${pageContext.request.contextPath}/SvAltaReporte">
             <button class="btn-primary">+ Nuevo Reporte</button>
         </a>
     </div>

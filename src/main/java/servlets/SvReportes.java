@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import modelo.OperacionException;
 import modelo.Reporte;
 
 @WebServlet(name = "SvReportes", urlPatterns = {"/SvReportes"})
@@ -19,9 +20,14 @@ public class SvReportes extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
+        
             // 1. Traer lista de reportes
-            List<Reporte> listaReportes = control.traerTodosLosReportes();
+            List<Reporte> listaReportes = null;
+        try {
+            listaReportes = control.traerTodosLosReportes();
+        } catch (OperacionException ex) {
+            System.getLogger(SvReportes.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
             
             // 2. Guardar en sesión
             HttpSession session = request.getSession();
@@ -30,9 +36,6 @@ public class SvReportes extends HttpServlet {
             // 3. Redirigir a la vista
             response.sendRedirect("Reporte/reportes.jsp");
             
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("SvGatos");
-        }
+        
     }
 }

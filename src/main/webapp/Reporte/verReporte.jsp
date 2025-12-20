@@ -22,7 +22,7 @@
                 </div>
                 <div style="text-align: right;">
                     <span class="badge" style="font-size: 1rem; background-color: #e0f2fe; color: #0284c7;">
-                        ? <%= nombreZona %>
+                        <%= nombreZona %>
                     </span>
                 </div>
             </div>

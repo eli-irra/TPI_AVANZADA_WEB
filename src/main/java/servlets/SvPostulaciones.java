@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.List;
 import modelo.FamiliaAdoptante;
 import modelo.Gato;
+import modelo.OperacionException;
 import modelo.Postulacion;
 
 @WebServlet(name = "SvPostulaciones", urlPatterns = {"/SvPostulaciones"})
@@ -21,13 +22,26 @@ public class SvPostulaciones extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
             // 1. Traer todas las postulaciones
-            List<Postulacion> listaPostulaciones = control.traerTodasLasPostulaciones();
-            
-            // 2. Traer listas para el formulario manual (Gatos disponibles y Familias)
-            List<Gato> gatosDisponibles = control.traerGatosDisponibles();
-            List<FamiliaAdoptante> familias = control.traerTodasLasFamilias();
+            List<Postulacion> listaPostulaciones = null;
+        try {
+            listaPostulaciones = control.traerTodasLasPostulaciones();
+        } catch (OperacionException ex) {
+            System.getLogger(SvPostulaciones.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+          // 2. Traer listas para el formulario manual (Gatos disponibles y Familias)
+            List<Gato> gatosDisponibles = null;
+        try {
+            gatosDisponibles = control.traerGatosDisponibles();
+        } catch (OperacionException ex) {
+            System.getLogger(SvPostulaciones.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+            List<FamiliaAdoptante> familias = null;
+        try {
+            familias = control.traerTodasLasFamilias();
+        } catch (OperacionException ex) {
+            System.getLogger(SvPostulaciones.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
 
             // 3. Guardar en sesión
             HttpSession session = request.getSession();
@@ -36,11 +50,7 @@ public class SvPostulaciones extends HttpServlet {
             session.setAttribute("listaFamilias", familias);
 
             response.sendRedirect("Postulacion/postulaciones.jsp");
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("menu.jsp");
-        }
+
     }
 
     @Override

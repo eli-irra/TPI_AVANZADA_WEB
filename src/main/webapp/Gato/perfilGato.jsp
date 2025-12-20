@@ -148,7 +148,7 @@ asi como visualizar el mapa, qr, etc. Y el voluntario va a poder presionar un bo
                     </form>
 
                     <% if(gato.getDisponible() == modelo.Gato.RespuestaBinaria.SI) { %>
-                    <form action="${pageContext.request.contextPath}/SvPostulaciones" method="GET">
+                    <form action="${pageContext.request.contextPath}/SvPostulacionesPorGato" method="GET">
                         <input type="hidden" name="idGato" value="<%= gato.getIdGato() %>">
                         <button type="submit" class="btn-primary bg-violet">Gestionar Adopción</button>
                     </form>
