@@ -3,6 +3,7 @@
 <%
     String idGato = (String) session.getAttribute("idGatoVolver");
     Estudio e = (Estudio) session.getAttribute("estudioDetalle");
+    String idHistoria = (String) session.getAttribute("idHistoriaVolver");
     request.setAttribute("linkVolver", "SvVerPerfilGato?idGato=" + idGato);
 %>
 <%@include file="../templates/menu.jsp" %>

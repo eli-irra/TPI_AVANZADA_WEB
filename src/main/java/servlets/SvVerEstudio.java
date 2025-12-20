@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import modelo.Estudio;
 
 @WebServlet(name = "SvVerEstudio", urlPatterns = {"/SvVerEstudio"})
@@ -16,14 +17,22 @@ public class SvVerEstudio extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        long idEstudio = Long.parseLong(request.getParameter("idEstudio"));
-        String idGato = request.getParameter("idGato");
-        
-        Estudio estudio = control.buscarEstudio(idEstudio);
-        
-        request.getSession().setAttribute("estudioDetalle", estudio);
-        request.getSession().setAttribute("idGatoVolver", idGato);
-        
-        response.sendRedirect("Estudio/verEstudio.jsp");
+        try {
+            long idEstudio = Long.parseLong(request.getParameter("idEstudio"));
+            String idGato = request.getParameter("idGato");
+            String idHistoria = request.getParameter("idHistoria");
+            
+            Estudio estudio = control.buscarEstudio(idEstudio);
+            
+            HttpSession session = request.getSession();
+            session.setAttribute("estudioDetalle", estudio);
+            session.setAttribute("idGatoVolver", idGato);
+            session.setAttribute("idHistoriaVolver", idHistoria);
+            
+            response.sendRedirect("Estudio/verEstudio.jsp");
+        } catch(Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("menu.jsp");
+        }
     }
 }

@@ -87,13 +87,21 @@ public class Controladora {
     }
     
     public void eliminarHistoriaClinica(long id) throws OperacionException {
-    try {
-        // Asumiendo que tienes un historiaClinicaJpa en tu persistencia
-        controlpersis.eliminarHistoriaClinica(id);
-    } catch (Exception e) {
-        throw new OperacionException("Error al eliminar la consulta.", e);
+        try {
+            // Asumiendo que tienes un historiaClinicaJpa en tu persistencia
+            controlpersis.eliminarHistoriaClinica(id);
+        } catch (Exception e) {
+            throw new OperacionException("Error al eliminar la consulta.", e);
+        }
     }
-}
+    
+    public void modificarHistoriaClinica(HistoriaClinica hc) throws OperacionException {
+        try {
+            controlpersis.modificarHistoriaClinica(hc); // O editarHistoriaClinica, revisa tu persistencia
+        } catch (Exception e) {
+            throw new OperacionException("Error al actualizar la historia clínica: " + e.getMessage(), e);
+        }
+    }
     
     public void agregarTratamientoAHistoria(long idHistoria, String diagnostico, String descripcion) throws OperacionException {
         if (diagnostico.isEmpty() || descripcion.isEmpty()) {
@@ -101,28 +109,51 @@ public class Controladora {
         }
         try {
             HistoriaClinica hc = buscarHistoriaClinica(idHistoria);
-            Tratamiento nuevoTratamiento = new Tratamiento(diagnostico, descripcion, hc); //
-            controlpersis.crearTratamiento(nuevoTratamiento); 
+
+            Tratamiento nuevoTratamiento = new Tratamiento(diagnostico, descripcion, hc);
+
+            if (hc.getTratamientos() != null) {
+                hc.getTratamientos().add(nuevoTratamiento);
+            } else {
+                // Si la lista es nula, la inicializamos (aunque el constructor debería hacerlo)
+                java.util.List<Tratamiento> lista = new java.util.ArrayList<>();
+                lista.add(nuevoTratamiento);
+                hc.setTratamientos(lista);
+            }
+
+            this.modificarHistoriaClinica(hc);
+
         } catch (Exception e) {
             throw new OperacionException("Error al guardar el tratamiento: " + e.getMessage(), e);
         }
     }
 
     public void agregarEstudioAHistoria(long idHistoria, String nombreEstudio, String resultado) throws OperacionException {
-         if (nombreEstudio.isEmpty() || resultado.isEmpty()) {
-            throw new OperacionException("El nombre del estudio y el resultado son obligatorios.");
-        }
-        try {
-            HistoriaClinica hc = buscarHistoriaClinica(idHistoria);
-            Estudio nuevoEstudio = new Estudio(); //
-            nuevoEstudio.setNombreEstudio(nombreEstudio); //
-            nuevoEstudio.setDescripcion(resultado); //
-            nuevoEstudio.setHistoriaClinica(hc); //
-            controlpersis.crearEstudio(nuevoEstudio);
-        } catch (Exception e) {
-            throw new OperacionException("Error al guardar el estudio: " + e.getMessage(), e);
-        }
-    }
+        if (nombreEstudio.isEmpty() || resultado.isEmpty()) {
+           throw new OperacionException("El nombre del estudio y el resultado son obligatorios.");
+       }
+       try {
+           HistoriaClinica hc = buscarHistoriaClinica(idHistoria);
+
+           Estudio nuevoEstudio = new Estudio();
+           nuevoEstudio.setNombreEstudio(nombreEstudio);
+           nuevoEstudio.setDescripcion(resultado);
+           nuevoEstudio.setHistoriaClinica(hc);
+
+           if (hc.getEstudios() != null) {
+               hc.getEstudios().add(nuevoEstudio);
+           } else {
+               java.util.List<Estudio> lista = new java.util.ArrayList<>();
+               lista.add(nuevoEstudio);
+               hc.setEstudios(lista);
+           }
+
+           this.modificarHistoriaClinica(hc);
+
+       } catch (Exception e) {
+           throw new OperacionException("Error al guardar el estudio: " + e.getMessage(), e);
+       }
+   }
     
     // --- LÓGICA DE USUARIOS Y REGISTRO ---
     

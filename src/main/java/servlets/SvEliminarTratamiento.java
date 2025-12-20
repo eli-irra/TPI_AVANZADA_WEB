@@ -18,10 +18,12 @@ public class SvEliminarTratamiento extends HttpServlet {
         try {
             long id = Long.parseLong(request.getParameter("idEliminar"));
             String idGato = request.getParameter("idGato");
+            String idHistoria = request.getParameter("idHistoria"); // <--- Recibimos el ID
             
             control.eliminarTratamiento(id);
             
-            response.sendRedirect("SvHistoriaClinica?idGato=" + idGato);
+            response.sendRedirect("SvVerHistoriaClinica?idHistoria=" + idHistoria + "&idGato=" + idGato);
+            
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("menu.jsp");

@@ -17,13 +17,16 @@ public class SvEliminarEstudio extends HttpServlet {
             throws ServletException, IOException {
         try {
             long idEstudio = Long.parseLong(request.getParameter("idEliminar"));
-            String idGato = request.getParameter("idGato"); // Para saber a dónde volver
+            String idGato = request.getParameter("idGato");
+            String idHistoria = request.getParameter("idHistoria");
             
             control.eliminarEstudio(idEstudio);
             
-            response.sendRedirect("SvHistoriaClinica?idGato=" + idGato);
+            response.sendRedirect("SvVerHistoriaClinica?idHistoria=" + idHistoria + "&idGato=" + idGato);
+            
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendRedirect("menu.jsp");
         }
     }
 }
