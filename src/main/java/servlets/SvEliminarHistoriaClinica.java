@@ -17,18 +17,22 @@ public class SvEliminarHistoriaClinica extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+
             long idHistoria = Long.parseLong(request.getParameter("idHistoria"));
             long idGato = Long.parseLong(request.getParameter("idGato"));
 
-            // Necesitas agregar este método en tu Controladora
-            control.eliminarHistoriaClinica(idHistoria);
+            control.eliminarHistoriaClinica(idGato, idHistoria);
             
-            // Recargamos la lista pasando el idGato
-            response.sendRedirect("SvHistoriaClinica?idGato=" + idGato);
+            response.sendRedirect("SvHistoriasClinicas?idGato=" + idGato);
             
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("menu.jsp");
+
+            String idGato = request.getParameter("idGato");
+            if(idGato != null) 
+                response.sendRedirect("SvHistoriasClinicas?idGato=" + idGato);
+            else 
+                response.sendRedirect("SvGatos");
         }
     }
 }

@@ -27,7 +27,7 @@
         <hr class="divider">
 
         <div style="margin-bottom: 20px; text-align: right;">
-            <form action="${pageContext.request.contextPath}/SvNuevaConsulta" method="POST" style="display:inline;">
+            <form action="${pageContext.request.contextPath}/SvAltaHistoriaClinica" method="POST" style="display:inline;">
                 <input type="hidden" name="idGato" value="<%= gato.getIdGato() %>">
                 <button type="submit" class="btn-primary bg-violet">
                     <i class="fas fa-notes-medical"></i> Nueva Consulta

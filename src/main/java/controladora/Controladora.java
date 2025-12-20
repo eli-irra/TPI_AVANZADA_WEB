@@ -78,6 +78,32 @@ public class Controladora {
     
     // --- LÓGICA DE HISTORIA CLÍNICA ---
     
+    public void crearNuevaHistoriaClinica(long idGato, String motivo) throws OperacionException {
+        try {
+            // 1. Buscamos al Gato (Padre)
+            Gato gato = controlpersis.buscarGato(idGato);
+            
+            if (gato != null) {
+                // 2. Creamos la nueva historia
+                HistoriaClinica nuevaHC = new HistoriaClinica();
+                nuevaHC.setDescripcion(motivo);
+                
+                // 3. La agregamos a la lista del Gato (usando tu método helper si existe, o directo)
+                // gato.agregarConsulta(nuevaHC); // Si tienes este método en Gato
+                // O directamente:
+                if (gato.getHistoriasClinicas() == null) {
+                    gato.setHistoriasClinicas(new java.util.ArrayList<>());
+                }
+                gato.getHistoriasClinicas().add(nuevaHC);
+                
+                // 4. Modificamos al Gato (El CascadeType.ALL guardará la historia automáticamente)
+                controlpersis.modificarGato(gato);
+            }
+        } catch (Exception e) {
+            throw new OperacionException("Error al crear la nueva consulta: " + e.getMessage(), e);
+        }
+    }
+    
     public HistoriaClinica buscarHistoriaClinica(long idHistoria) throws OperacionException {
         HistoriaClinica hc = controlpersis.buscarHistoriaClinica(idHistoria);
         if (hc == null) {
@@ -86,12 +112,19 @@ public class Controladora {
         return hc;
     }
     
-    public void eliminarHistoriaClinica(long id) throws OperacionException {
+    public void eliminarHistoriaClinica(long idGato, long idHistoria) throws OperacionException {
         try {
-            // Asumiendo que tienes un historiaClinicaJpa en tu persistencia
-            controlpersis.eliminarHistoriaClinica(id);
+
+            Gato gato = controlpersis.buscarGato(idGato);
+            
+            if (gato != null && gato.getHistoriasClinicas() != null) {
+
+                gato.getHistoriasClinicas().removeIf(hc -> hc.getidHistoria() == idHistoria);
+
+                controlpersis.modificarGato(gato);
+            }
         } catch (Exception e) {
-            throw new OperacionException("Error al eliminar la consulta.", e);
+            throw new OperacionException("Error al eliminar la historia clínica.", e);
         }
     }
     
@@ -853,20 +886,15 @@ public List<Tarea> traerTodasLasTareas() throws OperacionException {
     public void eliminarEstudio(long id) throws OperacionException {
         try {
             Estudio estudio = controlpersis.buscarEstudio(id);
-
             if (estudio != null) {
-
                 HistoriaClinica hc = estudio.getHistoriaClinica();
-                
                 if (hc.getEstudios() != null) {
                     hc.getEstudios().removeIf(e -> e.getIdEstudio() == id);
                 }
-
                 controlpersis.modificarHistoriaClinica(hc);
-                controlpersis.eliminarEstudio(id);
             }
         } catch (Exception e) {
-            throw new OperacionException("No se pudo eliminar el estudio: " + e.getMessage(), e);
+            throw new OperacionException("Error al eliminar el estudio: " + e.getMessage(), e);
         }
     }
     

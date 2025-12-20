@@ -17,29 +17,28 @@ public class SvEliminarEstudio extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            // 1. Validar que el ID venga en la petición
-            String idStr = request.getParameter("idEliminar");
-            String idGato = request.getParameter("idGato");
-            
-            if (idStr == null || idStr.isEmpty()) {
-                throw new Exception("El ID del estudio no fue recibido.");
+            String idEliminarStr = request.getParameter("idEliminar");
+            String idGatoStr = request.getParameter("idGato");
+
+            if(idEliminarStr == null || idEliminarStr.isEmpty()){
+                 throw new Exception("ID de estudio no recibido");
             }
 
-            long idEstudio = Long.parseLong(idStr);
-
+            long idEstudio = Long.parseLong(idEliminarStr);
+            
             Estudio estudio = control.buscarEstudio(idEstudio);
             long idHistoria = 0;
-            
-            if (estudio != null) {
+            if (estudio != null && estudio.getHistoriaClinica() != null) {
                 idHistoria = estudio.getHistoriaClinica().getidHistoria();
-                
-                control.eliminarEstudio(idEstudio);
             }
+
+            control.eliminarEstudio(idEstudio);
             
-            if (idHistoria > 0 && idGato != null) {
-                response.sendRedirect("SvVerHistoriaClinica?idHistoria=" + idHistoria + "&idGato=" + idGato);
+            if (idHistoria > 0) {
+                response.sendRedirect("SvVerHistoriaClinica?idHistoria=" + idHistoria + "&idGato=" + idGatoStr);
             } else {
-                response.sendRedirect("SvGatos");
+                // Si no se pudo recuperar la historia, volvemos al listado
+                response.sendRedirect("SvHistoriasClinicas?idGato=" + idGatoStr);
             }
             
         } catch (Exception e) {
@@ -48,7 +47,7 @@ public class SvEliminarEstudio extends HttpServlet {
             if (idGato != null) {
                 response.sendRedirect("SvVerPerfilGato?idVer=" + idGato);
             } else {
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("SvGatos");
             }
         }
     }
