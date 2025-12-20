@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import modelo.Estudio;
 
 @WebServlet(name = "SvEliminarEstudio", urlPatterns = {"/SvEliminarEstudio"})
 public class SvEliminarEstudio extends HttpServlet {
@@ -16,17 +17,39 @@ public class SvEliminarEstudio extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            long idEstudio = Long.parseLong(request.getParameter("idEliminar"));
+            // 1. Validar que el ID venga en la petición
+            String idStr = request.getParameter("idEliminar");
             String idGato = request.getParameter("idGato");
-            String idHistoria = request.getParameter("idHistoria");
             
-            control.eliminarEstudio(idEstudio);
+            if (idStr == null || idStr.isEmpty()) {
+                throw new Exception("El ID del estudio no fue recibido.");
+            }
+
+            long idEstudio = Long.parseLong(idStr);
+
+            Estudio estudio = control.buscarEstudio(idEstudio);
+            long idHistoria = 0;
             
-            response.sendRedirect("SvVerHistoriaClinica?idHistoria=" + idHistoria + "&idGato=" + idGato);
+            if (estudio != null) {
+                idHistoria = estudio.getHistoriaClinica().getidHistoria();
+                
+                control.eliminarEstudio(idEstudio);
+            }
+            
+            if (idHistoria > 0 && idGato != null) {
+                response.sendRedirect("SvVerHistoriaClinica?idHistoria=" + idHistoria + "&idGato=" + idGato);
+            } else {
+                response.sendRedirect("SvGatos");
+            }
             
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("menu.jsp");
+            String idGato = request.getParameter("idGato");
+            if (idGato != null) {
+                response.sendRedirect("SvVerPerfilGato?idVer=" + idGato);
+            } else {
+                response.sendRedirect("index.jsp");
+            }
         }
     }
 }

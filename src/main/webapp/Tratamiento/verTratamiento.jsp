@@ -1,3 +1,4 @@
+<%@page import="modelo.HistoriaClinica"%>
 <%@page import="modelo.Tratamiento"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../templates/menu.jsp" %>
@@ -6,6 +7,7 @@
     // Recuperamos el objeto con el MISMO NOMBRE que pusimos en el Servlet
     Tratamiento t = (Tratamiento) session.getAttribute("tratamientoActual");
     String idGatoVolver = (String) session.getAttribute("idGatoVolver");
+    HistoriaClinica hc = (HistoriaClinica) session.getAttribute("historiaClinica");
 %>
 
 <div class="container" style="max-width: 700px; margin-top: 40px;">
@@ -41,6 +43,7 @@
                 <% if (idGatoVolver != null) { %>
                     <form action="${pageContext.request.contextPath}/SvVerHistoriaClinica" method="GET">
                         <input type="hidden" name="idGato" value="<%= idGatoVolver %>">
+                        <input type="hidden" name="idHistoria" value="<%= hc.getidHistoria() %>">
                         <button type="submit" class="btn-secondary">Volver a Historia Clínica</button>
                     </form>
                 <% } else { %>

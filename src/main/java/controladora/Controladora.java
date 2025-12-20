@@ -97,7 +97,7 @@ public class Controladora {
     
     public void modificarHistoriaClinica(HistoriaClinica hc) throws OperacionException {
         try {
-            controlpersis.modificarHistoriaClinica(hc); // O editarHistoriaClinica, revisa tu persistencia
+            controlpersis.modificarHistoriaClinica(hc);
         } catch (Exception e) {
             throw new OperacionException("Error al actualizar la historia clínica: " + e.getMessage(), e);
         }
@@ -852,11 +852,24 @@ public List<Tarea> traerTodasLasTareas() throws OperacionException {
 
     public void eliminarEstudio(long id) throws OperacionException {
         try {
-            controlpersis.eliminarEstudio(id);
+            Estudio estudio = controlpersis.buscarEstudio(id);
+
+            if (estudio != null) {
+
+                HistoriaClinica hc = estudio.getHistoriaClinica();
+                
+                if (hc.getEstudios() != null) {
+                    hc.getEstudios().removeIf(e -> e.getIdEstudio() == id);
+                }
+
+                controlpersis.modificarHistoriaClinica(hc);
+                controlpersis.eliminarEstudio(id);
+            }
         } catch (Exception e) {
-            throw new OperacionException("No se pudo eliminar el estudio.", e);
+            throw new OperacionException("No se pudo eliminar el estudio: " + e.getMessage(), e);
         }
     }
+    
     public Tratamiento buscarTratamiento(long id) {
         return controlpersis.buscarTratamiento(id);
     }
@@ -879,12 +892,19 @@ public List<Tarea> traerTodasLasTareas() throws OperacionException {
 
     public void eliminarTratamiento(long id) throws OperacionException {
         try {
-            controlpersis.eliminarTratamiento(id);
+            Tratamiento trat = controlpersis.buscarTratamiento(id);
+
+            if (trat != null) {
+                HistoriaClinica hc = trat.getHistoriaClinica();
+
+                hc.getTratamientos().removeIf(t -> t.getidTratamiento() == id);
+
+                this.modificarHistoriaClinica(hc);
+            }
         } catch (Exception e) {
             throw new OperacionException("No se pudo eliminar el tratamiento.", e);
         }
     }
-
     public Tarea buscarTarea(long id) {
         return controlpersis.buscarTarea(id);
     }

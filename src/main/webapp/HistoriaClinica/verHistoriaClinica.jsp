@@ -66,6 +66,7 @@
                         <td style="text-align: center;">
                             <div style="display: flex; justify-content: center; gap: 5px;">
                                 <form action="${pageContext.request.contextPath}/SvVerTratamiento" method="GET">
+                                    <input type="hidden" name="idTratamiento" value="<%= t.getidTratamiento() %>">
                                     <input type="hidden" name="idGato" value="<%= gato.getIdGato() %>">
                                     <input type="hidden" name="idHistoria" value="<%= hc.getidHistoria() %>">
                                     <button type="submit" class="btn-icon" title="Ver Detalle Completo">
@@ -74,6 +75,7 @@
                                 </form>
                                 
                                 <form action="${pageContext.request.contextPath}/SvEliminarTratamiento" method="POST">
+                                    <input type="hidden" name="idEliminar" value="<%= t.getidTratamiento() %>">
                                     <input type="hidden" name="idGato" value="<%= gato.getIdGato() %>">
                                     <input type="hidden" name="idHistoria" value="<%= hc.getidHistoria() %>">
                                     <button type="submit" class="btn-icon-danger" onclick="return confirm('¿Eliminar este tratamiento?');" title="Eliminar">
@@ -139,7 +141,7 @@
                                 </form>
                                 
                                 <form action="${pageContext.request.contextPath}/SvEliminarEstudio" method="POST">
-                                    <input type="hidden" name="idEliminar" value="<%= e.getIdEstudio() %>">
+                                    <input type="hidden" name="idEstudio" value="<%= e.getIdEstudio() %>">
                                     <input type="hidden" name="idGato" value="<%= gato.getIdGato() %>">
                                     <input type="hidden" name="idHistoria" value="<%= hc.getidHistoria() %>">
                                     <button type="submit" class="btn-icon-danger" onclick="return confirm('¿Eliminar estudio?');" title="Eliminar">

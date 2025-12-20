@@ -16,9 +16,10 @@ public class SvEliminarTratamiento extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+
             long id = Long.parseLong(request.getParameter("idEliminar"));
             String idGato = request.getParameter("idGato");
-            String idHistoria = request.getParameter("idHistoria"); // <--- Recibimos el ID
+            String idHistoria = request.getParameter("idHistoria");
             
             control.eliminarTratamiento(id);
             
@@ -26,7 +27,7 @@ public class SvEliminarTratamiento extends HttpServlet {
             
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("menu.jsp");
+            response.sendRedirect("menu.jsp"); // Solo si falla, al menú
         }
     }
 }
